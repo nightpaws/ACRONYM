@@ -1,0 +1,17 @@
+{
+  "name": "cs413_spa_client",
+  "version": "0.0.1",
+  "description": "The client side interface for our CS413 project",
+  "authors": [
+    "Thomas Maxwell"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "angular": "~1.4.0",
+    "jquery": "~2.1.4"
+  }
+}
