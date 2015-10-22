@@ -1,0 +1,17 @@
+{
+  "name": "server",
+  "version": "0.0.1",
+  "description": "The NodeJs Server for CS413",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nightpaws/Elite-Team-6.git"
+  },
+  "author": "Thomas Maxwell",
+  "bugs": {
+    "url": "https://github.com/nightpaws/Elite-Team-6/issues"
+  },
+  "homepage": "https://github.com/nightpaws/Elite-Team-6#readme"
+}
