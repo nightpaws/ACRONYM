@@ -9,3 +9,5 @@
 /src/server/doc
 /src/server/public
 .idea
+
+/build
