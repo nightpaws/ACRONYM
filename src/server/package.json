@@ -3,7 +3,13 @@
   "version": "0.0.1",
   "description": "The NodeJs Server for CS413",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "jsonwebtoken": "^5.4.1",
+    "morgan": "^1.6.1",
+    "rfr": "^1.2.2"
+  },
   "devDependencies": {},
   "repository": {
     "type": "git",

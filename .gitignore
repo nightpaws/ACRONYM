@@ -4,4 +4,8 @@
 **/bower_components
 /src/client/build
 
+**/logs
+/src/server/sslcert
+/src/server/doc
+/src/server/public
 .idea

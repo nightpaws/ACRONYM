@@ -59,7 +59,7 @@ module.exports = function () {
 			transform: function(filePath, file, i, length) {
 
 				if(filePath.endsWith('.css')){
-					return '<link src="' + filePath.replace('../build/', '') + '"></link>';
+					return '<link rel="stylesheet" type="text/css" href="' + filePath.replace('../build/', '') + '"></link>';
 				}
 
 				return '<script src="' + filePath.replace('../build/', '') + '"></script>';

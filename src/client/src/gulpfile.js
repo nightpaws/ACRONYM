@@ -64,7 +64,7 @@ gulp.task('dep', ['clearbuild', 'libcopy', 'sass', 'copy'], function() {
 	return gulp
 		.src(config.index)
 		.pipe(wiredep(options))
-		.pipe($.inject(gulp.src(config.build.jsDir + '**/*.js'), config.getInjectDefault()))
+		.pipe($.inject(gulp.src(config.build.buildDir + 'app/**/*.js'), config.getInjectDefault()))
 		.pipe($.inject(gulp.src(config.build.cssDir + '**/*.css'), config.getInjectDefault()))
 		.pipe(gulp.dest(config.build.buildDir));
 });
@@ -78,7 +78,7 @@ gulp.task('copy', ['clearbuild'], function() {
 
 	return gulp
 		.src(config.js.srcDir.concat(config.html.srcDir).concat(config.ignore.ignoreDir))
-		.pipe(gulp.dest(config.build.buildDir));
+		.pipe(gulp.dest(config.build.buildDir + "app/"));
 });
 
 /////////////////////////////////////////////////
