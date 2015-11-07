@@ -1,5 +1,18 @@
 {
-  "name": "CS413API",
-  "version": "0.0.1",
-  "description": "Api for CS314"
+  "name": "CS413 ACRONYM API",
+  "version": "0.0.1-ALPHA",
+  "title": "ACRONYM: A Complex Refrigerator and Organiser for Nutritious and Yummy Munchies",
+  "description": "ACRONYM: A Complex Refrigerator and Organiser for Nutritious and Yummy Munchies",
+  "url": "https://ANIPADDRESS/api",
+  "order": [
+	"GetApp"
+  ],
+  "header": {
+	"title": "Info",
+	"filename": "apidoc_header.md"
+  },
+  "footer": {
+	"title": "Copyright",
+	"filename": "apidoc_copyright.md"
+  }
 }

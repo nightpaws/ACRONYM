@@ -36,9 +36,12 @@ var app = function(){
 
 	//serve index
 	/**
-	 * @api {get} / get application
+	 * @api {get} / Get Application
 	 * @apiName GetApp
 	 * @apiGroup GetApp
+	 *
+	 * @apiDescription
+	 * Grabs the index html file that is the wonderful SPA.
 	 *
 	 * @apiSuccess html file
 	 */

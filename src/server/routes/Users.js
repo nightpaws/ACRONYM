@@ -6,75 +6,107 @@ var users = function(){
 
 	var userRouter = express.Router();
 
-	userRouter
-		.route('/')
-			.post(function(req, res){
 
-				console.log(req.user);
+	/**
+	 *
+	 * @api {post} /api/users/auth Authenticate
+	 * @apiName AuthenticateUser
+	 * @apiGroup User
+	 *
+	 * @apiDescription
+	 * You a user? You logged out? Well make a cheeky wee request to this then, what are you waiting for!
+	 *
+	 * @apiParamExample {json} Request-Example:
+	 *  {
+	 *      "username": "username",
+	 *      "passphrase": "passphrase"
+	 *  }
+	 *
+	 * @apiSuccessExample {json} Success-Response:
+	 *  {
+	 *      "success": true,
+	 *      "message": "User logged in",
+	 *      "meta": null,
+	 *      "result": {
+	 *          "token": "token"
+	 *      }
+	 *  }
+	 *
+	 *  @apiErrorExample {json} Error-Response:
+	 *  {
+	 *      "success": false,
+	 *      "message": "Invalid Login",
+	 *      "meta": null,
+	 *      "result": null
+	 *  }
+	 */
+	userRouter.route('/auth')
+		.post(function(req, res){
 
-				res.send({hello: 'dsfd'});
-			})
-			.put(function(req, res){
-				res.send({hello: 'fisdfssh'});
-			});
+			var data = req.body;
 
-	userRouter
-		/**
-		 *
-		 * @api {post} /api/users/auth Authenticate
-		 * @apiName AuthenticateUser
-		 * @apiGroup User
-		 *
-		 * @apiParamExample {json} Request-Example:
-		 *  {
-		 *      "username": "username",
-		 *      "passphrase": "passphrase"
-		 *  }
-		 *
-		 * @apiSuccessExample {json} Success-Response:
-		 *  {
-		 *      "success": true,
-		 *      "message": "User logged in",
-		 *      "meta": null,
-		 *      "result": {
-		 *          "token": "token"
-		 *      }
-		 *  }
-		 *
-		 *  @apiErrorExample {json} Error-Response:
-		 *  {
-		 *      "success": false,
-		 *      "message": "Invalid Login",
-		 *      "meta": null,
-		 *      "result": null
-		 *  }
-		 */
-		.route('/auth')
-			.post(function(req, res){
+			var Auth = require('../Modules/Auth/Auth');
+			var user = Auth.validateUser(data.username, data.passphrase);
 
-				var data = req.body;
+			if(user){
 
-				var Auth = require('../Modules/Auth/Auth');
-				var user = Auth.validateUser(data.username, data.passphrase);
+				var JWT = require('../modules/Auth/JWT');
+				var token = JWT.generateAuth({foo: 'bar'});
 
-				if(user){
+				response.setSuccessful(true);
+				response.setMessage('User logged in');
+				response.setResult({token: token});
 
-					var JWT = require('../modules/Auth/JWT');
-					var token = JWT.generateAuth({foo: 'bar'});
+				res.json(response.getResponse());
 
-					response.setSuccessful(true);
-					response.setMessage('User logged in');
-					response.setResult({token: token});
+			}else{
+				response.setSuccessful(false);
+				response.setMessage('Invalid Login');
 
-					res.json(response.getResponse());
+				res.json(response.getResponse());
+			}
+		});
 
-				}else{
-					response.setSuccessful(false);
-					response.setMessage('Invalid Login');
+	/**
+	 *
+	 * @api {post} /api/users/register Register
+	 * @apiName RegisterUser
+	 * @apiGroup User
+	 *
+	 * @apiDescription
+	 * You not a user? You wishing you where a user of this wonderful service? Well I have the API for you!
+	 *
+	 * @apiParamExample {json} Request-Example:
+	 *  {
+	 *      "username": "username",
+	 *      "passphrase": "passphrase",
+	 *      "email": "email"
+	 *  }
+	 *
+	 * @apiSuccessExample {json} Success-Response:
+	 *  {
+	 *      "success": true,
+	 *      "message": "User logged in",
+	 *      "meta": null,
+	 *      "result": {
+	 *          "token": "token"
+	 *      }
+	 *  }
+	 *
+	 *  @apiErrorExample {json} Error-Response:
+	 *  {
+	 *      "success": false,
+	 *      "message": "Invalid Login",
+	 *      "meta": null,
+	 *      "result": null
+	 *  }
+	 */
+	userRouter.route('/register')
+		.post(function(req, res){
 
-					res.json(response.getResponse());
-				}
-			});
+			res.send('Gonna naw do that yet');
+
+		});
 
 	return userRouter;
 };

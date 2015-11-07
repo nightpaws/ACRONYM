@@ -12,6 +12,15 @@ var APIControl = function(){
     var userRouter = require('./Users')();
     APIControl.use('/users', userRouter);
 
+	var fridgeRouter = require('./Fridges')();
+	APIControl.use('/fridges', fridgeRouter);
+
+	var productRouter = require('./Products')();
+	APIControl.use('/products', productRouter);
+
+	var contentRouter = require('./Contents')();
+	APIControl.use('/contents', contentRouter);
+
     return APIControl;
 
 };
