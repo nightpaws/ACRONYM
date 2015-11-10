@@ -36,7 +36,7 @@ Grant Toghill		- wsb12157@uni.strath.ac.uk
 
 Paul Burns			- trb12149@uni.strath.ac.uk
 
-Thomas Sincliar		- 
+Thomas Sincliar		- mlb12174@uni.strath.ac.uk
 
 
 This project can not be copied and/or distributed without the express permission of the authors.
