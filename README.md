@@ -1,7 +1,7 @@
 ACRONYM: A Complex Refrigerator and Organiser for Nutritious and Yummy Munchies
 =========
 
-###Description###
+###Description
 
 This repo contains our Embedded Systems project created for the class CS413 at the University of Strathclyde.
 

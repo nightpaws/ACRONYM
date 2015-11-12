@@ -1,6 +1,6 @@
 var config = {
 	ports:{
-		http: 80,
+		http: 3000,
 		https: 443
 	},
 
@@ -11,7 +11,8 @@ var config = {
 
 	secure:{
 		ignore: [
-			'/users/auth'
+			'/users/auth',
+			'/users/register'
 		]
 	},
 
@@ -21,6 +22,15 @@ var config = {
 		publicKeySrc: './sslcert/server.pub',
 		certSrc: './sslcert/server.crt',
 		format: 'utf8'
+	},
+
+	userAuth:{
+		privateKeySrc: './sslcert/server.key',
+		publicKeySrc: './sslcert/server.pub'
+	},
+
+	mongoDB:{
+		string: 'mongodb://localhost/CS413'
 	}
 };
 

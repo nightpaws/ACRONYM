@@ -3,7 +3,7 @@
  */
 
 var express = require('express'),
-	response = require('../Response/Response')();
+	response = require('./../Response/Response')();
 
 var products = function(){
 
@@ -23,7 +23,7 @@ var products = function(){
 		 *      "PRODCUT": "INFO"       //TODO
 		 *  }
 		 *
-		 * @apiSuccessExample {json} Success-Response:
+		 * @apiSuccessExample {json} Success-app.Response:
 		 *  {
 		 *      "success": true,
 		 *      "message": "User logged in",
@@ -34,7 +34,7 @@ var products = function(){
 		 *      ]
 		 *  }
 		 *
-		 *  @apiErrorExample {json} DB-Error-Response:
+		 *  @apiErrorExample {json} DB-Error-app.Response:
 		 *  {
 		 *      "success": false,
 		 *      "message": "DB is busted",
@@ -60,7 +60,7 @@ var products = function(){
 		 *      "PRODCUT": "INFO"       //TODO
 		 *  }
 		 *
-		 * @apiSuccessExample {json} Success-Response:
+		 * @apiSuccessExample {json} Success-app.Response:
 		 *  {
 		 *      "success": true,
 		 *      "message": "User logged in",
@@ -70,7 +70,7 @@ var products = function(){
 		 *      }
 		 *  }
 		 *
-		 *  @apiErrorExample {json} DB-Error-Response:
+		 *  @apiErrorExample {json} DB-Error-app.Response:
 		 *  {
 		 *      "success": false,
 		 *      "message": "DB is busted",
@@ -91,7 +91,7 @@ var products = function(){
 		 * @apiDescription
 		 * Get a product from the database
 		 *
-		 * @apiSuccessExample {json} Success-Response:
+		 * @apiSuccessExample {json} Success-app.Response:
 		 *  {
 		 *      "success": true,
 		 *      "message": "User logged in",
@@ -101,7 +101,7 @@ var products = function(){
 		 *      }
 		 *  }
 		 *
-		 *  @apiErrorExample {json} Error-Response:
+		 *  @apiErrorExample {json} Error-app.Response:
 		 *  {
 		 *      "success": false,
 		 *      "message": "Invalid Product Id,
@@ -127,7 +127,7 @@ var products = function(){
 		 *      "PRODCUT": "INFO"       //TODO
 		 *  }
 		 *
-		 * @apiSuccessExample {json} Success-Response:
+		 * @apiSuccessExample {json} Success-app.Response:
 		 *  {
 		 *      "success": true,
 		 *      "message": "User logged in",
@@ -137,7 +137,7 @@ var products = function(){
 		 *      }
 		 *  }
 		 *
-		 *  @apiErrorExample {json} Error-Response:
+		 *  @apiErrorExample {json} Error-app.Response:
 		 *  {
 		 *      "success": false,
 		 *      "message": "Invalid Product Id,

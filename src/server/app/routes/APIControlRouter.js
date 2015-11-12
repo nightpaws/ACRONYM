@@ -21,6 +21,12 @@ var APIControl = function(){
 	var contentRouter = require('./Contents')();
 	APIControl.use('/contents', contentRouter);
 
+	APIControl.use('*', function(req, res){
+
+		res.status(404).send('api not found');
+
+	});
+
     return APIControl;
 
 };

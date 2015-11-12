@@ -1,11 +1,10 @@
 var express = require('express'),
 	bodyParser = require('body-parser'),
-	response = require('../Response/Response')();
+	response = require('./../Response/Response')();
 
 var users = function(){
 
 	var userRouter = express.Router();
-
 
 	/**
 	 *
@@ -22,7 +21,7 @@ var users = function(){
 	 *      "passphrase": "passphrase"
 	 *  }
 	 *
-	 * @apiSuccessExample {json} Success-Response:
+	 * @apiSuccessExample {json} Success-app.Response:
 	 *  {
 	 *      "success": true,
 	 *      "message": "User logged in",
@@ -32,7 +31,7 @@ var users = function(){
 	 *      }
 	 *  }
 	 *
-	 *  @apiErrorExample {json} Error-Response:
+	 *  @apiErrorExample {json} Error-app.Response:
 	 *  {
 	 *      "success": false,
 	 *      "message": "Invalid Login",
@@ -45,13 +44,10 @@ var users = function(){
 
 			var data = req.body;
 
-			var Auth = require('../Modules/Auth/Auth');
-			var user = Auth.validateUser(data.username, data.passphrase);
+			var Auth = require('./../modules/Auth/Auth');
+			var token = Auth.validateUser(data.username, data.passphrase);
 
-			if(user){
-
-				var JWT = require('../modules/Auth/JWT');
-				var token = JWT.generateAuth({foo: 'bar'});
+			if(token){
 
 				response.setSuccessful(true);
 				response.setMessage('User logged in');
@@ -59,12 +55,13 @@ var users = function(){
 
 				res.json(response.getResponse());
 
-			}else{
+			}else {
 				response.setSuccessful(false);
 				response.setMessage('Invalid Login');
 
 				res.json(response.getResponse());
 			}
+
 		});
 
 	/**
@@ -83,7 +80,7 @@ var users = function(){
 	 *      "email": "email"
 	 *  }
 	 *
-	 * @apiSuccessExample {json} Success-Response:
+	 * @apiSuccessExample {json} Success-app.Response:
 	 *  {
 	 *      "success": true,
 	 *      "message": "User logged in",
@@ -93,7 +90,7 @@ var users = function(){
 	 *      }
 	 *  }
 	 *
-	 *  @apiErrorExample {json} Error-Response:
+	 *  @apiErrorExample {json} Error-app.Response:
 	 *  {
 	 *      "success": false,
 	 *      "message": "Invalid Login",
@@ -104,8 +101,32 @@ var users = function(){
 	userRouter.route('/register')
 		.post(function(req, res){
 
-			res.send('Gonna naw do that yet');
+			//res.send('Gonna naw do that yet');
 
+			var data = req.body;
+
+			console.log(data);
+
+			var auth = require('../modules/Auth/Auth');
+
+			var tokenPromise = auth.registerUser(data.username, data.email, data.passphrase);
+
+			tokenPromise
+				.then(function(data){
+
+					response.setSuccessful(true);
+					response.setMessage('User logged in');
+					response.setResult({token: data});
+
+					res.json(response.getResponse());
+
+				})
+				.fail(function(data){
+					response.setSuccessful(false);
+					response.setMessage(data);
+
+					res.json(response.getResponse());
+				});
 		});
 
 	return userRouter;

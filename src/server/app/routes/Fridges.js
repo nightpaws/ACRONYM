@@ -3,7 +3,7 @@
  */
 
 var express = require('express'),
-	response = require('../Response/Response')();
+	response = require('./../Response/Response')();
 
 var fridges = function(){
 
@@ -23,7 +23,7 @@ var fridges = function(){
 				 *      "PRODCUT": "INFO"       //TODO
 				 *  }
 		 *
-		 * @apiSuccessExample {json} Success-Response:
+		 * @apiSuccessExample {json} Success-app.Response:
 		 *  {
 		 *      "success": true,
 		 *      "message": "User logged in",
@@ -33,7 +33,7 @@ var fridges = function(){
 		 *      }
 		 *  }
 		 *
-		 *  @apiErrorExample {json} Error-Response:
+		 *  @apiErrorExample {json} Error-app.Response:
 		 *  {
 		 *      "success": false,
 		 *      "message": "Invalid Product Id,
@@ -59,7 +59,7 @@ var fridges = function(){
 					 *      "PRODCUT": "INFO"       //TODO
 					 *  }
 		 *
-		 * @apiSuccessExample {json} Success-Response:
+		 * @apiSuccessExample {json} Success-app.Response:
 		 *  {
 		 *      "success": true,
 		 *      "message": "User logged in",
@@ -69,7 +69,7 @@ var fridges = function(){
 		 *      }
 		 *  }
 		 *
-		 *  @apiErrorExample {json} Error-Response:
+		 *  @apiErrorExample {json} Error-app.Response:
 		 *  {
 		 *      "success": false,
 		 *      "message": "Invalid Product Id,
@@ -93,7 +93,7 @@ var fridges = function(){
 						 *      "PRODCUT": "INFO"       //TODO
 						 *  }
 		 *
-		 * @apiSuccessExample {json} Success-Response:
+		 * @apiSuccessExample {json} Success-app.Response:
 		 *  {
 		 *      "success": true,
 		 *      "message": "User logged in",
@@ -103,7 +103,7 @@ var fridges = function(){
 		 *      }
 		 *  }
 		 *
-		 *  @apiErrorExample {json} Error-Response:
+		 *  @apiErrorExample {json} Error-app.Response:
 		 *  {
 		 *      "success": false,
 		 *      "message": "Invalid Product Id,

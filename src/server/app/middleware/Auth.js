@@ -1,5 +1,5 @@
-var jwt = require('../modules/Auth/JWT'),
-	config = require('../config');
+var jwt = require('./../modules/auth/JWT'),
+	config = require('../../config');
 
 
 var Auth = function(req, res, next){
@@ -48,7 +48,7 @@ var Auth = function(req, res, next){
 		var response = require('../Response/Response')();
 
 		response.setSuccessful(false);
-		response.setMessage('No Auth token provided');
+		response.setMessage('No app.modules.Auth token provided');
 
 		return res.status(403).json(response.getResponse());
 	}

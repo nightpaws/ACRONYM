@@ -1,5 +1,5 @@
 
-var app = require('./app')(),
+var app = require('./app/app')(),
 	config = require('./config'),
 	fs = require('fs'),
 	http = require('http'),
