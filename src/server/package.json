@@ -4,11 +4,14 @@
   "description": "The NodeJs Server for CS413",
   "main": "index.js",
   "dependencies": {
+    "bcrypt": "^0.8.5",
     "body-parser": "^1.14.1",
     "express": "^4.13.3",
     "jsonwebtoken": "^5.4.1",
+    "mongoose": "^4.2.5",
     "morgan": "^1.6.1",
-    "rfr": "^1.2.2"
+    "q": "^1.4.1",
+    "string.prototype.startswith": "^0.2.0"
   },
   "devDependencies": {},
   "repository": {

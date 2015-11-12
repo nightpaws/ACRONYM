@@ -3,7 +3,7 @@ var app = function(){
 	var express = require('express'),
 		fs = require('fs'),
 		bodyParser = require('body-parser'),
-		config = require('./config');
+		config = require('./../config');
 	var app = express();
 
 	/*
@@ -46,7 +46,7 @@ var app = function(){
 	 * @apiSuccess html file
 	 */
 	app.get('/', function(req,res) {
-		res.sendfile('public/index.html');
+		res.sendFile('public/index.html');
 	});
 
 
@@ -62,6 +62,14 @@ var app = function(){
 	//api router
 	var APIControlRouter = require('./routes/APIControlRouter')();
 	app.use('/api', APIControlRouter);
+
+
+	//Got here well we have no fucking idea what you want have the index, the app will deal with your 404
+    app.use('*', function(req, res, next){
+
+	    res.sendFile('public/index.html');
+
+    });
 
 	return app;
 

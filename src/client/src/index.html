@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html ng-app="CS413">
+<html ng-app="CS413" lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title></title>
+	<title>ACRONYM</title>
+    <base href="/"/>
 
 	<!-- bower:css -->
 	<!-- endbower -->
@@ -11,15 +12,22 @@
 	<!-- endinject -->
 </head>
 <body>
-	<header>
+	<header ui-view="header">
 
 	</header>
-	<main>
+    <div id="body_wrapper">
 
-	</main>
-	<footer>
+        <nav ui-view="nav">
 
-	</footer>
+        </nav>
+
+        <main ui-view="main">
+
+        </main>
+    </div>
+    <div id="body_loading">
+
+    </div>
 
 	<!-- bower:js -->
 	<!-- endbower -->

@@ -1,20 +1,20 @@
 var jwt = require('jsonwebtoken');
 var fs = require('fs');
-var config = require('../../config');
+var config = require('../../../config');
 
 var JWT = {
 
 	generateAuth: function(data){
 
 
-		var cert = fs.readFileSync(config.ssl.keySrc);
+		var cert = fs.readFileSync(config.userAuth.privateKeySrc);
 		return jwt.sign(data, cert, { algorithm: 'RS256'});
 
 	},
 
 	validateToken: function(token){
 
-		var cert = fs.readFileSync(config.ssl.publicKeySrc);
+		var cert = fs.readFileSync(config.userAuth.publicKeySrc);
 
 		try {
 
