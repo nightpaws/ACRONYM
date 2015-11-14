@@ -10,9 +10,6 @@ var Auth = {
 
 	validateUser: function(username, passphrase){
 
-		//if(username === 'Test' && passphrase === 'Test'){
-		//	return JWT.generateAuth({username: 'Test', type: 'human'});
-		//}
 
 		userModel.findOne({'username': username}, function(err, doc){
 
@@ -61,7 +58,14 @@ var Auth = {
 
 	registerUser: function(username, email, passphrase){
 
+		var q = require('q');
 
+		var deferred = q.defer();
+
+
+		var userModel = require('../../models/user.model');
+
+		var bcrypt = require('bcrypt');
 		bcrypt.genSalt(10, function(err, salt) {
 			bcrypt.hash(passphrase, salt, function(err, hash) {
 

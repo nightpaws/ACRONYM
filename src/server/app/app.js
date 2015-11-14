@@ -77,7 +77,6 @@ var app = function(){
 	var APIControlRouter = require('./routes/APIControlRouter')();
 	app.use('/api', APIControlRouter);
 
-
 	//Got here? well we have no fucking idea what you want! have the index, the app will deal with your 404
     app.use('*', function(req, res, next){
 	    res.sendFile('../public/index.html');
