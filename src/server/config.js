@@ -31,6 +31,10 @@ var config = {
 
 	mongoDB:{
 		string: 'mongodb://localhost/CS413'
+	},
+
+	favicon: {
+		src: 'public/favicon.ico'
 	}
 };
 

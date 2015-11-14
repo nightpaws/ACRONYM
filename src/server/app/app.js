@@ -7,6 +7,12 @@ var app = function(){
 	var app = express();
 
 	/*
+	 * Serve favicon before logging starts
+	 */
+	var favicon = require('serve-favicon');
+	app.use(favicon(config.favicon.src));
+
+	/*
 	 * Set up logging
 	 */
 	var logger = require('morgan');
@@ -50,29 +56,34 @@ var app = function(){
 	});
 
 
-	//middlewhere
+	/*
+	 * Set up middleware
+	 */
+
+	//auth
 	var auth = require('./middleware/Auth.js');
 	app.use('/api/', auth);
 
-	//parse
+	//parse the json we have received
 	app.use(bodyParser.urlencoded({ extended: false }));
 	app.use(bodyParser.json());
 
 
-	//api router
+	/*
+	 * Time to do routes.
+	 *
+	 * Done in external file for sensibleness
+	 */
 	var APIControlRouter = require('./routes/APIControlRouter')();
 	app.use('/api', APIControlRouter);
 
 
-	//Got here well we have no fucking idea what you want have the index, the app will deal with your 404
+	//Got here? well we have no fucking idea what you want! have the index, the app will deal with your 404
     app.use('*', function(req, res, next){
-
-	    res.sendFile('public/index.html');
-
+	    res.sendFile('../public/index.html');
     });
 
 	return app;
-
 };
 
 module.exports = app;

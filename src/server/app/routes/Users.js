@@ -45,23 +45,25 @@ var users = function(){
 			var data = req.body;
 
 			var Auth = require('./../modules/Auth/Auth');
-			var token = Auth.validateUser(data.username, data.passphrase);
+			var promise = Auth.validateUser(data.username, data.passphrase);
 
-			if(token){
+			promise
+				.then(function(data){
+					response.setSuccessful(true);
+					response.setMessage('User logged in');
+					response.setResult({token: data});
 
-				response.setSuccessful(true);
-				response.setMessage('User logged in');
-				response.setResult({token: token});
+					res.json(response.getResponse());
+				})
+				.fail(function(data){
 
-				res.json(response.getResponse());
+					response.setSuccessful(false);
 
-			}else {
-				response.setSuccessful(false);
-				response.setMessage('Invalid Login');
+					var message = (data.error) ? 'Error resolving password': (data.wrongPass) ? 'Error: wrong username or password' : '';
 
-				res.json(response.getResponse());
-			}
-
+					response.setMessage(message);
+					res.json(response.getResponse());
+				});
 		});
 
 	/**
@@ -105,10 +107,7 @@ var users = function(){
 
 			var data = req.body;
 
-			console.log(data);
-
 			var auth = require('../modules/Auth/Auth');
-
 			var tokenPromise = auth.registerUser(data.username, data.email, data.passphrase);
 
 			tokenPromise
