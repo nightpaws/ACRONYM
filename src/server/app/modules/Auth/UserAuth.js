@@ -4,7 +4,8 @@ var deferred = q.defer();
 var bcrypt = require('bcrypt');
 var JWT = require('./JWT');
 
-var userModel = require('../../models/user.model');
+var userModel = require('../../models/User.model.js');
+var mongoose = require('mongoose');
 
 var Auth = {
 
@@ -47,7 +48,7 @@ var Auth = {
 						wrongPass: true
 					});
 				}else{
-					deferred.resolve(JWT.generateAuth({username: doc.username, email: doc.email}))
+					deferred.resolve(JWT.generateAuth({username: doc.username, email: doc.email, type: 'user'}))
 				}
 			});
 		});
@@ -63,7 +64,7 @@ var Auth = {
 		var deferred = q.defer();
 
 
-		var userModel = require('../../models/user.model');
+		var userModel = require('../../models/User.model.js');
 
 		var bcrypt = require('bcrypt');
 		bcrypt.genSalt(10, function(err, salt) {
@@ -91,7 +92,7 @@ var Auth = {
 
 						}else{
 
-							deferred.resolve(JWT.generateAuth({username:username, email: email}));
+							deferred.resolve(JWT.generateAuth({username:username, email: email, type: 'user'}));
 						}
 					});
 				}

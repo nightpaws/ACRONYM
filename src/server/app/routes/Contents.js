@@ -11,7 +11,10 @@ var contents = function(){
 
 	contentsRouter.route('/:id')
 		/**
-		 * @api {get} /api/contents/:id Get Contents
+		 *
+		 * @apiIgnore
+		 *
+		 * @api {get} /contents/:id Get Contents
 		 * @apiName GetContents
 		 * @apiGroup Contents
 		 *
@@ -43,7 +46,10 @@ var contents = function(){
 
 		})
 		/**
-		 * @api {put} /api/contents/:id Add Content
+		 *
+		 * @apiIgnore
+		 *
+		 * @api {put} /contents/:id Add Content
 		 * @apiName AddContent
 		 * @apiGroup Contents
 		 *
@@ -74,10 +80,18 @@ var contents = function(){
 		 *  }
 	    */
 		.put(function(res, req){
+
+
+
+
+
 			res.send('Gonna naw do that yet');
 		})
 		/**
-		 * @api {post} /api/contents/:id Update Content
+		 *
+		 * @apiIgnore
+		 *
+		 * @api {post} /contents/:id Update Content
 		 * @apiName UpdateContent
 		 * @apiGroup Contents
 		 *
@@ -108,7 +122,10 @@ var contents = function(){
 
 		})
 		/**
-		 * @api {delete} /api/contents/:id Delete Content
+		 *
+		 * @apiIgnore
+		 *
+		 * @api {delete} /contents/:id Delete Content
 		 * @apiName DeleteContent
 		 * @apiGroup Contents
 		 *

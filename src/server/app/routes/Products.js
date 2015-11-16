@@ -2,8 +2,7 @@
  * Created by Tom on 07/11/2015.
  */
 
-var express = require('express'),
-	response = require('./../Response/Response')();
+var express = require('express');
 
 var products = function(){
 
@@ -11,144 +10,271 @@ var products = function(){
 
 	productsRouter.route('/')
 		/**
-		 * @api {get} /api/products/ Search Products
+		 *
+		 * @api {get} /products?searchText= Search Products
 		 * @apiName SearchProduct
 		 * @apiGroup Product
 		 *
 		 * @apiDescription
-		 * Search through the product database
+		 * Search through the product database to find the text in
+		 * the title or the description
 		 *
-		 * @apiParamExample {json} Request-Example:
-		 *  {
-		 *      "PRODCUT": "INFO"       //TODO
-		 *  }
+		 * @apiParam {Text} searchText The text to search for
 		 *
-		 * @apiSuccessExample {json} Success-app.Response:
+		 * @apiSuccessExample {json} Results
 		 *  {
 		 *      "success": true,
 		 *      "message": "User logged in",
 		 *      "meta": null,
 		 *      "result": [
-		 *          {"PRODUCT": "INFO"},    //TODO
-		 *          {"PRODUCT": "INFO"}
+		 *          {
+		 *              "_id": PRODUCT ID,
+		 *		        "code": BARCODE,
+		 *		        "name": PRODUCT NAME,
+		 *		        "weight": WEIGHT,
+		 *		        "description": DESCRIPTION
+		 *		        "__v": 0
+		 *          },
+		 *          {
+		 *              "_id": PRODUCT ID,
+		 *		        "code": BARCODE,
+		 *		        "name": PRODUCT NAME,
+		 *		        "weight": WEIGHT,
+		 *		        "description": DESCRIPTION
+		 *		        "__v": 0
+		 *          }
 		 *      ]
 		 *  }
 		 *
-		 *  @apiErrorExample {json} DB-Error-app.Response:
+		 *  @apiSuccessExample {json} No Results
+		 *  {
+		 *      "success": true,
+		 *      "message": "User logged in",
+		 *      "meta": null,
+		 *      "result": null
+		 *  }
+		 *
+		 *  @apiErrorExample {json} Error:
 		 *  {
 		 *      "success": false,
-		 *      "message": "DB is busted",
+		 *      "message": "Error Searching DB,
 		 *      "meta": null,
 		 *      "result": null
 		 *  }
 	    */
-		.get(function(res, req){
+		.get(function(req, res){
 
-			res.send('Gonna naw do that yet');
+			var products = require('../modules/Products/Products');
+			var response = require('./../Response/Response')();
+			var promise = products.searchProducts(req.query['searchText']);
+
+			promise
+				.then(function(data){
+					response.setSuccessful(true);
+					response.setResult(data);
+					response.setMeta({
+						results: data.length
+					});
+
+					res.json(response.getResponse());
+				})
+				.fail(function(data){
+					response.setSuccessful(false);
+					response.setMessage(data);
+
+					res.json(response.getResponse());
+				});
+
 
 		})
 		/**
-		 * @api {put} /api/products/ Add Product
+		 * @api {put} /products/ Add Product
 		 * @apiName AddProduct
 		 * @apiGroup Product
 		 *
 		 * @apiDescription
 		 * Add a new product to the product database
 		 *
-		 * @apiParamExample {json} Request-Example:
+		 * @apiParamExample {json} Request Example
 		 *  {
-		 *      "PRODCUT": "INFO"       //TODO
+		 *      "name": PRODUCT NAME,
+		 *      "code": BARCODE,
+		 *      "weight": WEIGHT,
+		 *      "description": DESCRIPTION
 		 *  }
 		 *
-		 * @apiSuccessExample {json} Success-app.Response:
+		 * @apiSuccessExample {json} Success
 		 *  {
 		 *      "success": true,
-		 *      "message": "User logged in",
+		 *      "message": null,
 		 *      "meta": null,
 		 *      "result": {
-		 *          "PRODUCT": "INFO"   //TODO
+		 *          "_id": PRODUCT ID,
+		 *		    "code": BARCODE,
+		 *		    "name": PRODUCT NAME,
+		 *		    "weight": WEIGHT,
+		 *		    "description": DESCRIPTION
+		 *		    "__v": 0
 		 *      }
 		 *  }
 		 *
-		 *  @apiErrorExample {json} DB-Error-app.Response:
+		 *  @apiErrorExample {json} Error:
 		 *  {
 		 *      "success": false,
-		 *      "message": "DB is busted",
+		 *      "message": "error saving product",
 		 *      "meta": null,
 		 *      "result": null
 		 *  }
 	    */
-		.put(function(res, req){
-			res.send('Gonna naw do that yet');
+		.put(function(req, res){
+
+
+			var products = require('../modules/Products/Products');
+			var promise = products.addProduct(req.body);
+			var response = require('./../Response/Response')();
+
+			promise
+				.then(function(data){
+					response.setSuccessful(true);
+					response.setResult(data);
+
+					res.json(response.getResponse());
+				})
+				.fail(function(data){
+					response.setSuccessful(false);
+					response.setMessage(data);
+
+					res.json(response.getResponse());
+				});
 		});
 
 	productsRouter.route('/:id')
 		/**
-		 * @api {get} /api/products/:id Get Product
+		 * @api {get} /products/:id Get Product
 		 * @apiName GetProduct
 		 * @apiGroup Product
 		 *
 		 * @apiDescription
 		 * Get a product from the database
 		 *
-		 * @apiSuccessExample {json} Success-app.Response:
+		 * @apiParam {Number} id ProductID
+		 *
+		 * @apiSuccessExample {json} Product Found
 		 *  {
 		 *      "success": true,
 		 *      "message": "User logged in",
 		 *      "meta": null,
 		 *      "result": {
-		 *          "PRODUCT": "INFO"   //TODO
+		 *          "_id": "56488392e6159a14220cbbec",
+		 *		    "code": 500159393942,
+		 *		    "name": "Galaxy Smoth Milk Chocolate",
+		 *		    "weight": 400,
+		 *		    "__v": 0
 		 *      }
 		 *  }
 		 *
-		 *  @apiErrorExample {json} Error-app.Response:
+		 *  @apiSuccessExample {json} Product Doesn't Exist
+		 *  {
+		 *      "success": true,
+		 *      "message": "User logged in",
+		 *      "meta": null,
+		 *      "result": null
+		 *
+		 *
+		 *  @apiErrorExample {json} Error example
 		 *  {
 		 *      "success": false,
-		 *      "message": "Invalid Product Id,
+		 *      "message": "Error Reaching DB",
 		 *      "meta": null,
 		 *      "result": null
 		 *  }
 		 */
 		.get(function(req, res){
 
-			res.send('Gonna naw do that yet');
+			var products = require('../modules/Products/Products');
+			var promise = products.getProduct(req.params.id);
+			var response = require('./../Response/Response')();
 
+			promise
+				.then(function(data){
+					response.setSuccessful(true);
+					response.setResult(data);
+
+					res.json(response.getResponse());
+				})
+				.fail(function(data){
+
+					console.log(data);
+
+					response.setSuccessful(false);
+					response.setMessage(data);
+
+					res.json(response.getResponse());
+				});
 		})
 		/**
-		 * @api {post} /api/products/:id Update Product
+		 *
+		 * @api {post} /products/:id Update Product
 		 * @apiName UpdatProduct
 		 * @apiGroup Product
 		 *
 		 * @apiDescription
 		 * Update the product in the database
 		 *
-		 * @apiParamExample {json} Request-Example:
+		 * @apiParam {Number} id ProductID
+		 *
+		 * @apiParamExample {json} Request Example
 		 *  {
-		 *      "PRODCUT": "INFO"       //TODO
+		 *      "name": PRODUCT NAME,
+		 *      "code": BARCODE,
+		 *      "weight": WEIGHT,
+		 *      "description": DESCRIPTION
 		 *  }
 		 *
-		 * @apiSuccessExample {json} Success-app.Response:
+		 * @apiSuccessExample {json} Success
 		 *  {
 		 *      "success": true,
-		 *      "message": "User logged in",
+		 *      "message": null,
 		 *      "meta": null,
 		 *      "result": {
-		 *          "PRODUCT": "INFO"   //TODO
+		 *          "_id": PRODUCT ID,
+		 *		    "code": BARCODE,
+		 *		    "name": PRODUCT NAME,
+		 *		    "weight": WEIGHT,
+		 *		    "__v": 0
 		 *      }
 		 *  }
 		 *
-		 *  @apiErrorExample {json} Error-app.Response:
+		 *  @apiErrorExample {json} Error:
 		 *  {
 		 *      "success": false,
-		 *      "message": "Invalid Product Id,
+		 *      "message": "error saving product",
 		 *      "meta": null,
 		 *      "result": null
 		 *  }
 		 */
 		.post(function(req, res){
 
-			res.send('Gonna naw do that yet');
+			var products = require('../modules/Products/Products');
+			var response = require('./../Response/Response')();
+			var promise = products.updateProduct(req.params.id, req.body);
 
+			promise
+				.then(function(data){
+					response.setSuccessful(true);
+					response.setResult(data);
+
+					res.json(response.getResponse());
+				})
+				.fail(function(data){
+
+					console.log(data);
+
+					response.setSuccessful(false);
+					response.setMessage(data);
+
+					res.json(response.getResponse());
+				});
 		});
 
 	return productsRouter;

@@ -9,9 +9,71 @@ var fridges = function(){
 
 	var fridgeRouter = express.Router();
 
+	fridgeRouter
+		/**
+		 * @api {post} /fridges/register Register
+		 * @apiName RegisterFridge
+		 * @apiGroup Fridges
+		 *
+		 * @apiDescription
+		 * Register a new fridge
+		 *
+		 * @apiParamExample {json} Request-Example:
+		 *
+		 *      {
+		 *          "fridge_no": "UNIQUE_FRIDGE_NUMBER"
+		 *      }
+		 *
+		 * @apiSuccessExample {json} Success-Example:
+		 *
+		 * {
+		 *      "success": true,
+		 *      "message": "User logged in",
+		 *      "meta": null,
+		 *      "result": {
+		 *          "token": TOKEN
+		 *      }
+		 *  }
+		 *
+		 *  @apiErrorExample {json} Error-app.Response:
+		 *  {
+		 *      "success": false,
+		 *      "message": "Invalid Login",
+		 *      "meta": null,
+		 *      "result": null
+		 *  }
+		 */
+		.post('/register', function(req, res){
+
+
+			var fridgeAuth = require('../modules/Auth/FridgeAuth');
+
+			var promise = fridgeAuth.registerFridge(req.body.fridge_no);
+
+			promise
+				.then(function(data){
+
+					response.setSuccessful(true);
+					response.setMessage('Fridge registered');
+					response.setResult({token: data});
+
+					res.json(response.getResponse());
+				})
+				.fail(function(data){
+					response.setSuccessful(false);
+					response.setMessage(data);
+
+					res.json(response.getResponse());
+				});
+
+		});
+
 	fridgeRouter.route('/')
 		/**
-		 * @api {get} /api/fridges Get Fridges
+		 *
+		 * @apiIgnore
+		 *
+		 * @api {get} /fridges Get Fridges
 		 * @apiName GetFridges
 		 * @apiGroup Fridges
 		 *
@@ -47,7 +109,10 @@ var fridges = function(){
 
 	fridgeRouter.route('/:id')
 		/**
-		 * @api {get} /api/fridges/:id Get Fridge State
+		 *
+		 * @apiIgnore
+		 *
+		 * @api {get} /fridges/:id Get Fridge State
 		 * @apiName GetFridgeState
 		 * @apiGroup Fridges State
 		 *
@@ -81,7 +146,10 @@ var fridges = function(){
 			res.send('Gonna naw do that yet');
 		})
 		/**
-		 * @api {post} /api/fridges/:id Update Fridge State
+		 *
+		 * @apiIgnore
+		 *
+		 * @api {post} /fridges/:id Update Fridge State
 		 * @apiName UpdateFridgeState
 		 * @apiGroup Fridges State
 		 *

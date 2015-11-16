@@ -4,22 +4,27 @@
 
 var mongoose = require('mongoose');
 var config = require('../../config');
-mongoose.connect(config.mongoDB.string);
+
 
 var user = new mongoose.Schema({
 	username: {
 		type : String,
+		required: true,
 		unique: true
 	},
 	email: {
 		type : String,
+		required: true,
 		unique: true
 	},
-	passphrase: String,
+	passphrase: {
+		type: String,
+		required: true
+	},
 	createdOn: {
 		type: Date,
 		default: Date.now
 	}
 });
 
-module.exports = mongoose.model('user', user);
+module.exports = mongoose.model('User', user);

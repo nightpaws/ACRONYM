@@ -1,10 +1,13 @@
 var jwt = require('./../modules/auth/JWT'),
 	config = require('../../config');
 
+require('string.prototype.startswith');
+
 
 var Auth = function(req, res, next){
 
 	var noAuth = false;
+
 
 	config.secure.ignore.map(function(item){
 
@@ -40,15 +43,13 @@ var Auth = function(req, res, next){
 
 			return res.status(403).json(response.getResponse());
 		}
-		
-
 
 	}else{
 
 		var response = require('../Response/Response')();
 
 		response.setSuccessful(false);
-		response.setMessage('No app.modules.Auth token provided');
+		response.setMessage('No Auth token provided');
 
 		return res.status(403).json(response.getResponse());
 	}
@@ -57,13 +58,3 @@ var Auth = function(req, res, next){
 };
 
 module.exports = Auth;
-
-/*
- * polyfill in starts with
- */
-if (!String.prototype.startsWith) {
-	String.prototype.startsWith = function(searchString, position) {
-		position = position || 0;
-		return this.indexOf(searchString, position) === position;
-	};
-}

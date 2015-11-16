@@ -8,7 +8,7 @@ var users = function(){
 
 	/**
 	 *
-	 * @api {post} /api/users/auth Authenticate
+	 * @api {post} /users/auth Authenticate
 	 * @apiName AuthenticateUser
 	 * @apiGroup User
 	 *
@@ -27,7 +27,7 @@ var users = function(){
 	 *      "message": "User logged in",
 	 *      "meta": null,
 	 *      "result": {
-	 *          "token": "token"
+	 *          "token": TOKEN
 	 *      }
 	 *  }
 	 *
@@ -44,7 +44,7 @@ var users = function(){
 
 			var data = req.body;
 
-			var Auth = require('./../modules/Auth/Auth');
+			var Auth = require('./../modules/Auth/UserAuth');
 			var promise = Auth.validateUser(data.username, data.passphrase);
 
 			promise
@@ -68,7 +68,7 @@ var users = function(){
 
 	/**
 	 *
-	 * @api {post} /api/users/register Register
+	 * @api {post} /users/register Register
 	 * @apiName RegisterUser
 	 * @apiGroup User
 	 *
@@ -88,7 +88,7 @@ var users = function(){
 	 *      "message": "User logged in",
 	 *      "meta": null,
 	 *      "result": {
-	 *          "token": "token"
+	 *          "token": TOKEN
 	 *      }
 	 *  }
 	 *
@@ -107,7 +107,7 @@ var users = function(){
 
 			var data = req.body;
 
-			var auth = require('../modules/Auth/Auth');
+			var auth = require('../modules/Auth/UserAuth');
 			var tokenPromise = auth.registerUser(data.username, data.email, data.passphrase);
 
 			tokenPromise

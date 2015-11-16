@@ -6,6 +6,9 @@ var app = function(){
 		config = require('./../config');
 	var app = express();
 
+	var mongoose = require('mongoose');
+	mongoose.connect(config.mongoDB.string);
+
 	/*
 	 * Serve favicon before logging starts
 	 */
@@ -64,10 +67,13 @@ var app = function(){
 	var auth = require('./middleware/Auth.js');
 	app.use('/api/', auth);
 
+	//check permissions
+	var entitlements = require('./middleware/Entitlements');
+	app.use('/api/', entitlements);
+
 	//parse the json we have received
 	app.use(bodyParser.urlencoded({ extended: false }));
 	app.use(bodyParser.json());
-
 
 	/*
 	 * Time to do routes.

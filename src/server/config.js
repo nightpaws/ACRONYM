@@ -12,7 +12,8 @@ var config = {
 	secure:{
 		ignore: [
 			'/users/auth',
-			'/users/register'
+			'/users/register',
+			'/fridges/register'
 		]
 	},
 
