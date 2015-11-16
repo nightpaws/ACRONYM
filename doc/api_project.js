@@ -1,5 +1,5 @@
-{
-  "name": "CS413 ACRONYM API",
+define({
+  "name": "CS413: ACRONYM API",
   "version": "0.0.1-ALPHA",
   "description": "ACRONYM: A Complex Refrigerator and Organiser for Nutritious and Yummy Munchies",
   "title": "ACRONYM: A Complex Refrigerator and Organiser for Nutritious and Yummy Munchies",
@@ -19,8 +19,8 @@
   "apidoc": "0.2.0",
   "generator": {
     "name": "apidoc",
-    "time": "2015-11-07T23:41:02.606Z",
+    "time": "2015-11-16T17:03:52.531Z",
     "url": "http://apidocjs.com",
     "version": "0.13.1"
   }
-}
+});
