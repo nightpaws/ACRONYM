@@ -85,7 +85,9 @@ var app = function(){
 
 	//Got here? well we have no fucking idea what you want! have the index, the app will deal with your 404
     app.use('*', function(req, res, next){
-	    res.sendFile('../public/index.html');
+
+	    var path = require('path');
+	    res.sendFile(path.resolve('public/index.html'));
     });
 
 	return app;
