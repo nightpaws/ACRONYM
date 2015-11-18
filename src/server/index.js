@@ -7,6 +7,12 @@ var app = require('./app/app')(),
 	privateKey  = fs.readFileSync(config.ssl.keySrc, config.ssl.format),
 	certificate = fs.readFileSync(config.ssl.certSrc, config.ssl.format);
 
+
+var path = require('path');
+global.appRoot = path.resolve(__dirname) + "/app/";
+
+console.log(global.appRoot);
+
 var credentials = {key: privateKey, cert: certificate};
 
 if(config.ssl.https){

@@ -1,6 +1,6 @@
 var express = require('express'),
 	bodyParser = require('body-parser'),
-	response = require('./../Response/Response')();
+	response = require('./../response/Response')();
 
 var users = function(){
 
@@ -21,7 +21,7 @@ var users = function(){
 	 *      "passphrase": "passphrase"
 	 *  }
 	 *
-	 * @apiSuccessExample {json} Success-app.Response:
+	 * @apiSuccessExample {json} Success-app.response:
 	 *  {
 	 *      "success": true,
 	 *      "message": "User logged in",
@@ -31,7 +31,7 @@ var users = function(){
 	 *      }
 	 *  }
 	 *
-	 *  @apiErrorExample {json} Error-app.Response:
+	 *  @apiErrorExample {json} Error-app.response:
 	 *  {
 	 *      "success": false,
 	 *      "message": "Invalid Login",
@@ -44,7 +44,7 @@ var users = function(){
 
 			var data = req.body;
 
-			var Auth = require('./../modules/Auth/UserAuth');
+			var Auth = require('./../modules/auth/UserAuth');
 			var promise = Auth.validateUser(data.username, data.passphrase);
 
 			promise
@@ -82,7 +82,7 @@ var users = function(){
 	 *      "email": "email"
 	 *  }
 	 *
-	 * @apiSuccessExample {json} Success-app.Response:
+	 * @apiSuccessExample {json} Success-app.response:
 	 *  {
 	 *      "success": true,
 	 *      "message": "User logged in",
@@ -92,7 +92,7 @@ var users = function(){
 	 *      }
 	 *  }
 	 *
-	 *  @apiErrorExample {json} Error-app.Response:
+	 *  @apiErrorExample {json} Error-app.response:
 	 *  {
 	 *      "success": false,
 	 *      "message": "Invalid Login",
@@ -107,7 +107,7 @@ var users = function(){
 
 			var data = req.body;
 
-			var auth = require('../modules/Auth/UserAuth');
+			var auth = require('../modules/auth/UserAuth');
 			var tokenPromise = auth.registerUser(data.username, data.email, data.passphrase);
 
 			tokenPromise

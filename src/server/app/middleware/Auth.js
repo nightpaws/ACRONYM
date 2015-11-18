@@ -36,7 +36,7 @@ var Auth = function(req, res, next){
 			req.user = decoded;
 
 		}else{
-			var response = require('../Response/Response')();
+			var response = require('../response/Response')();
 
 			response.setSuccessful(false);
 			response.setMessage('Invalid token, please reauth');
@@ -46,10 +46,10 @@ var Auth = function(req, res, next){
 
 	}else{
 
-		var response = require('../Response/Response')();
+		var response = require('../response/Response')();
 
 		response.setSuccessful(false);
-		response.setMessage('No Auth token provided');
+		response.setMessage('No auth token provided');
 
 		return res.status(403).json(response.getResponse());
 	}

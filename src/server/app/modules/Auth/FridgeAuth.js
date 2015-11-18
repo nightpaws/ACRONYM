@@ -13,7 +13,7 @@ var Auth = {
 
 	registerFridge: function(fridge_no){
 
-		var fridgeModel = require('../../models/Fridge.model').fridge;
+		var fridgeModel = require('../../models/Fridge.model.js').fridge;
 
 		var fridge = new fridgeModel({
 

@@ -11,7 +11,7 @@ var products = function(){
 	productsRouter.route('/')
 		/**
 		 *
-		 * @api {get} /products?searchText= Search Products
+		 * @api {get} /products?searchText= Search products
 		 * @apiName SearchProduct
 		 * @apiGroup Product
 		 *
@@ -64,8 +64,8 @@ var products = function(){
 	    */
 		.get(function(req, res){
 
-			var products = require('../modules/Products/Products');
-			var response = require('./../Response/Response')();
+			var products = require('../modules/products/Products');
+			var response = require('./../response/Response')();
 			var promise = products.searchProducts(req.query['searchText']);
 
 			promise
@@ -129,9 +129,9 @@ var products = function(){
 		.put(function(req, res){
 
 
-			var products = require('../modules/Products/Products');
+			var products = require('../modules/products/Products');
 			var promise = products.addProduct(req.body);
-			var response = require('./../Response/Response')();
+			var response = require('./../response/Response')();
 
 			promise
 				.then(function(data){
@@ -191,9 +191,9 @@ var products = function(){
 		 */
 		.get(function(req, res){
 
-			var products = require('../modules/Products/Products');
+			var products = require('../modules/products/Products');
 			var promise = products.getProduct(req.params.id);
-			var response = require('./../Response/Response')();
+			var response = require('./../response/Response')();
 
 			promise
 				.then(function(data){
@@ -255,8 +255,8 @@ var products = function(){
 		 */
 		.post(function(req, res){
 
-			var products = require('../modules/Products/Products');
-			var response = require('./../Response/Response')();
+			var products = require('../modules/products/Products');
+			var response = require('./../response/Response')();
 			var promise = products.updateProduct(req.params.id, req.body);
 
 			promise
