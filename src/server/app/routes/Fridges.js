@@ -103,11 +103,42 @@ var fridges = function(){
 		 *      "result": null
 		 *  }
 	    */
-		.get(function(res, req){
+		.get(function(req, res){
 			res.send('Gonna naw do that yet');
 		});
 
-	fridgeRouter.route('/:id')
+    fridgeRouter.route('/:id')
+        /**
+         * @apiIgnore
+         *
+         * @api{get} /fridges/:id Get fridge
+         * @apiName Get Fridge
+         * @apiGroup GetFridges
+         *
+         * @apiDescription
+         * Gets the fridge with the given ID
+         */
+        .get(function(req,res){
+            var fridge = require('../modules/Fridges/Fridges');
+
+            var promise = fridge.getFridge(req.params.id);
+
+            promise
+                .then(function(data){
+                    response.setSuccessful(true);
+                    response.setResult(data);
+
+                    res.json(response.getResponse());
+                })
+                .fail(function(data){
+                    response.setSuccessful(false);
+                    response.setMessage(data);
+
+                    res.json(response.getResponse());
+                });
+        });
+
+	fridgeRouter.route('/:id/state/')
 		/**
 		 *
 		 * @apiIgnore
@@ -142,7 +173,7 @@ var fridges = function(){
 		 *      "result": null
 		 *  }
 	    */
-		.get(function(res, req){
+		.get(function(req, res){
 			res.send('Gonna naw do that yet');
 		})
 		/**
@@ -179,7 +210,7 @@ var fridges = function(){
 		 *      "result": null
 		 *  }
 	    */
-		.post(function(res, req){
+		.post(function(req, res){
 			res.send('Gonna naw do that yet');
 		});
 

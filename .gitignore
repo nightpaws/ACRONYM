@@ -10,4 +10,5 @@
 /src/server/public
 .idea
 
+/src/client/src/.htaccess
 /build

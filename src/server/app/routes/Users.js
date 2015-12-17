@@ -51,7 +51,7 @@ var users = function(){
 				.then(function(data){
 					response.setSuccessful(true);
 					response.setMessage('User logged in');
-					response.setResult({token: data});
+					response.setResult(data);
 
 					res.json(response.getResponse());
 				})

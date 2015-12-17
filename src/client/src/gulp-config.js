@@ -26,6 +26,9 @@ module.exports = function () {
 		index: 'index.html',
 		ignore:{
 			ignoreDir: ['!./bower_components/**/*', '!./node_modules/**/*']
+		},
+		favicon:{
+			src: ['./favicon.ico', './.htaccess']
 		}
 	};
 
@@ -59,7 +62,7 @@ module.exports = function () {
 			transform: function(filePath, file, i, length) {
 
 				if(filePath.endsWith('.css')){
-					return '<link rel="stylesheet" type="text/css" href="' + filePath.replace('../build/', '') + '"></link>';
+					return '<link rel="stylesheet" type="text/css" href="' + filePath.replace('../build/', '') + '">';
 				}
 
 				return '<script src="' + filePath.replace('../build/', '') + '"></script>';

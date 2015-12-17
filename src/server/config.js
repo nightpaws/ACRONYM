@@ -1,7 +1,7 @@
 var config = {
 	ports:{
 		http: 3000,
-		https: 443
+		https: 3001
 	},
 
 	logging:{

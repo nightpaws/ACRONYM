@@ -28,7 +28,10 @@ var Auth = {
 			if(err){
 				deferred.reject('Error registering fridge');
 			}else{
-				deferred.resolve(JWT.generateAuth({fridge_no: doc.fridge_no, type:'fridge'}));
+				deferred.resolve({
+                    fridge_id: doc._id,
+                    token: JWT.generateAuth({fridge_id: doc._id, fridge_no: doc.fridge_no, type:'fridge'})
+                });
 			}
 
 		});

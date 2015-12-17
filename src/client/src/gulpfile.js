@@ -64,7 +64,7 @@ gulp.task('dep', ['clearbuild', 'libcopy', 'sass', 'copy'], function() {
 	return gulp
 		.src(config.index)
 		.pipe(wiredep(options))
-		.pipe($.inject(gulp.src(config.build.buildDir + 'app/**/*.js'), config.getInjectDefault()))
+		.pipe($.inject(gulp.src([config.build.buildDir + 'app/**/*.module.js', config.build.buildDir + 'app/**/*.js', '!' + config.build.buildDir + 'app/app.js']), config.getInjectDefault()))
 		.pipe($.inject(gulp.src(config.build.cssDir + '**/*.css'), config.getInjectDefault()))
 		.pipe(gulp.dest(config.build.buildDir));
 });
@@ -72,13 +72,22 @@ gulp.task('dep', ['clearbuild', 'libcopy', 'sass', 'copy'], function() {
 /////////////////////////////////////////////////
 // Copy everything else
 
-gulp.task('copy', ['clearbuild'], function() {
+gulp.task('copy', ['clearbuild', 'copyfavicon'], function() {
 
 	log('Copying App to ' + config.build.builddir);
 
 	return gulp
 		.src(config.js.srcDir.concat(config.html.srcDir).concat(config.ignore.ignoreDir))
 		.pipe(gulp.dest(config.build.buildDir + "app/"));
+});
+
+gulp.task('copyfavicon', ['clearbuild'], function() {
+
+	log('Copying App to ' + config.build.builddir);
+
+	return gulp
+		.src(config.favicon.src)
+		.pipe(gulp.dest(config.build.buildDir));
 });
 
 /////////////////////////////////////////////////

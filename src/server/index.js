@@ -11,14 +11,12 @@ var app = require('./app/app')(),
 var path = require('path');
 global.appRoot = path.resolve(__dirname) + "/app/";
 
-console.log(global.appRoot);
-
 var credentials = {key: privateKey, cert: certificate};
 
 if(config.ssl.https){
 
 	var httpServer = http.createServer(function (req, res) {
-		res.writeHead(301, { "Location": "https://" + req.headers['host'] + req.url });
+		res.writeHead(301, { "Location": "https://" + req.headers['host'] +":" + config.ports.https + req.url });
 		res.end();
 	});
 	var httpsServer = https.createServer(credentials, app);

@@ -11,6 +11,8 @@ var Auth = {
 
 	validateUser: function(username, passphrase){
 
+		deferred = q.defer();
+
 
 		userModel.findOne({'username': username}, function(err, doc){
 
@@ -48,7 +50,14 @@ var Auth = {
 						wrongPass: true
 					});
 				}else{
-					deferred.resolve(JWT.generateAuth({username: doc.username, email: doc.email, type: 'user'}))
+
+
+					deferred.resolve({
+						username: doc.username,
+						email: doc.email,
+						token: JWT.generateAuth({username: doc.username, email: doc.email, type: 'user'})
+					});
+					//deferred.resolve(JWT.generateAuth({username: doc.username, email: doc.email, type: 'user'}))
 				}
 			});
 		});
