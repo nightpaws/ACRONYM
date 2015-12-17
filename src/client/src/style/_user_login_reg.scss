@@ -1,0 +1,58 @@
+.user-login-page{
+  background-image: $background;
+  overflow-y: auto;
+}
+
+.user-login-wrapper{
+	padding-top: 5rem;
+}
+
+.user-login-container{
+  background: white;
+  width: 70%;
+  margin: auto;
+  padding: 2rem;
+
+
+
+  h1{
+	text-align: center;
+	padding-bottom: 2rem;
+	border-bottom: 1px solid #aaa;
+  }
+
+  form{
+	padding-top: 1rem;
+	padding-bottom: 1rem;
+	border-bottom: 1px solid #aaa;
+  }
+
+  button{
+	width: 100%;
+	display: block;
+  }
+
+  .checkbox label{
+	font-size: 0.8rem;
+  }
+
+  #user-login-register{
+	margin-top: 1rem;
+
+	p {
+	  text-align: center;
+	  margin-bottom: 1rem;
+	}
+
+	a{
+	  display: block;
+	  width: 100%;
+	}
+  }
+}
+
+@media (min-width: 850px){
+  .user-login-container{
+	width: 600px;
+  }
+}

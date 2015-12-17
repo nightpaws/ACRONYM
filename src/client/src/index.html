@@ -4,28 +4,43 @@
 	<meta charset="UTF-8">
 	<title>ACRONYM</title>
     <base href="/"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- bower:css -->
 	<!-- endbower -->
 
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
 	<!-- inject:css -->
 	<!-- endinject -->
+
 </head>
 <body>
-	<header ui-view="header">
+	<div class="full-height" id="body-loaded">
+		<header ui-view="header" ng-if="app.showHeader">
 
-	</header>
-    <div id="body_wrapper">
+		</header>
+		<div id="body_wrapper" ng-class="{'full-height' : !app.showNav}" >
 
-        <nav ui-view="nav">
+			<nav ui-view="nav" ng-if="app.showNav">
 
-        </nav>
 
-        <main ui-view="main">
+			</nav>
 
-        </main>
-    </div>
-    <div id="body_loading">
+			<main ui-view="main" ng-class="{'full-height': !app.showHeader}">
+
+			</main>
+		</div>
+	</div>
+
+    <div id="body-loading" class="full-height">
+
+	    <div id="body-loading-content">
+		    <h1 class="border-underline-white">ACRONYM</h1>
+		    <p>Alpha</p>
+		    <div class="loader">Loading...</div>
+	    </div>
+
+
 
     </div>
 
@@ -34,5 +49,6 @@
 
 	<!-- inject:js -->
 	<!-- endinject -->
+	<script src="app/app.js"></script>
 </body>
 </html>
