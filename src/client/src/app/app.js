@@ -64,19 +64,24 @@ app.run(['$rootScope', '$state', '$location', 'user.service', '$timeout', functi
 	};
 
 
-	if(!userService.loadUser()){
-		$location.path('/user/login');
-	}
+
 
 	$timeout(function(){
-
-			//angular.element( document.getElementById('body-loading') ).addClass('fadeout');
-			//angular.element( document.getElementById('body-loading-content') ).addClass('fadeout-quick');
 
 		$rootScope.app.loaded = true;
 
 
 	}, 3000);
+
+	$rootScope.$on("$stateChangeStart", function(args){
+
+		console.log('change event');
+
+		if(!userService.loadUser()){
+			$location.path('/user/login');
+		}
+
+	});
 
 
 

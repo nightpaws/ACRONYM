@@ -39,7 +39,7 @@ angular.module('user', ['CS413.config'])
 			})
 			.state('user.auth.login', {
 				url: '/login',
-				templateUrl: 'app/user/user.login.html',
+				templateUrl: 'app/user/User.login.html',
 				controller: 'user.login.controller'
 			})
 	}]);

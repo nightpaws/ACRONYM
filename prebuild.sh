@@ -5,4 +5,5 @@ npm install --save-dev gulp
 npm install --save-dev del
 npm install --save-dev gulp-util
 npm install --global bower
+npm install --global forever
 
