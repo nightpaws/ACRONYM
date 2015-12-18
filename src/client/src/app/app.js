@@ -2,7 +2,7 @@
  * Created by Thomas on 10/29/2015.
  */
 
-var app = angular.module('CS413', ['CS413.config', 'ui.router', 'user', 'general', 'LocalStorageModule', 'ngAnimate', 'toastr',
+var app = angular.module('CS413', ['CS413.config', 'ui.router', 'ui.bootstrap', 'user', 'general', 'LocalStorageModule', 'ngAnimate', 'toastr',
 						'polyfill']);
 
 app.config(['$stateProvider', '$locationProvider', '$urlMatcherFactoryProvider', '$urlRouterProvider', function($stateProvider, $locationProvider, $urlMatcherFactory, $urlRouterProvider) {
@@ -70,8 +70,12 @@ app.run(['$rootScope', '$state', '$location', 'user.service', '$timeout', functi
 
 	$timeout(function(){
 
-		angular.element( document.getElementById('body-loading') ).addClass('fadeout');
-		angular.element( document.getElementById('body-loading-content') ).addClass('fadeout-quick');
+		angular.element(document).ready(function(){
+
+			angular.element( document.getElementById('body-loading') ).addClass('fadeout');
+			angular.element( document.getElementById('body-loading-content') ).addClass('fadeout-quick');
+		})
+
 
 	}, 3000);
 
