@@ -1,0 +1,116 @@
+html{
+	height: 100%;
+	font-family: 'Open Sans', sans-serif;
+	background: #1F1F1F
+}
+
+.other-background{
+	background-color: #282828;
+}
+
+header{
+	background-image: radial-gradient(ellipse farthest-corner at 45px 45px, #ff5541 1%, #FF3863 50%, #ff32c8 95%);
+	padding: 4rem 0 4rem 0;
+	text-align: center;
+	color: white;
+}
+
+header h1{
+	font-size: 3rem;
+	padding-bottom: 1rem;
+	border-bottom: 1px solid white;
+
+	margin: 0 auto 1rem auto;
+	width: 300px;
+}
+
+header h2{
+	font-size: 2rem;
+}
+
+
+main{
+	margin: 0 auto;
+	padding: 5rem 0;
+}
+
+#blurb{
+	text-align: center;
+	color: white;
+	margin-bottom: 2rem;
+}
+
+#blurb p{
+	width: 70%;
+	margin: auto;
+	line-height: 1.5;
+}
+
+#launch-container{
+	padding: 3rem 0;
+}
+
+#launch{
+	display: block;
+	padding: .375rem 1rem;
+	font-size: 1rem;
+	font-weight: 400;
+	line-height: 1.5;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+	touch-action: manipulation;
+	cursor: pointer;
+	user-select: none;
+	border: .0625rem solid transparent;
+	background-color: white;
+	width: 200px;
+	color: black;
+	text-decoration: none;
+	margin: auto;
+}
+
+#launch:hover{
+	background-color: #eeeeee;
+}
+
+footer{
+	position: fixed;
+	bottom: 0;
+	width: calc(100% - 4rem);
+	padding: 1rem 2rem;
+	border-top: 1px solid #eee;
+	background-color: #fff;
+}
+
+footer .copyright, footer li, footer p{
+	float: left;
+}
+
+footer .info {
+	float: right;
+}
+
+footer .copyright{
+	width: 75%;
+}
+
+footer .copyright li{
+	padding-left: 0.5rem;
+}
+
+footer .info li{
+	padding-right: 0.5rem;
+}
+
+footer li a{
+	text-decoration: none;
+	color: #888;
+	transition: color 0.5s;
+}
+
+footer li a:hover{
+	text-decoration: none;
+	color: #333;
+}
