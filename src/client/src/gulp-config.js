@@ -62,10 +62,10 @@ module.exports = function () {
 			transform: function(filePath, file, i, length) {
 
 				if(filePath.endsWith('.css')){
-					return '<link rel="stylesheet" type="text/css" href="/' + filePath.replace('../build/', '') + '">';
+					return '<link rel="stylesheet" type="text/css" href="' + filePath.replace('../build/', '') + '">';
 				}
 
-				return '<script src="/' + filePath.replace('../build/', '') + '"></script>';
+				return '<script src="' + filePath.replace('../build/', '') + '"></script>';
 			}
 		};
 
