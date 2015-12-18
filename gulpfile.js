@@ -26,21 +26,23 @@ gulp.task('copyClean',['clearBuild', 'copyServer', 'copyApp'], function(cb){
 	});
 });
 
-gulp.task('copyApp', ['clearBuild', 'copyServer'], function () {
+gulp.task('copySite', ['clearBuild', 'copyServer'], function () {
 
 	return gulp
-		.src(['./src/client/build/**'])
+		.src(['./src/website/src/**'])
 		.pipe(gulp.dest('./build/public'));
 
 });
 
-gulp.task('build',['clearBuild', 'copyServer', 'copyApp', 'copyClean'], function(){
+gulp.task('copyApp', ['clearBuild', 'copyServer', 'copySite'], function () {
 
+	return gulp
+		.src(['./src/client/build/**'])
+		.pipe(gulp.dest('./build/public/dashboard'));
 
 });
 
-gulp.task('deploy', function(){
-
+gulp.task('build',['clearBuild', 'copyServer', 'copyApp', 'copyClean', 'copySite'], function(){
 
 
 });
