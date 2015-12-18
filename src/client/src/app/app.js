@@ -70,11 +70,10 @@ app.run(['$rootScope', '$state', '$location', 'user.service', '$timeout', functi
 
 	$timeout(function(){
 
-		angular.element(document).ready(function(){
+			//angular.element( document.getElementById('body-loading') ).addClass('fadeout');
+			//angular.element( document.getElementById('body-loading-content') ).addClass('fadeout-quick');
 
-			angular.element( document.getElementById('body-loading') ).addClass('fadeout');
-			angular.element( document.getElementById('body-loading-content') ).addClass('fadeout-quick');
-		})
+		$rootScope.app.loaded = true;
 
 
 	}, 3000);

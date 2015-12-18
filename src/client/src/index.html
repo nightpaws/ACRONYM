@@ -33,9 +33,9 @@
 		</div>
 	</div>
 
-    <div id="body-loading" class="full-height">
+    <div id="body-loading" class="full-height" ng-class="{'fadeout': app.loaded}">
 
-	    <div id="body-loading-content">
+	    <div id="body-loading-content" ng-class="{'fadeout-quick': app.loaded}">
 		    <h1 class="border-underline-white">ACRONYM</h1>
 		    <p>Alpha</p>
 		    <div class="loader">Loading...</div>
