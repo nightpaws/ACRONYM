@@ -70,8 +70,8 @@ app.run(['$rootScope', '$state', '$location', 'user.service', '$timeout', functi
 
 	$timeout(function(){
 
-		angular.element('#body-loading').addClass('fadeout');
-		angular.element('#body-loading-content').addClass('fadeout-quick');
+		angular.element( document.getElementById('body-loading') ).addClass('fadeout');
+		angular.element( document.getElementById('body-loading-content') ).addClass('fadeout-quick');
 
 	}, 3000);
 
