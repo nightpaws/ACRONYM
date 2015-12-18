@@ -45,7 +45,7 @@ var app = function(){
 
 	//serve index
 	/**
-	 * @api {get} / Get Application
+	 * @api {get} / Get website
 	 * @apiName GetApp
 	 * @apiGroup GetApp
 	 *
@@ -58,6 +58,20 @@ var app = function(){
 		res.sendFile('public/index.html');
 	});
 
+	/**
+	 * @api {get} / Get website
+	 * @apiName GetApp
+	 * @apiGroup GetApp
+	 *
+	 * @apiDescription
+	 * Grabs the index html file that is the wonderful SPA.
+	 *
+	 * @apiSuccess html file
+	 */
+	app.get('/dashboard/', function(req,res) {
+		res.sendFile('public/dashboard/index.html');
+	});
+
 
 	/*
 	 * Set up middleware
@@ -65,11 +79,11 @@ var app = function(){
 
 	//auth
 	var auth = require('./middleware/Auth.js');
-	app.use('/api/', auth);
+	app.use('dashboard/api/', auth);
 
 	//check permissions
 	var entitlements = require('./middleware/Entitlements');
-	app.use('/api/', entitlements);
+	app.use('dashboard/api/', entitlements);
 
 	//parse the json we have received
 	app.use(bodyParser.urlencoded({ extended: false }));
@@ -87,13 +101,13 @@ var app = function(){
 	 * Done in external file for sensibleness
 	 */
 	var APIControlRouter = require('./routes/APIControlRouter')();
-	app.use('/api', APIControlRouter);
+	app.use('dashboard/api', APIControlRouter);
 
 	//Got here? well we have no fucking idea what you want! have the index, the app will deal with your 404
     app.use('*', function(req, res, next){
 
 	    var path = require('path');
-	    res.sendFile(path.resolve('public/index.html'));
+	    res.sendFile(path.resolve('public/dashboard/index.html'));
     });
 
 	return app;
