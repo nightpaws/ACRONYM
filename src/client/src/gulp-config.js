@@ -29,6 +29,9 @@ module.exports = function () {
 		},
 		favicon:{
 			src: ['./favicon.ico', './.htaccess']
+		},
+		fonts: {
+			src: ['./fonts/**']
 		}
 	};
 

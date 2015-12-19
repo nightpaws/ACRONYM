@@ -84,6 +84,8 @@ angular.module('user')
 
 			user = localStorageService.get('user');
 
+			console.log('user loaded');
+
 			return user;
 		};
 
@@ -99,7 +101,7 @@ angular.module('user')
 
 			var hash = md5( user.email.toLowerCase().trim() );
 
-			user.imageurl = 'http://www.gravatar.com/avatar/' + hash + '.jpeg';
+			user.imageurl = 'https://www.gravatar.com/avatar/' + hash + '.jpeg';
 			//to get own image add ?d= then url encoded path
 		};
 

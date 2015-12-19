@@ -1,11 +1,18 @@
-<div class="header">
-	<div id="header_menu" ng-click="toggleMenu()">
-		hello
-	</div>
-	<div id="header_content">
-		
-	</div>
-	<div id="header_user">
-		
-	</div>
+<div id="header-back" ng-click="back()" ng-class="{'no-display': app.stateTitle == 'Dashboard'}">
+
+</div>
+<div id="header-menu" ng-click="toggleGlobalMenu()" ng-class="{'no-display': app.stateTitle != 'Dashboard'}">
+
+</div>
+<div id="header-content">
+	<p>{{app.stateTitle}}</p>
+</div>
+<div id="header-user">
+	<img ng-src="{{imageurl}}" ng-click="toggleUserMenu()">
+</div>
+<div id="header-user-menu" ng-class="{'no-display': !showUserMenu}">
+	<ul>
+		<li>Profile</li>
+		<li ng-click="logout()">Logout</li>
+	</ul>
 </div>

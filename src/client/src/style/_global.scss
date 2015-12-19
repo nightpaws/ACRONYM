@@ -1,3 +1,11 @@
+$header-height: 3.5rem;
+$nav-width: 250px;
+
+
+
+
+
+
 html, body, .full-height{
   height: 100%;
 }
@@ -29,9 +37,9 @@ html, body, .full-height{
   visibility: visible;
   opacity: 1;
   transition: opacity 1s linear;
-
-	background-image: $background;
+  background-image: $background;
   width: 100%;
+  z-index: 1000;
 }
 
 #body-loading.fadeout{

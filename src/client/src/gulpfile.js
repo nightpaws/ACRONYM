@@ -72,7 +72,7 @@ gulp.task('dep', ['clearbuild', 'libcopy', 'sass', 'copy'], function() {
 /////////////////////////////////////////////////
 // Copy everything else
 
-gulp.task('copy', ['clearbuild', 'copyfavicon'], function() {
+gulp.task('copy', ['clearbuild', 'copyfavicon', 'copyFonts'], function() {
 
 	log('Copying App to ' + config.build.builddir);
 
@@ -88,6 +88,13 @@ gulp.task('copyfavicon', ['clearbuild'], function() {
 	return gulp
 		.src(config.favicon.src)
 		.pipe(gulp.dest(config.build.buildDir));
+});
+
+gulp.task('copyFonts', ['clearbuild'], function() {
+
+	return gulp
+		.src(config.fonts.src)
+		.pipe(gulp.dest(config.build.buildDir + '/fonts/'));
 });
 
 /////////////////////////////////////////////////

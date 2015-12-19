@@ -3,9 +3,11 @@
  */
 
 var app = angular.module('CS413', ['CS413.config', 'ui.router', 'ui.bootstrap', 'user', 'general', 'LocalStorageModule', 'ngAnimate', 'toastr',
-						'polyfill']);
+						'polyfill', 'ng.deviceDetector', 'header']);
 
 app.config(['$stateProvider', '$locationProvider', '$urlMatcherFactoryProvider', '$urlRouterProvider', function($stateProvider, $locationProvider, $urlMatcherFactory, $urlRouterProvider) {
+
+	//userService.loadUser();
 
 	$urlMatcherFactory.caseInsensitive(true);
 	$urlMatcherFactory.strictMode(false);
@@ -17,14 +19,18 @@ app.config(['$stateProvider', '$locationProvider', '$urlMatcherFactoryProvider',
 			url: '/',
 			views: {
 				'header': {
-					templateUrl: 'app/header/header.html'
+					templateUrl: 'app/header/header.html',
+					controller: 'header.controller'
 				},
 				'nav': {
-					template: 'nav'
+					template: '<div style="padding: 4rem 1rem;"><h1 style="text-align: center">HERE GO NAVIGATION ONE DAY</h1></div> '
 				},
 				'main': {
-					template: 'main <h1>Imagine a beautiful system here </h1>'
+					template: '<div style="padding: 4rem 1rem;"><h1 style="text-align: center">HERE GO CONTENT ONE DAY</h1></div> '
 				}
+			},
+			onEnter: function($rootScope){
+				$rootScope.app.stateTitle = 'Dashboard';
 			}
 		})
 		.state('404', {
@@ -55,6 +61,8 @@ app.config(['$stateProvider', '$locationProvider', '$urlMatcherFactoryProvider',
 
 app.run(['$rootScope', '$state', '$location', 'user.service', '$timeout', function($rootScope, $state, $location, userService, $timeout){
 
+	userService.loadUser();
+
 	//print ui-router errors
 	$rootScope.$on("$stateChangeError", console.log.bind(console));
 
@@ -77,7 +85,7 @@ app.run(['$rootScope', '$state', '$location', 'user.service', '$timeout', functi
 
 		console.log('change event');
 
-		if(!userService.loadUser()){
+		if(!userService.getUser()){
 			$location.path('/user/login');
 		}
 

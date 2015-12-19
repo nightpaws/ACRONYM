@@ -3,7 +3,7 @@
 <head>
 	<meta charset="UTF-8">
 	<title>ACRONYM</title>
-    <base href="/dashboard"/>
+    <base href="/dashboard/"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<!-- bower:css -->
@@ -20,7 +20,7 @@
 		<header ui-view="header" ng-if="app.showHeader">
 
 		</header>
-		<div id="body_wrapper" ng-class="{'full-height' : !app.showNav}" >
+		<div id="body-wrapper" ng-class="{'full-height cancel-header' : !app.showNav, 'show-menu': app.showMenu}" >
 
 			<nav ui-view="nav" ng-if="app.showNav">
 
