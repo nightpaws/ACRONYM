@@ -3,7 +3,7 @@
  */
 
 var app = angular.module('CS413', ['CS413.config', 'ui.router', 'ui.bootstrap', 'user', 'general', 'LocalStorageModule', 'ngAnimate', 'toastr',
-						'polyfill', 'ng.deviceDetector', 'header']);
+						'polyfill', 'ng.deviceDetector', 'header', 'interceptors']);
 
 app.config(['$stateProvider', '$locationProvider', '$urlMatcherFactoryProvider', '$urlRouterProvider', function($stateProvider, $locationProvider, $urlMatcherFactory, $urlRouterProvider) {
 
