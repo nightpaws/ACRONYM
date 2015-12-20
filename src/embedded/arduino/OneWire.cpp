@@ -561,3 +561,4 @@ uint16_t OneWire::crc16(const uint8_t* input, uint16_t len, uint16_t crc)
 #endif
 
 #endif
+
