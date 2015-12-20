@@ -15,6 +15,9 @@ var app = function(){
 	var favicon = require('serve-favicon');
 	app.use(favicon(config.favicon.src));
 
+	var cors = require('cors');
+	app.use(cors());
+
 	/*
 	 * Set up logging
 	 */
@@ -74,12 +77,6 @@ var app = function(){
 	//parse the json we have received
 	app.use(bodyParser.urlencoded({ extended: false }));
 	app.use(bodyParser.json());
-
-	app.use(function(req, res, next) {
-		res.header("Access-Control-Allow-Origin", "https://localhost");
-		res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-		next();
-	});
 
 	/*
 	 * Time to do routes.

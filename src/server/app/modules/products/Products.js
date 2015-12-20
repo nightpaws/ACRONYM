@@ -78,7 +78,7 @@ var products = {
 		return deferred.promise;
 	},
 
-	searchProducts: function(text){
+	searchProducts: function(text, number){
 
 		var productModel = require('../../models/Product.model');
 
@@ -95,7 +95,10 @@ var products = {
 				if(err){
 					deferred.reject('Error searching for string');
 				}else{
-					deferred.resolve(results);
+
+					var r = results.slice(number, number + 25);
+
+					deferred.resolve();
 				}
 			});
 

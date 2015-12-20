@@ -8,7 +8,8 @@ angular.module('products', [])
 		$stateProvider
 			.state('page.products', {
 				url: 'products/',
-				template: '<div style="padding: 4rem 1rem;"><h1 style="text-align: center">Welcome to the products</h1></div> ',
+				templateUrl: 'app/products/products.main.html',
+				controller: 'products.main.controller',
 				onEnter: function($rootScope){
 					$rootScope.app.stateTitle = 'Products';
 				}
