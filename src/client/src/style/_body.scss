@@ -34,12 +34,22 @@ main{
 
 @media screen and (min-width: 900px){
 
+  .cancel-header{
+	left: 0 !important;
+  }
+
   #body-wrapper{
 	left: $nav-width;
   }
 
+
+
   main{
 	width: calc(100% - #{$nav-width});
+  }
+
+  main.cancel-header{
+	width: 100% !important;
   }
 
 }
