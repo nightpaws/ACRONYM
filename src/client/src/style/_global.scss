@@ -37,7 +37,7 @@ html, body, .full-height{
   visibility: visible;
   opacity: 1;
   transition: opacity 1s linear;
-  background-image: $background;
+  background-image: $background-color;
   width: 100%;
   z-index: 1000;
 }

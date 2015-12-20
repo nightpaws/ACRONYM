@@ -1,7 +1,7 @@
-<div id="header-back" ng-click="back()" ng-class="{'no-display': app.stateTitle == 'Dashboard'}">
+<div id="header-back" ng-click="back()" ng-class="{'no-display': !app.displayBack }">
 
 </div>
-<div id="header-menu" ng-click="toggleGlobalMenu()" ng-class="{'no-display': app.stateTitle != 'Dashboard'}">
+<div id="header-menu" ng-click="toggleGlobalMenu()" ng-class="{'no-display': app.displayBack }">
 
 </div>
 <div id="header-content">
@@ -12,7 +12,7 @@
 </div>
 <div id="header-user-menu" ng-class="{'no-display': !showUserMenu}">
 	<ul>
-		<li>Profile</li>
+		<li ui-sref="page.userprofile">Profile</li>
 		<li ng-click="logout()">Logout</li>
 	</ul>
 </div>

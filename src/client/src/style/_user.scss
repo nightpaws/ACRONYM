@@ -1,5 +1,5 @@
 .user-login-page{
-  background-image: $background;
+  background-image: $background-color;
   overflow-y: auto;
 }
 
@@ -54,5 +54,30 @@
 @media (min-width: 850px){
   .user-login-container{
 	width: 600px;
+  }
+}
+
+/*
+ * Below is the user profile
+ */
+
+#user-profile{
+  #basic-info{
+
+	padding: 1rem 0.5rem;
+	border-bottom: 1px solid #eee;
+
+	img{
+	  float: left;
+	  margin-right: 1rem;
+	}
+
+	li{
+	  	padding: 0 1rem 0.5rem 0.5rem;
+	}
+	
+	p:first-of-type{
+	  font-weight: bold;
+	}
   }
 }

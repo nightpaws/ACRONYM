@@ -6,9 +6,8 @@
 angular.module('header')
 	.controller('header.controller', ['$rootScope', '$scope', 'user.service', function($rootScope, $scope, userService){
 
-		console.log('user fetched as ' + userService.getUser());
-
 		$scope.imageurl = userService.getUser().imageurl;
+
 
 		$scope.back = function(){
 			window.history.back();

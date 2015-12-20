@@ -13,17 +13,12 @@ angular.module('interceptors')
 
 					var user = localStorageService.get('user');
 
-
 					if(user){
 						request.headers['x-access-token'] = localStorageService.get('user').token;
 					}
-
 				}
-
 				return request;
-
 			}
-
 		};
 
 		return sessionInjector;

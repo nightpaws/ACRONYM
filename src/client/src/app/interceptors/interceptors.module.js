@@ -6,6 +6,5 @@ angular.module('interceptors', [])
 	.config(['$httpProvider', function($httpProvider){
 
 		$httpProvider.interceptors.push('sessionInjector');
-		$httpProvider.interceptors.push('errorHandler');
 
 	}]);

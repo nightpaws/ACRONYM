@@ -27,6 +27,13 @@ angular.module('general', [])
 					$rootScope.app.showHeader = true;
 					$rootScope.app.showNav = true;
 				}
-			});
+			})
+			.state('page.support', {
+				url: 'support/',
+				templateUrl: 'app/general/support.html',
+				onEnter: function($rootScope){
+					$rootScope.app.stateTitle = 'Support';
+				}
+			})
 
 	}]);

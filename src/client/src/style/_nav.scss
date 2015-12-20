@@ -1,0 +1,47 @@
+#nav{
+  	color: white;
+  	height: 100%;
+
+  	#nav-parts{
+		li{
+	  		padding: 1rem;
+		}
+
+	  	li.current{
+		  	background-color: $background-light;
+		  	color: $highlight;
+		}
+
+		li:not(:last-of-type){
+			border-bottom: 1px solid black;
+  		}
+
+	  	li:not(:first-of-type){
+		  	border-top: 1px solid #333;
+		}
+  	}
+
+  	#nav-help{
+	  position: absolute;
+	  bottom: 0;
+	  font-size: 0.8rem;
+	  color: #eee;
+	  padding-bottom: 0.4rem;
+	  width: 100%;
+
+	  li{
+		padding: 0.4rem 1rem;
+		width: 100%;
+	  }
+
+	  li.current{
+		background-color: $background-light;
+		color: $highlight;
+	  }
+
+	  a{
+		text-decoration: none;
+		color: inherit;
+	  }
+	}
+}

@@ -41,5 +41,15 @@ angular.module('user', ['CS413.config'])
 				url: '/login',
 				templateUrl: 'app/user/User.login.html',
 				controller: 'user.login.controller'
+			});
+
+		$stateProvider
+			.state('page.userprofile', {
+				url: 'user/profile',
+				templateUrl: 'app/user/user.profile.html',
+				controller: 'user.profile',
+				onEnter: function($rootScope){
+					$rootScope.app.stateTitle = 'Profile';
+				}
 			})
 	}]);

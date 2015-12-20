@@ -3,7 +3,7 @@
  */
 
 var app = angular.module('CS413', ['CS413.config', 'ui.router', 'ui.bootstrap', 'user', 'general', 'LocalStorageModule', 'ngAnimate', 'toastr',
-						'polyfill', 'ng.deviceDetector', 'header', 'interceptors']);
+						'polyfill', 'ng.deviceDetector', 'header', 'interceptors', 'fridges', 'products', 'nav']);
 
 app.config(['$stateProvider', '$locationProvider', '$urlMatcherFactoryProvider', '$urlRouterProvider', function($stateProvider, $locationProvider, $urlMatcherFactory, $urlRouterProvider) {
 
@@ -23,14 +23,32 @@ app.config(['$stateProvider', '$locationProvider', '$urlMatcherFactoryProvider',
 					controller: 'header.controller'
 				},
 				'nav': {
-					template: '<div style="padding: 4rem 1rem;"><h1 style="text-align: center">HERE GO NAVIGATION ONE DAY</h1></div> '
+					templateUrl: 'app/nav/nav.html',
+					controller: 'nav'
 				},
 				'main': {
-					template: '<div style="padding: 4rem 1rem;"><h1 style="text-align: center">HERE GO CONTENT ONE DAY</h1></div> '
+					template: '<div style="padding: 4rem 1rem;"><h1 style="text-align: center">Welcome to the pretty dashboard</h1></div> '
 				}
 			},
 			onEnter: function($rootScope){
 				$rootScope.app.stateTitle = 'Dashboard';
+			}
+		})
+		.state('page', {
+			url: '/',
+			abstract: true,
+			views: {
+				'header': {
+					templateUrl: 'app/header/header.html',
+					controller: 'header.controller'
+				},
+				'nav': {
+					templateUrl: 'app/nav/nav.html',
+					controller: 'nav'
+				},
+				'main': {
+					template: '<div ui-view></div> '
+				}
 			}
 		})
 		.state('404', {
@@ -72,8 +90,6 @@ app.run(['$rootScope', '$state', '$location', 'user.service', '$timeout', functi
 	};
 
 
-
-
 	$timeout(function(){
 
 		$rootScope.app.loaded = true;
@@ -83,15 +99,29 @@ app.run(['$rootScope', '$state', '$location', 'user.service', '$timeout', functi
 
 	$rootScope.$on("$stateChangeStart", function(args){
 
-		console.log('change event');
-
 		if(!userService.getUser()){
 			$location.path('/user/login');
 		}
 
 	});
 
+	$rootScope.$on("stateChangeSuccess", function(args){
 
+		var name = $state.current.name;
+
+		console.log(name);
+
+		switch (name){
+			case 'dashboard':
+			case 'fridges':
+			case 'products':
+				$rootScope.app.displayBack = false;
+				break;
+			default:
+				$rootScope.app.displayBack =  true;
+		}
+
+	});
 
 
 }]);
