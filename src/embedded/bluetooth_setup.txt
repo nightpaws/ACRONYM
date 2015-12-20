@@ -1,0 +1,30 @@
+The following instructions should install the required packages to use pybluez.
+
+This method was tested using a fresh install of Raspian Jesse Lite.
+
+1) Install python-dev
+
+	# sudo apt-get install python-dev
+
+
+2) Install bluetooth libraries/packages
+
+	# sudo apt-get install bluetooth
+	# sudo apt-get install libbluetooth-dev
+
+
+3) Install pip
+
+	# wget https://bootstrap.pypa.io/get-pip.py
+	# sudo python get-pip.py
+
+
+4) Install pybluez
+
+	# sudo pip install pybluez
+	
+
+5) Turn on the bluetooth dongle
+
+	# sudo hciconfig hci0 reset
+	# sudo hciconfig hci0 up
