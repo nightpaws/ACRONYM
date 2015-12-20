@@ -12,7 +12,11 @@ header{
   height: $header-height;
   z-index: 100;
 
-  #header-back, #header-menu{
+  #header-name{
+	display: none;
+  }
+
+  #header-back, #header-menu, #header-name{
 	//display: none;
 	width: $header-height;
 	height: calc( #{$header-height} - 1px);
@@ -62,5 +66,31 @@ header{
 	li{
 	  padding: 1rem;
 	}
+
+	li:hover{
+	  background-color: $background-light;
+	}
   }
+}
+
+@media screen and (min-width: 900px){
+
+  header{
+	#header-back, #header-menu{
+	  display: none;
+	}
+
+	#header-name{
+	  display: block;
+	  width: calc(#{$nav-width} - 1px);
+	  font-size: 1.5rem;
+	  padding: 1rem 0.7rem;
+	}
+
+	#header-content{
+	  left: calc(#{$nav-width} - 1px);
+	  width: calc(100% - 3.5rem - #{nav-width});
+	}
+  }
+
 }

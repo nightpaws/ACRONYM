@@ -7,6 +7,10 @@
 	  		padding: 1rem;
 		}
 
+	  	li:hover{
+		  background-color: $background-light;
+	 	}
+
 	  	li.current{
 		  	background-color: $background-light;
 		  	color: $highlight;
@@ -32,6 +36,10 @@
 	  li{
 		padding: 0.4rem 1rem;
 		width: 100%;
+	  }
+
+	  li:hover{
+		background-color: $background-light;
 	  }
 
 	  li.current{
