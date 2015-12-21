@@ -9,12 +9,14 @@ angular.module('products')
 
 	requestHelper.search = function(searchString, number){
 
+		if(!number) number = 0;
+
 		var url = config.API_URL + '/products';
 
 		return $http({
 			method: 'GET',
 			url: url,
-			data: {
+			params: {
 				searchString: searchString,
 				fromNo: number
 			}

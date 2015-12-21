@@ -84,6 +84,8 @@ var products = {
 
 		deferred = q.defer();
 
+		typeof text;
+
 		productModel
 			.find(
 				{ $text: { $search: text}},
@@ -98,7 +100,7 @@ var products = {
 
 					var r = results.slice(number, number + 25);
 
-					deferred.resolve();
+					deferred.resolve(r);
 				}
 			});
 

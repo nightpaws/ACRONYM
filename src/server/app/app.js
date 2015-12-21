@@ -15,8 +15,7 @@ var app = function(){
 	var favicon = require('serve-favicon');
 	app.use(favicon(config.favicon.src));
 
-	var cors = require('cors');
-	app.use(cors());
+
 
 	/*
 	 * Set up logging
@@ -44,6 +43,16 @@ var app = function(){
 
 	//serve static resources
 	app.use(express.static('public'));
+
+	var corsOptions = {
+		origin: 'https://localhost',
+		methods: ['GET', 'PUT', 'POST', 'DELETE'],
+		allowedHeaders: ['x-access-token', 'Content-Type']
+	};
+
+	var cors = require('cors');
+	app.options('*', cors(corsOptions));
+	app.use(cors(corsOptions));
 
 
 	//serve index
@@ -77,6 +86,8 @@ var app = function(){
 	//parse the json we have received
 	app.use(bodyParser.urlencoded({ extended: false }));
 	app.use(bodyParser.json());
+
+
 
 	/*
 	 * Time to do routes.

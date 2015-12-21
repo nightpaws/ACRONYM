@@ -67,7 +67,10 @@ var products = function(){
 
 			var products = require('../modules/products/Products');
 			var response = require('./../response/Response')();
-			var promise = products.searchProducts(req.query['searchText'], req.query['fromNo']);
+
+			req.query;
+
+			var promise = products.searchProducts(req.query['searchString'], req.query['fromNo']);
 
 			promise
 				.then(function(data){
