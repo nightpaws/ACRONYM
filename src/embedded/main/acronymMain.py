@@ -37,7 +37,7 @@ ACCESS_KEY = "INSERT_ACCESS_KEY_HERE" #x_access_token
 # BASE_DIR = '/sys/bus/w1/devices/'
 # DEVICE_FOLDER = glob.glob(BASE_DIR + '28*')[0]
 # DEVICE_FILE = DEVICE_FOLDER + '/w1_slave'
-ser = serial.Serial('/dev/ttyACM1', 9600)
+ser = serial.Serial('/dev/ttyACM0', 9600)
 
 # Wiiboard Parameters
 CONTINUOUS_REPORTING = "04"  # Easier as string with leading zero
@@ -56,6 +56,9 @@ TOP_LEFT = 2
 BOTTOM_LEFT = 3
 BLUETOOTH_NAME = "Nintendo RVL-WBC-01"
 
+# GLOBAL VARIABLES
+LASTBARCODE = None
+
 def readTemp():
     data = ser.read(size = 4)
     temperature = struct.unpack('B', data[0])[0]
@@ -71,17 +74,29 @@ def readDoorState():
 
     return doorOpen
 
-def streamTemp():
+def streamData():
     streamer = Streamer(bucket_name=BUCKET_NAME,bucket_key=BUCKET_KEY,access_key=ACCESS_KEY)
+
     while True:
-        tempC = readTemp()        
+
+        tempC = readTemp()
+        doorOpen = readDoorState()
+
         if tempC > TEMPERATURE_HOT_LIMIT:
             streamer.log("Status", ":fire: :exclamation:")
         if tempC < TEMPERATURE_COLD_LIMIT:
             streamer.log("Status", ":snowflake: :exclamation:")
+
         streamer.log("Temperature(C)", tempC)
         streamer.flush()
+
+        #can use this for building the basis of the JSON
         print "Temperature: " + str(tempC) + " C"
+        print "Door Open: " + str(doorOpen)
+        print "Latest Barcode: " + str(LASTBARCODE)
+        print "Weight: " #need to get weight
+        print "" #empty line
+
         time.sleep(TEMPERATURE_DELAY)
 
 class EventProcessor:
@@ -98,20 +113,38 @@ class EventProcessor:
 
     def mass(self, event):
         # Take measurement only when the door closes
-        if (self._doorStatus == True and event.doorStatus == False):
-            self._takeMeasurement = True
-            self._measureCnt = 0
-            self.streamer.log(":door: Door", "Closed")
-            self.streamer.flush()
-            print "Door Closed"
-            print "Starting measurement ..."
-            time.sleep(2)
+        #if (self._doorStatus == True and event.doorStatus == False):
+
+        scannerInput = None
+
+        #Loops until there is input from the barcode scanner.
+        #When input is detected, the program can progress to obtain the reading from the board   
+        while(True):
+            print "Start of loop"
+            scannerInput = input()
+            if(scannerInput != None):
+                break
+
+        global LASTBARCODE
+        LASTBARCODE = str(scannerInput) #should assign scannerInput to the global variable... silly python...
+        scannerInput = None
+
+        print "The barcode that has just been scanned is: " + LASTBARCODE
+
+        self._takeMeasurement = True
+        self._measureCnt = 0
+        self.streamer.log(":door: Door", "Closed")
+        self.streamer.flush()
+        # print "Door Closed"
+        print "Scanned"
+        print "Starting measurement ..."
+        time.sleep(2)
         # Door is opened, ensure no measurement is being taken
-        if (self._doorStatus == False and event.doorStatus == True):
-            self._takeMeasurement = False
-            self.streamer.log(":door: Door", "Open")
-            self.streamer.flush()
-            print "Door Opened"
+        # if (self._doorStatus == False and event.doorStatus == True):
+        #     self._takeMeasurement = False
+        #     self.streamer.log(":door: Door", "Open")
+        #     self.streamer.flush()
+        #     print "Door Opened"
         if (self._takeMeasurement == True and event.totalWeight > 2):
             self._events[self._measureCnt] = event.totalWeight*2.20462
             self._measureCnt += 1
@@ -145,7 +178,6 @@ class EventProcessor:
                 self._takeMeasurement = False
             if not self._measured:
                 self._measured = True
-        self._doorStatus = event.doorStatus
 
     @property
     def weight(self):
@@ -391,7 +423,7 @@ def main():
     board.wait(500)
     board.setLight(True)
     try:
-       thread.start_new_thread(streamTemp, ())
+       thread.start_new_thread(streamData, ())
     except:
        print "Error: unable to start temperature streamer thread"
     board.receive()
