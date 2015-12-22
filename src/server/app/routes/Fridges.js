@@ -28,7 +28,7 @@ var fridges = function(){
 		 *
 		 * {
 		 *      "success": true,
-		 *      "message": "User logged in",
+		 *      "message": "Fridge logged in",
 		 *      "meta": null,
 		 *      "result": {
 		 *          "token": TOKEN
@@ -68,10 +68,38 @@ var fridges = function(){
 
 		});
 
+    fridgeRouter
+        /**
+         *
+         *
+         * @api {get} /fridges/listen/:id Listen To Fridge
+         * @apiName ListenToFridge
+         * @apiGroup Fridges
+         *
+         * @apiDescription
+         * Add the fridge to the list of fridges the user listens to
+         *
+         */
+        .get('/listen/:id', function(req, res){
+            res.send('Gonna naw do that yet');
+        })
+        /**
+         *
+         *
+         * @api {delete} /fridges/listen/:id Unlisten To Fridge
+         * @apiName UnlistenToFridge
+         * @apiGroup Fridges
+         *
+         * @apiDescription
+         * Remove the fridge to the list of fridges the user listens to
+         *
+         */
+        .delete('/listen/:id', function(req, res){
+            res.send('Gonna naw do that yet');
+        });
+
 	fridgeRouter.route('/')
 		/**
-		 *
-		 * @apiIgnore
 		 *
 		 * @api {get} /fridges Get Fridges
 		 * @apiName GetFridges
@@ -80,40 +108,18 @@ var fridges = function(){
 		 * @apiDescription
 		 * Get a list of all the fridges the user is entitled to see
 		 *
-		 * @apiParamExample {json} Request-Example:
-		 *  {
-				 *      "PRODCUT": "INFO"       //TODO
-				 *  }
 		 *
-		 * @apiSuccessExample {json} Success-app.response:
-		 *  {
-		 *      "success": true,
-		 *      "message": "User logged in",
-		 *      "meta": null,
-		 *      "result": {
-		 *          "PRODUCT": "INFO"   //TODO
-		 *      }
-		 *  }
-		 *
-		 *  @apiErrorExample {json} Error-app.response:
-		 *  {
-		 *      "success": false,
-		 *      "message": "Invalid Product Id,
-		 *      "meta": null,
-		 *      "result": null
-		 *  }
-	    */
+	     */
 		.get(function(req, res){
 			res.send('Gonna naw do that yet');
 		});
 
     fridgeRouter.route('/:id')
         /**
-         * @apiIgnore
          *
-         * @api{get} /fridges/:id Get fridge
+         * @api{get} /fridges/:id Get Fridge
          * @apiName Get Fridge
-         * @apiGroup GetFridges
+         * @apiGroup Fridges
          *
          * @apiDescription
          * Gets the fridge with the given ID
@@ -141,78 +147,85 @@ var fridges = function(){
 	fridgeRouter.route('/:id/state/')
 		/**
 		 *
-		 * @apiIgnore
 		 *
-		 * @api {get} /fridges/:id Get Fridge State
+		 * @api {get} /fridges/:id/state Get Fridge State
 		 * @apiName GetFridgeState
 		 * @apiGroup Fridges State
 		 *
 		 * @apiDescription
 		 * Get the state of a fridge of your choice
 		 *
-		 * @apiParamExample {json} Request-Example:
-		 *  {
-					 *      "PRODCUT": "INFO"       //TODO
-					 *  }
-		 *
-		 * @apiSuccessExample {json} Success-app.response:
-		 *  {
-		 *      "success": true,
-		 *      "message": "User logged in",
-		 *      "meta": null,
-		 *      "result": {
-		 *          "PRODUCT": "INFO"   //TODO
-		 *      }
-		 *  }
-		 *
-		 *  @apiErrorExample {json} Error-app.response:
-		 *  {
-		 *      "success": false,
-		 *      "message": "Invalid Product Id,
-		 *      "meta": null,
-		 *      "result": null
-		 *  }
-	    */
+	     */
 		.get(function(req, res){
 			res.send('Gonna naw do that yet');
 		})
 		/**
 		 *
-		 * @apiIgnore
 		 *
-		 * @api {post} /fridges/:id Update Fridge State
+		 * @api {post} /fridges/:id/state Update Fridge State
 		 * @apiName UpdateFridgeState
 		 * @apiGroup Fridges State
 		 *
 		 * @apiDescription
 		 * Update the state of the fridge
 		 *
-		 * @apiParamExample {json} Request-Example:
-		 *  {
-						 *      "PRODCUT": "INFO"       //TODO
-						 *  }
 		 *
-		 * @apiSuccessExample {json} Success-app.response:
-		 *  {
-		 *      "success": true,
-		 *      "message": "User logged in",
-		 *      "meta": null,
-		 *      "result": {
-		 *          "PRODUCT": "INFO"   //TODO
-		 *      }
-		 *  }
-		 *
-		 *  @apiErrorExample {json} Error-app.response:
-		 *  {
-		 *      "success": false,
-		 *      "message": "Invalid Product Id,
-		 *      "meta": null,
-		 *      "result": null
-		 *  }
-	    */
+	     */
 		.post(function(req, res){
 			res.send('Gonna naw do that yet');
 		});
+
+    fridgeRouter.route('/:id/contents')
+        /**
+         *
+         * @api {get} /fridges/:id/contents Get Contents
+         * @apiName getFridgeContents
+         * @apiGroup Fridges Content
+         *
+         * @apiDescription
+         * Get the contents of the fridge
+         */
+        .get(function(req, res){
+            res.send('Gonna naw do that yet');
+        })
+        /**
+         *
+         * @api {put} /fridges/:id/contents Add Content
+         * @apiName addToFridgeContents
+         * @apiGroup Fridges Content
+         *
+         * @apiDescription
+         * Add a new item to the contents of the fridge
+         */
+        .put(function(req, res){
+            res.send('Gonna naw do that yet');
+        });
+
+    fridgeRouter.route('/:id/contents/:contentID')
+        /**
+         *
+         * @api {delete} /fridges/:id/contents/:contentID Delete Contents
+         * @apiName removeFromFridgeContents
+         * @apiGroup Fridges Content
+         *
+         * @apiDescription
+         * Remove item from the contents of the fridge
+         */
+        .delete(function(req, res){
+            res.send('Gonna naw do that yet');
+        })
+        /**
+         *
+         * @api {post} /fridges/:id/contents/:contentID Update Contents
+         * @apiName updateFridgeContents
+         * @apiGroup Fridges Content
+         *
+         * @apiDescription
+         * Update item in the contents of the fridge
+         */
+        .post(function(req,res){
+            res.send('Gonna naw do that yet');
+        });
 
 
 	return fridgeRouter;

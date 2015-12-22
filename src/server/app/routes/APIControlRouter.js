@@ -18,9 +18,6 @@ var APIControl = function(){
 	var productRouter = require('./Products')();
 	APIControl.use('/products', productRouter);
 
-	var contentRouter = require('./Contents')();
-	APIControl.use('/contents', contentRouter);
-
 	APIControl.use('*', function(req, res){
 
 		res.status(404).send('api not found');

@@ -11,7 +11,7 @@ var products = function(){
 	productsRouter.route('/')
 		/**
 		 *
-		 * @api {get} /products?searchText= Search products ?fromNo=
+		 * @api {get} /products?searchText=TERM&fromNo=0 Search products
 		 * @apiName SearchProduct
 		 * @apiGroup Product
 		 *
@@ -67,8 +67,6 @@ var products = function(){
 
 			var products = require('../modules/products/Products');
 			var response = require('./../response/Response')();
-
-			req.query;
 
 			var promise = products.searchProducts(req.query['searchString'], req.query['fromNo']);
 

@@ -55,22 +55,6 @@ var app = function(){
 	app.use(cors(corsOptions));
 
 
-	//serve index
-	/**
-	 * @api {get} / Get Application
-	 * @apiName GetApp
-	 * @apiGroup GetApp
-	 *
-	 * @apiDescription
-	 * Grabs the index html file that is the wonderful SPA.
-	 *
-	 * @apiSuccess html file
-	 */
-	app.get('/', function(req,res) {
-		res.sendFile('public/index.html');
-	});
-
-
 	/*
 	 * Set up middleware
 	 */

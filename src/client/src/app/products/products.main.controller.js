@@ -12,7 +12,13 @@ angular.module('products')
 
 
 		var timer;
+		var isFirst = true;
 		if(deviceDetector.isMobile()){
+
+			if(isFirst){
+				isFirst = false;
+				return;
+			}
 
 			$scope.$watch('searchString', function(){
 

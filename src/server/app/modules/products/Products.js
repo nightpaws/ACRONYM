@@ -80,6 +80,9 @@ var products = {
 
 	searchProducts: function(text, number){
 
+		text = (!text)? '*' : text;
+		number = (!number)? 0 : number;
+
 		var productModel = require('../../models/Product.model');
 
 		deferred = q.defer();
@@ -98,7 +101,7 @@ var products = {
 					deferred.reject('Error searching for string');
 				}else{
 
-					var r = results.slice(number, number + 25);
+					var r = results.slice(number, number + 20);
 
 					deferred.resolve(r);
 				}
