@@ -13,6 +13,7 @@ long lastTime = 0;
 long debounce = 200;
 
 int doorReading;
+int doorState;
 
 OneWire oneWire(ONE_WIRE_BUS);
 DallasTemperature sensors(&oneWire);
@@ -34,8 +35,8 @@ void loop(void) {
   sensors.requestTemperatures();
   int temperature = sensors.getTempCByIndex(0);
   
-  Serial.print("Temperature: ");
-  Serial.println(temperature);
+//  Serial.print("Temperature: ");
+//  Serial.println(temperature);
 
   //Get State of Door
   doorReading = digitalRead(DOOR_SENSOR);
@@ -43,20 +44,27 @@ void loop(void) {
   if(doorReading == LOW && millis() - lastTime > debounce) {
 
     digitalWrite(LED, LOW);
-    Serial.print("Door is closed");
+    doorState = DOOR_CLOSED;
+    
+//    Serial.println("Door is closed");
 
     lastTime = millis();
      
   } else {
+    
     digitalWrite(LED, HIGH);
-    Serial.print("Door is open");
+    doorState = DOOR_OPEN;
+    
+//    Serial.println("Door is open");
+
   }
 
   //Write Temperature && Door State
 //  Serial.write(temperature);
 //  Serial.write(doorState);
 
-  //delay(500);
-
+  int data[2] = {temperature, doorState};
+  
+  Serial.write((uint8_t*)data, sizeof(data));
 }
 
