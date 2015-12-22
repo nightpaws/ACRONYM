@@ -1,12 +1,15 @@
-<div class="products">
-	<div class="search">
+<div id="products">
+	<div class="control">
 		<form ng-submit="search()" class="form-inline">
 			<div class="form-group">
 				<label class="control-label" for="searchString">Product Search</label>
-				<input type="text" class="form-control" id="searchString" placeholder="" ng-model="searchString">
+				<span id="searchStringafter"><input type="text" class="form-control" id="searchString" placeholder="searchString" ng-model="searchString"></span>
 			</div>
 			<button type="submit" class="btn btn-default">Search</button>
 		</form>
+		<div id="products-add">
+			<p id="products-add-new"></p>
+		</div>
 	</div>
 	<div id="products-results">
 		here go products

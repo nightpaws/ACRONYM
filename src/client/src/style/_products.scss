@@ -1,0 +1,64 @@
+#products{
+
+  .control{
+	border-bottom: 1px solid #eee;
+	height: 2.5rem;
+  }
+
+  #searchStringafter{
+	width: calc(100% - 2px - #{2.5rem})
+  }
+
+  #searchString{
+	border: none;
+	border-right: 1px solid #eee;
+	height: calc( #{2.5rem} - 1px);
+  }
+
+  #searchStringafter:after{
+	font-family: icomoon;
+	content: '\e907';
+	color: #999;
+	font-size: 1.5rem;
+	position: absolute;
+	top: 0.5rem;
+	right: calc(#{2.5rem} + 0.75rem);
+  }
+
+  #products-add-new{
+	width: 2.5rem;
+	height: 2.5rem;
+	font-size: 1.5rem;
+	padding: 0.5rem;
+
+	position: absolute;
+	top: 0;
+	right: 0;
+
+	border-left: 1px solid #aaa;
+  }
+
+  #products-add-new:before{
+	font-family: icomoon;
+	content: '\e901';
+  }
+
+}
+
+@media screen and (min-width: 300px) {
+
+  #products{
+
+	.control{
+	  label, button{
+		display: none;
+	  }
+
+	  #searchString{
+		width: calc(100% - #{2.5rem})
+	  }
+	}
+
+  }
+  
+}
