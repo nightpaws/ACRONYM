@@ -24,7 +24,8 @@ var user = new mongoose.Schema({
 	createdOn: {
 		type: Date,
 		default: Date.now
-	}
+	},
+	fridges: []
 });
 
 module.exports = mongoose.model('User', user);

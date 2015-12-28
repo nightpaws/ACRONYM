@@ -3,7 +3,7 @@
  */
 
 var express = require('express'),
-	response = require('./../response/Response')();
+	responseFactory = require('./../response/Response');
 
 var fridges = function(){
 
@@ -50,6 +50,8 @@ var fridges = function(){
 
 			var promise = fridgeAuth.registerFridge(req.body.fridge_no);
 
+			var response = responseFactory();
+
 			promise
 				.then(function(data){
 
@@ -81,7 +83,28 @@ var fridges = function(){
          *
          */
         .get('/listen/:id', function(req, res){
-            res.send('Gonna naw do that yet');
+
+		    var users = require('../modules/users/users');
+
+		    var promise = users.listenToFridge(req.params.id, req.user);
+
+		    var response = responseFactory();
+
+		    promise
+			    .then(function(data){
+
+				    response.setSuccessful(true);
+				    response.setMessage('User updated');
+				    response.setResult(data);
+
+				    res.json(response.getResponse());
+			    })
+			    .fail(function(data){
+				    response.setSuccessful(false);
+				    response.setMessage(data);
+
+				    res.json(response.getResponse());
+			    });
         })
         /**
          *
@@ -95,7 +118,29 @@ var fridges = function(){
          *
          */
         .delete('/listen/:id', function(req, res){
-            res.send('Gonna naw do that yet');
+
+		    var users = require('../modules/users/users');
+
+		    var promise = users.unlistenToFridge(req.params.id, req.user);
+
+		    var response = responseFactory();
+
+		    promise
+			    .then(function(data){
+
+				    response.setSuccessful(true);
+				    response.setMessage('User updated');
+				    response.setResult(data);
+
+				    res.json(response.getResponse());
+			    })
+			    .fail(function(data){
+				    response.setSuccessful(false);
+				    response.setMessage(data);
+
+				    res.json(response.getResponse());
+			    });
+
         });
 
 	fridgeRouter.route('/')
@@ -128,6 +173,8 @@ var fridges = function(){
             var fridge = require('../modules/Fridges/Fridges');
 
             var promise = fridge.getFridge(req.params.id);
+
+		    var response = responseFactory();
 
             promise
                 .then(function(data){

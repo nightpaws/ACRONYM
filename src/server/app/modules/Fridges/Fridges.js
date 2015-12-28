@@ -21,10 +21,9 @@ var fridges = {
             }else if(doc){
                 deferred.resolve(doc);
             }
-        })
+        });
 
         return deferred.promise();
-
     }
 
 };

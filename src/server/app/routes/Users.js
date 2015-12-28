@@ -1,6 +1,6 @@
 var express = require('express'),
 	bodyParser = require('body-parser'),
-	response = require('./../response/Response')();
+	responseFactory = require('./../response/Response');
 
 var users = function(){
 
@@ -46,6 +46,8 @@ var users = function(){
 
 			var Auth = require('./../modules/auth/UserAuth');
 			var promise = Auth.validateUser(data.username, data.passphrase);
+
+			var response = responseFactory();
 
 			promise
 				.then(function(data){
@@ -109,6 +111,8 @@ var users = function(){
 
 			var auth = require('../modules/auth/UserAuth');
 			var tokenPromise = auth.registerUser(data.username, data.email, data.passphrase);
+
+			var response = responseFactory();
 
 			tokenPromise
 				.then(function(data){

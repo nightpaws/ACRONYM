@@ -3,8 +3,8 @@
  */
 
 angular.module('products')
-	.controller('products.main.controller', [ '$scope', 'deviceDetector', '$timeout', 'products.request.factory', '$state',
-		function($scope, deviceDetector, $timeout, requestHelper, $state){
+	.controller('products.main.controller', [ '$scope', 'deviceDetector', '$timeout', 'products.request.factory', '$state', 'toastr',
+		function($scope, deviceDetector, $timeout, requestHelper, $state, toastr){
 
 			$scope.searchString = "";
 			$scope.usedSearchString = "";

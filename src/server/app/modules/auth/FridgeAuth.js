@@ -15,6 +15,8 @@ var Auth = {
 
 		var fridgeModel = require('../../models/Fridge.model.js').fridge;
 
+		deferred = q.defer();
+
 		var fridge = new fridgeModel({
 
 			fridge_no: fridge_no,
