@@ -156,7 +156,27 @@ var fridges = function(){
 		 *
 	     */
 		.get(function(req, res){
-			res.send('Gonna naw do that yet');
+
+			var fridges = require('../modules/Fridges/Fridges');
+
+			var promise = fridges.getFridges(req.user);
+			var response = responseFactory();
+
+			promise
+				.then(function(data){
+
+					response.setSuccessful(true);
+					response.setResult(data);
+
+					res.json(response.getResponse());
+				})
+				.fail(function(data){
+					response.setSuccessful(false);
+					response.setMessage(data);
+
+					res.json(response.getResponse());
+				});
+
 		});
 
     fridgeRouter.route('/:id')

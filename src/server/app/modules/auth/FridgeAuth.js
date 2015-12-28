@@ -21,7 +21,9 @@ var Auth = {
 
 			fridge_no: fridge_no,
 			contents: [],
-			states: []
+			states: [],
+			name: fridge_no,
+			description: ''
 
 		});
 

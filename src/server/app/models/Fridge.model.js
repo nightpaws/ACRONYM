@@ -57,6 +57,12 @@ var fridge = new mongoose.Schema({
 	createdOn: {
 		type: Date,
 		default: Date.now
+	},
+	name: {
+		type: String
+	},
+	description: {
+		type: String
 	}
 });
 
