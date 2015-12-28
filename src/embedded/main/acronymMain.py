@@ -6,36 +6,38 @@ import bluetooth
 import sys
 import subprocess
 from ISStreamer.Streamer import Streamer
-import RPi.GPIO as io
 import os
 import glob
 import thread
+import serial
+import struct
 
 # --------- User Settings ---------
-WEIGHT_SAMPLES = 1500
+WEIGHT_SAMPLES = 15
 WEIGHT_BASE = 00.00 # Need to weigh the fridge
 WEIGHT_CONTENTS = 0.000 # Need to weigh the contents
 FRIDGE_GETTING_LOW = 32
 FRIDGE_EMPTY = 22
 TEMPERATURE_DELAY = 60
-TEMPERATURE_TOO_HIGH_F = 50
-TEMPERATURE_TOO_LOW_F = 27
+TEMPERATURE_HOT_LIMIT = 20
+TEMPERATURE_COLD_LIMIT = 0
 BUCKET_NAME = "ACRONYM"
 BUCKET_KEY = "INSERT_BUCKET_KEY_HERE"
-ACCESS_KEY = "INSERT_ACCESS_KEY_HERE"
+ACCESS_KEY = "INSERT_ACCESS_KEY_HERE" #x_access_token
 # ---------------------------------
 
 # Door Switch Parameters
-io.setmode(io.BCM) # set GPIO mode to BCM
-DOOR_PIN = 17 # enter the number of whatever GPIO pin your're using
-io.setup(DOOR_PIN, io.IN) # Specify that button_io_pin will be an input
+# io.setmode(io.BCM) # set GPIO mode to BCM
+# DOOR_PIN = 17 # enter the number of whatever GPIO pin your're using
+# io.setup(DOOR_PIN, io.IN) # Specify that button_io_pin will be an input
 
 # Temperature Sensor Parameters
-os.system('modprobe w1-gpio')
-os.system('modprobe w1-therm')
-BASE_DIR = '/sys/bus/w1/devices/'
-DEVICE_FOLDER = glob.glob(BASE_DIR + '28*')[0]
-DEVICE_FILE = DEVICE_FOLDER + '/w1_slave'
+# os.system('modprobe w1-gpio')
+# os.system('modprobe w1-therm')
+# BASE_DIR = '/sys/bus/w1/devices/'
+# DEVICE_FOLDER = glob.glob(BASE_DIR + '28*')[0]
+# DEVICE_FILE = DEVICE_FOLDER + '/w1_slave'
+ser = serial.Serial('/dev/ttyACM0', 9600)
 
 # Wiiboard Parameters
 CONTINUOUS_REPORTING = "04"  # Easier as string with leading zero
@@ -54,36 +56,47 @@ TOP_LEFT = 2
 BOTTOM_LEFT = 3
 BLUETOOTH_NAME = "Nintendo RVL-WBC-01"
 
-
-def readTempRaw():
-    f = open(DEVICE_FILE, 'r')
-    lines = f.readlines()
-    f.close()
-    return lines
+# GLOBAL VARIABLES
+LASTBARCODE = None
 
 def readTemp():
-    lines = readTempRaw()
-    while lines[0].strip()[-3:] != 'YES':
-        time.sleep(0.2)
-        lines = readTempRaw()
-    equalsPos = lines[1].find('t=')
-    if equalsPos != -1:
-        tempString = lines[1][equalsPos+2:]
-        tempC = float(tempString) / 1000.0
-        return tempC
+    data = ser.read(size = 4)
+    temperature = struct.unpack('B', data[0])[0]
+    return temperature
 
-def streamTemp():
+def readDoorState():
+    data = ser.read(size = 4)
+    doorOpen = struct.unpack('B', data[2])[0]
+    if (doorOpen == 0):
+        doorOpen = True
+    else:
+        doorOpen = False
+
+    return doorOpen
+
+def streamData():
     streamer = Streamer(bucket_name=BUCKET_NAME,bucket_key=BUCKET_KEY,access_key=ACCESS_KEY)
+
     while True:
+
         tempC = readTemp()
-        tempF = tempC * 9.0 / 5.0 + 32.0
-        if tempF > TEMPERATURE_TOO_HIGH_F:
+        doorOpen = readDoorState()
+
+        if tempC > TEMPERATURE_HOT_LIMIT:
             streamer.log("Status", ":fire: :exclamation:")
-        if tempF < TEMPERATURE_TOO_LOW_F:
+        if tempC < TEMPERATURE_COLD_LIMIT:
             streamer.log("Status", ":snowflake: :exclamation:")
-        streamer.log("Temperature(F)", tempF)
+
+        streamer.log("Temperature(C)", tempC)
         streamer.flush()
-        print "Temperature: " + str(tempF) + " F"
+
+        #can use this for building the basis of the JSON
+        print "Temperature: " + str(tempC) + " C"
+        print "Door Open: " + str(doorOpen)
+        print "Latest Barcode: " + str(LASTBARCODE)
+        print "Weight: " #need to get weight
+        print "" #empty line
+
         time.sleep(TEMPERATURE_DELAY)
 
 class EventProcessor:
@@ -99,21 +112,39 @@ class EventProcessor:
         self.streamer = Streamer(bucket_name=BUCKET_NAME,bucket_key=BUCKET_KEY,access_key=ACCESS_KEY)
 
     def mass(self, event):
-        # Take measurement ony when the door closes
-        if (self._doorStatus == True and event.doorStatus == False):
-            self._takeMeasurement = True
-            self._measureCnt = 0
-            self.streamer.log(":door: Door", "Closed")
-            self.streamer.flush()
-            print "Door Closed"
-            print "Starting measurement ..."
-            time.sleep(2)
+        # Take measurement only when the door closes
+        #if (self._doorStatus == True and event.doorStatus == False):
+
+        scannerInput = None
+
+        #Loops until there is input from the barcode scanner.
+        #When input is detected, the program can progress to obtain the reading from the board   
+        while(True):
+            print "Start of loop"
+            scannerInput = input()
+            if(scannerInput != None):
+                break
+
+        global LASTBARCODE
+        LASTBARCODE = str(scannerInput) #should assign scannerInput to the global variable... silly python...
+        scannerInput = None
+
+        print "The barcode that has just been scanned is: " + LASTBARCODE
+
+        self._takeMeasurement = True
+        self._measureCnt = 0
+        self.streamer.log(":door: Door", "Closed")
+        self.streamer.flush()
+        # print "Door Closed"
+        print "Scanned"
+        print "Starting measurement ..."
+        time.sleep(2)
         # Door is opened, ensure no measurement is being taken
-        if (self._doorStatus == False and event.doorStatus == True):
-            self._takeMeasurement = False
-            self.streamer.log(":door: Door", "Open")
-            self.streamer.flush()
-            print "Door Opened"
+        # if (self._doorStatus == False and event.doorStatus == True):
+        #     self._takeMeasurement = False
+        #     self.streamer.log(":door: Door", "Open")
+        #     self.streamer.flush()
+        #     print "Door Opened"
         if (self._takeMeasurement == True and event.totalWeight > 2):
             self._events[self._measureCnt] = event.totalWeight*2.20462
             self._measureCnt += 1
@@ -147,7 +178,6 @@ class EventProcessor:
                 self._takeMeasurement = False
             if not self._measured:
                 self._measured = True
-        self._doorStatus = event.doorStatus
 
     @property
     def weight(self):
@@ -168,7 +198,7 @@ class BoardEvent:
         self.buttonReleased = buttonReleased
         #convenience value
         self.totalWeight = topLeft + topRight + bottomLeft + bottomRight
-        self.doorStatus = io.input(DOOR_PIN)
+        self.doorStatus = readDoorState()
 
 class Wiiboard:
     def __init__(self, processor):
@@ -393,7 +423,7 @@ def main():
     board.wait(500)
     board.setLight(True)
     try:
-       thread.start_new_thread(streamTemp, ())
+       thread.start_new_thread(streamData, ())
     except:
        print "Error: unable to start temperature streamer thread"
     board.receive()
