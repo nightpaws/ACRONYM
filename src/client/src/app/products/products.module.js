@@ -14,5 +14,29 @@ angular.module('products', [])
 					$rootScope.app.stateTitle = 'Products';
 				}
 			})
+			.state('page.productsAdd', {
+				url: 'products/add',
+				templateUrl: 'app/products/products.edit.html',
+				controller: 'products.edit.controller',
+				onEnter: function($rootScope){
+					$rootScope.app.stateTitle = 'Products';
+				}
+			})
+			.state('page.productsEdit', {
+				url: 'products/:id/edit',
+				templateUrl: 'app/products/products.edit.html',
+				controller: 'products.edit.controller',
+				onEnter: function($rootScope){
+					$rootScope.app.stateTitle = 'Products';
+				}
+			})
+			.state('page.productsView', {
+				url: 'products/:id',
+				templateUrl: 'app/products/products.view.html',
+				controller: 'products.view.controller',
+				onEnter: function($rootScope){
+					$rootScope.app.stateTitle = 'Products';
+				}
+			})
 
 	}]);

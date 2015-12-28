@@ -1,0 +1,22 @@
+<div id="products-edit">
+	<h1>TITLE HERE GO</h1>
+	<form name="editProductForm" ng-submit="save(editProductForm.$invalid)" novalidate>
+		<div class="form-group" ng-class="{'has-error': editProductForm.name.$invalid && editProductForm.name.$touched}">
+			<label class="control-label" for="name">Product Name</label>
+			<input type="text" class="form-control" id="name" name="name" placeholder="Product name" ng-model="product.name" required>
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="description">Product Description</label>
+			<textarea class="form-control" name="description" id="description" rows="3" placeholder="Description" ng-model="product.description"></textarea>
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="weight">Product Weight (g)</label>
+			<input type="number" class="form-control" id="weight" name="weight" placeholder="Product Weight" ng-model="product.weight">
+		</div>
+		<div class="form-group" ng-class="{'has-error': editProductForm.barcode.$invalid && editProductForm.barcode.$touched}">
+			<label class="control-label" for="barcode">Product Barcode</label>
+			<input type="number" class="form-control" id="barcode" name="barcode" placeholder="Product Barcode" ng-model="product.barcode" required>
+		</div>
+		<button type="submit" class="btn btn-default" ng-disabled="!editProductForm.$valid">Save Product</button>
+	</form>
+</div>

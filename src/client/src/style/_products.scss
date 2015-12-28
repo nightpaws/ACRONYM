@@ -45,6 +45,14 @@
 
 }
 
+#products-edit{
+  padding: 1rem 0;
+
+  button{
+	width: 100%;
+  }
+}
+
 @media screen and (min-width: 300px) {
 
   #products{
@@ -60,5 +68,4 @@
 	}
 
   }
-  
 }

@@ -1,0 +1,13 @@
+<div id="products-view">
+	<h1>{{product.name}}</h1>
+	<div>
+		<p>Description</p>
+		<p>{{product.description}}</p>
+	</div>
+	<ul>
+		<li><span>Weight: </span>{{product.weight}} g</li>
+		<li><span>Barcode: </span>{{product.code}}</li>
+	</ul>
+
+	<button ng-click="editProduct()">Edit</button>
+</div>

@@ -3,47 +3,107 @@
  */
 
 angular.module('products')
-	.controller('products.main.controller', [ '$scope', 'deviceDetector', '$timeout', 'products.request.factory', function($scope, deviceDetector, $timeout, requestHelper){
+	.controller('products.main.controller', [ '$scope', 'deviceDetector', '$timeout', 'products.request.factory', '$state',
+		function($scope, deviceDetector, $timeout, requestHelper, $state){
 
-		$scope.searchString = "";
-		var number = 0;
+			$scope.searchString = "";
+			$scope.usedSearchString = "";
+			$scope.products = [];
+			var number = 0;
+			var stopSearching = false;
 
-		console.log(deviceDetector);
+
+			var timer;
+			$scope.isFirst = true;
+			if(deviceDetector.isMobile()){
 
 
-		var timer;
-		var isFirst = true;
-		if(deviceDetector.isMobile()){
 
-			if(isFirst){
-				isFirst = false;
-				return;
+				$scope.$watch('searchString', function(){
+
+					if($scope.isFirst){
+						$scope.isFirst = false;
+						return;
+					}
+
+					if(timer) $timeout.cancel(timer);
+
+					timer = $timeout(function(){
+
+						$scope.search();
+
+					}, 1200);
+				});
 			}
 
-			$scope.$watch('searchString', function(){
+			$scope.search = function () {
 
-				if(timer) timer.cancel();
+				if(!$scope.searchString){
+					$scope.usedSearchString = '*';
+				}else{
+					$scope.usedSearchString = $scope.searchString;
+				}
 
-				timer = $timeout(function(){
+				requestHelper.search($scope.usedSearchString, number)
+					.then(function(data){
 
-					$scope.search();
+						if(data.data.successful){
 
-				}, 2000);
+							handleProductReturn(data.data.result);
 
-			});
-		}
+						}else{
+							toastr.error(data.data.message, 'Error');
+						}
 
-		$scope.search = function () {
+					})
+					.catch(function(){
+						toastr.error('Couldn\'t reach server sorry about that', 'Error');
+					});
 
-			alert('searching');
+			};
 
-			requestHelper.search($scope.searchString, number)
-				.then(function(data){
-					console.log(data);
+			$scope.loadMore = function(){
 
-					number += 20;
+				if(stopSearching) return;
+
+				console.log('loading more');
+
+				$scope.search();
+
+			};
+
+			$scope.goTo = function(id){
+
+				$state.go('page.productsView', {id: id});
+
+			};
+
+			function handleProductReturn(products){
+
+				if(products.length === 0){
+
+					stopSearching = true;
+
+					return;
+				}
+
+				number += products.length;
+
+				products.forEach(function(item){
+
+					if(!item.name){
+						item.name = 'Unknown Product';
+					}
+
+					if(item.description && item.description.length > 100){
+
+						item.description = item.description.subString(0, 100) + '...';
+					}
+
+
 				});
 
-		};
+				$scope.products = $scope.products.concat(products);
+			}
 
 	}]);

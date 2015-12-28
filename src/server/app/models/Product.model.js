@@ -6,6 +6,11 @@ var mongoose = require('mongoose');
 var config = require('../../config');
 
 var product = new mongoose.Schema({
+	_id: {
+		type: Number,
+		required: true,
+		unique: true
+	},
 	code:{
 		type: Number,
 		required: true,

@@ -14,14 +14,22 @@ var products = {
 		var productModel = require('../../models/Product.model');
 
 		var productDAO = new productModel({
-			code: product.code,
+			_id: product.barcode,
+			code: product.barcode,
 			name: product.name,
-			weight: product.weight
+			weight: product.weight,
+			description: product.description
 		});
 
 		productDAO.save(function(err, doc){
 
 			if(err){
+
+				if(err.code===11000){
+
+					deferred.reject('Product Already Exists');
+				}
+
 				deferred.reject('error saving product');
 			}else{
 				deferred.resolve(doc);
@@ -60,7 +68,7 @@ var products = {
 			{_id: id},
 			{
 				name: product.name,
-				code: product.code,
+				barcode: product.barcode,
 				weight: product.weight,
 				description: product.description
 			},
@@ -87,26 +95,44 @@ var products = {
 
 		deferred = q.defer();
 
-		typeof text;
+		if( text === '*'){
 
-		productModel
-			.find(
-				{ $text: { $search: text}},
-				{ score : { $meta: "textScore" } }
-			)
-			.sort({ score : { $meta : 'textScore' } })
-			.exec(function(err, results){
+			productModel
+				.find({})
+				.sort({'name': 1})
+				.exec(function(err, results){
 
-				if(err){
-					deferred.reject('Error searching for string');
-				}else{
+					if(err){
+						deferred.reject('Error searching for string');
+					}else{
 
-					var r = results.slice(number, number + 20);
+						var r = results.slice(number, number + 25);
 
-					deferred.resolve(r);
-				}
-			});
+						deferred.resolve(r);
+					}
+				});
 
+		}else{
+
+			productModel
+				.find(
+					{ $text: { $search: text}},
+					{ score : { $meta: "textScore" } }
+				)
+				.sort({ score : { $meta : 'textScore' } })
+				.exec(function(err, results){
+
+					if(err){
+						deferred.reject('Error searching for string');
+					}else{
+
+						var r = results.slice(number, number + 25);
+
+						deferred.resolve(r);
+					}
+				});
+
+		}
 
 		return deferred.promise;
 

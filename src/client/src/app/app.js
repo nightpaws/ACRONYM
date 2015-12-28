@@ -3,7 +3,7 @@
  */
 
 var app = angular.module('CS413', ['CS413.config', 'ui.router', 'ui.bootstrap', 'user', 'general', 'LocalStorageModule', 'ngAnimate', 'toastr',
-						'polyfill', 'ng.deviceDetector', 'header', 'interceptors', 'fridges', 'products', 'nav']);
+						'polyfill', 'ng.deviceDetector', 'header', 'interceptors', 'fridges', 'products', 'nav', 'infinite-scroll']);
 
 app.config(['$stateProvider', '$locationProvider', '$urlMatcherFactoryProvider', '$urlRouterProvider', function($stateProvider, $locationProvider, $urlMatcherFactory, $urlRouterProvider) {
 
@@ -105,16 +105,14 @@ app.run(['$rootScope', '$state', '$location', 'user.service', '$timeout', functi
 
 	});
 
-	$rootScope.$on("stateChangeSuccess", function(args){
+	$rootScope.$on("$stateChangeSuccess", function(args){
 
 		var name = $state.current.name;
 
-		console.log(name);
-
 		switch (name){
 			case 'dashboard':
-			case 'fridges':
-			case 'products':
+			case 'page.fridges':
+			case 'page.products':
 				$rootScope.app.displayBack = false;
 				break;
 			default:
