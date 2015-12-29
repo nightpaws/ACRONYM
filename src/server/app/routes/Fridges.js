@@ -81,6 +81,9 @@ var fridges = function(){
          * @apiDescription
          * Add the fridge to the list of fridges the user listens to
          *
+         * @apiSuccessExample
+         * ADD THIS
+         *
          */
         .get('/listen/:id', function(req, res){
 
@@ -115,6 +118,9 @@ var fridges = function(){
          *
          * @apiDescription
          * Remove the fridge to the list of fridges the user listens to
+         *
+         * @apiSuccessExample
+         * ADD THIS
          *
          */
         .delete('/listen/:id', function(req, res){
@@ -153,6 +159,39 @@ var fridges = function(){
 		 * @apiDescription
 		 * Get a list of all the fridges the user is entitled to see
 		 *
+		 * @apiSuccessExample {json} Results
+		 *  {
+		 *      "success": true,
+		 *      "message": "",
+		 *      "meta": null,
+		 *      "result":
+		 *          [
+		 *              {
+		 *  		        "fridge_no": BARCODE,
+		 *  		        "name": PRODUCT NAME,
+		 *  		        "description": DESCRIPTION,
+		 *  		        "states": [],
+		 *  		        "contents":
+	     *  		            [
+	     *  		                "Product": PRODUCT_SCHEMA,
+	     *  		                "current_weight": 500,
+	     *  		                "date_added": 2015-12-28T17:25:35.371Z
+	     *  		            ]
+		 *               },
+		 *               {
+		 *     		        "fridge_no": BARCODE,
+		 *     		        "name": PRODUCT NAME,
+		 *     		        "description": DESCRIPTION,
+		 *  		        "states": [],
+		 *  		        "contents":
+		 *  		            [
+		 *  		                "Product": PRODUCT_SCHEMA,
+		 *  		                "current_weight": 500,
+		 *  		                "date_added": 2015-12-28T17:25:35.371Z
+		 *  		            ]
+		 *            }
+		 *          ]
+		 *  }
 		 *
 	     */
 		.get(function(req, res){
@@ -188,6 +227,26 @@ var fridges = function(){
          *
          * @apiDescription
          * Gets the fridge with the given ID
+         *
+         * @apiSuccessExample {json} Results
+         *  {
+		 *      "success": true,
+		 *      "message": "",
+		 *      "meta": null,
+		 *      "result":
+		 *          {
+		 *		        "fridge_no": BARCODE,
+		 *		        "name": PRODUCT NAME,
+		 *		        "description": DESCRIPTION,
+		 *		        "states": [],
+		 *		        "contents":
+		 *		            [
+		 *		                "Product": PRODUCT_SCHEMA,
+		 *		                "current_weight": 500,
+		 *		                "date_added": 2015-12-28T17:25:35.371Z
+		 *		            ]
+		 *          }
+		 *  }
          */
         .get(function(req,res){
             var fridge = require('../modules/Fridges/Fridges');
@@ -222,9 +281,35 @@ var fridges = function(){
 		 * @apiDescription
 		 * Get the state of a fridge of your choice
 		 *
+		 * @apiPermission user
+		 *
+		 * @apiParam {number} id The fridge to update
+		 *
+		 *
+		 *
 	     */
 		.get(function(req, res){
-			res.send('Gonna naw do that yet');
+
+			var fridge = require('../modules/Fridges/Fridges');
+
+			var promise = fridge.getState(req.params.id, req.user);
+
+			var response = responseFactory();
+
+			promise
+				.then(function(data){
+					response.setSuccessful(true);
+					response.setResult(data);
+
+					res.json(response.getResponse());
+				})
+				.fail(function(data){
+					response.setSuccessful(false);
+					response.setMessage(data);
+
+					res.json(response.getResponse());
+				});
+
 		})
 		/**
 		 *
@@ -236,10 +321,81 @@ var fridges = function(){
 		 * @apiDescription
 		 * Update the state of the fridge
 		 *
+		 * @apiPermission fridge
+		 *
+		 * @apiParam {number} id The fridge to update
+		 *
+		 * @apiParamExample {json} Request-Example
+		 * {
+		 *  "temperature": 2,
+		 *  "door": false,
+		 *  "weight": 5000
+		 * }
+		 *
+		 * @apiSuccessExample {json} Success
+		 * {
+		 *  "successful": true,
+         *  "message": null,
+         *  "meta": null,
+         *  "result": {
+         *    "_id": "56827d0145cd1064377f93cd",
+         *    "fridge_no": 15,
+         *    "name": "15",
+         *    "description": "",
+         *    "__v": 2,
+         *    "createdOn": "2015-12-29T12:30:57.094Z",
+         *    "states": [
+         *      {
+         *          "temperature": 2,
+         *          "weight": 5000,
+         *          "door": false,
+         *          "_id": "56827f3463c97e883f83ccaf",
+         *          "date": "2015-12-29T12:40:10.752Z"
+         *      },
+         *      {
+         *        "temperature": 2,
+         *        "weight": 5000,
+         *        "door": false,
+         *        "_id": "568280f1efade42c3eac0197",
+         *        "date": "2015-12-29T12:47:36.748Z"
+         *      }
+         *    ],
+         *    "contents": []
+         *  }
+		 * }
+		 *
+		 * @apiErrorExample {json} Error
+		 * {
+         *  "successful": false,
+         *  "message": "Validation error",
+         *  "meta": null,
+         *  "result": null
+		 * }
+		 *
 		 *
 	     */
 		.post(function(req, res){
-			res.send('Gonna naw do that yet');
+
+			var fridge = require('../modules/Fridges/Fridges');
+
+			var promise = fridge.updateState(req.params.id, req.body, req.user);
+
+			var response = responseFactory();
+
+			promise
+				.then(function(data){
+					response.setSuccessful(true);
+					response.setResult(data);
+
+					res.json(response.getResponse());
+				})
+				.fail(function(data){
+					response.setSuccessful(false);
+					response.setMessage(data);
+
+					res.json(response.getResponse());
+				});
+
 		});
 
     fridgeRouter.route('/:id/contents')

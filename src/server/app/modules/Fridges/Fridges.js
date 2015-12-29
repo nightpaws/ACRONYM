@@ -40,12 +40,12 @@ var fridges = {
 
 				if(err){
 					deferred.reject('Error finding your user profile');
-					return;
+					return deferred.promise;
 				}
 
 		        if(user.fridges.length === 0){
 			        deferred.resolve([]);
-			        return;
+			        return deferred.promise;
 		        }
 
 		        var fridgeModel = require('../../models/Fridge.model').fridge;
@@ -57,7 +57,7 @@ var fridges = {
 
 				        if(err){
 					        deferred.reject('Error finding your fridges');
-					        return;
+					        return deferred.promise;
 				        }
 
 				        deferred.resolve(fridges);
@@ -67,7 +67,93 @@ var fridges = {
 
         return deferred.promise;
 
-    }
+    },
+
+	updateState: function(fridge_id, state, fridge){
+
+		deferred = q.defer();
+
+		if(fridge_id != fridge.fridge_no || fridge.type != 'fridge'){
+
+			deferred.reject('You dont have permission to do that');
+			return deferred.promise;
+		}
+
+		var fridgeModel = require('../../models/Fridge.model').fridge;
+
+		fridgeModel
+			.findOne({fridge_no: fridge_id}, function(err, doc){
+
+				if(err){
+					deferred.reject('Error finding fridge');
+				}else if(doc){
+
+					var dateLimit = new Date().getTime() - 24 * 60 * 60 * 1000;
+					var states = [];
+
+					doc.states.forEach(function (item) {
+
+						var date = new Date(item.date);
+
+						console.log(date);
+
+						if( date.getTime() > dateLimit ){
+							states.push(item);
+						}
+
+					});
+
+					states.push(state);
+
+					doc.states = states;
+
+					doc.save(function(err, doc){
+
+						if(err){
+
+							if(err.name == "ValidationError"){
+								deferred.reject('Validation error');
+							}else
+								deferred.reject('Error finding fridge');
+						}else if(doc){
+
+							deferred.resolve(doc);
+
+						}else{
+							deferred.reject('Error fridge doesn\'t exist');
+						}
+
+					});
+
+				}else{
+					deferred.reject('Error fridge doesn\'t exist');
+				}
+
+			});
+
+		return deferred.promise;
+
+	},
+
+	getState: function(fridge_id, user){
+
+		var fridgeModel = require('../../models/Fridge.model').fridge;
+		deferred = q.defer();
+
+		fridgeModel.findOne({fridge_no: fridge_id}, function(err, doc){
+
+			if(err){
+				deferred.reject("Error finding fridge");
+			}else if(doc){
+				deferred.resolve(doc.states[doc.states.length -1]);
+			}else{
+				deferred.reject('fridge doesnt exist');
+			}
+		});
+
+		return deferred.promise;
+
+	}
 
 };
 
