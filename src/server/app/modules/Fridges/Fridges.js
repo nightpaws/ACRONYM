@@ -14,7 +14,10 @@ var fridges = {
         var fridgeModel = require('../../models/Fridge.model').fridge;
         deferred = q.defer();
 
-        fridgeModel.findOne({fridge_no: fridge_id}, function(err, doc){
+        fridgeModel
+	        .findOne({fridge_no: fridge_id})
+	        .populate('contents.product')
+	        .exec(function(err, doc){
 
             if(err){
                 deferred.reject("Error finding fridge");
@@ -165,7 +168,7 @@ var fridges = {
 
 	getContent: function(fridge_id, user){
 
-		var products = require('../../models/Product.model');
+		var products = require('../../models/Product.model'); //required to require for mongoose
 		var fridgeModel = require('../../models/Fridge.model').fridge;
 
 		var deferred = q.defer();
@@ -266,6 +269,121 @@ var fridges = {
 					deferred.reject('Fridge doesn\'t exit');
 				}
 
+			});
+
+
+		return deferred.promise;
+
+	},
+
+	deleteContent: function(fridge_id, content_id, user){
+
+		var products = require('../../models/Product.model'); //required to require for mongoose
+		var fridgeModel = require('../../models/Fridge.model').fridge;
+
+		var deferred = q.defer();
+
+		fridgeModel
+			.findOne({fridge_no: fridge_id})
+			.populate('contents.product')
+			.exec(function(err, doc){
+
+				if(err){
+					deferred.reject('I don\'t know go away');
+				}else if(doc){
+
+					var newContents = [],
+						found = false;
+					doc.contents.forEach(function(content){
+
+						if(content._id != content_id){
+							newContents.push(content);
+						}else{
+							found = true;
+						}
+					});
+
+					if(!found){
+						deferred.reject('Content not found');
+					}
+
+					doc.contents = newContents;
+
+					doc.save(function(err, doc){
+
+						if(err){
+							if(err.name == "ValidationError"){
+								deferred.reject('Validation error');
+							}else
+								deferred.reject('Error adding content');
+						}else if(doc){
+
+							deferred.resolve(doc.contents);
+
+						}else{
+							deferred.reject('I broke');
+						}
+
+					});
+				}
+			});
+
+
+		return deferred.promise;
+	},
+
+	updateContent: function(fridge_id, content_id, content, user){
+
+		var products = require('../../models/Product.model'); //required to require for mongoose
+		var fridgeModel = require('../../models/Fridge.model').fridge;
+
+		var deferred = q.defer();
+
+		fridgeModel
+			.findOne({fridge_no: fridge_id})
+			.populate('contents.product')
+			.exec(function(err, doc){
+
+				if(err){
+					deferred.reject('I don\'t know go away');
+				}else if(doc){
+
+					var newContents = [],
+						found = false;
+					doc.contents.forEach(function(item){
+
+						if(item._id != content_id){
+							newContents.push(item);
+						}else{
+							newContents.push(content);
+							found = true;
+						}
+
+					});
+
+					if(!found){
+						deferred.reject('Content not found to update');
+					}
+
+					doc.contents = newContents;
+
+					doc.save(function(err, doc){
+
+						if(err){
+							if(err.name == "ValidationError"){
+								deferred.reject('Validation error');
+							}else
+								deferred.reject('Error adding content');
+						}else if(doc){
+
+							deferred.resolve(doc.contents);
+
+						}else{
+							deferred.reject('I broke');
+						}
+
+					});
+				}
 			});
 
 

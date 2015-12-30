@@ -1,9 +1,9 @@
 {
   "name": "CS413: ACRONYM API",
-  "version": "0.0.1-ALPHA",
+  "version": "0.0.1-BETA",
   "description": "ACRONYM: A Complex Refrigerator and Organiser for Nutritious and Yummy Munchies",
   "title": "ACRONYM: A Complex Refrigerator and Organiser for Nutritious and Yummy Munchies",
-  "url": "https://ANIPADDRESS/api",
+  "url": "https://acronym.ovh/api",
   "order": [
     "GetApp"
   ],
@@ -19,7 +19,7 @@
   "apidoc": "0.2.0",
   "generator": {
     "name": "apidoc",
-    "time": "2015-12-22T14:15:12.800Z",
+    "time": "2015-12-30T14:22:40.700Z",
     "url": "http://apidocjs.com",
     "version": "0.13.1"
   }

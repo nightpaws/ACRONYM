@@ -6,6 +6,15 @@
     "name": "GetFridges",
     "group": "Fridges",
     "description": "<p>Get a list of all the fridges the user is entitled to see</p> ",
+    "success": {
+      "examples": [
+        {
+          "title": "Results",
+          "content": "{\n    \"success\": true,\n    \"message\": \"\",\n    \"meta\": null,\n    \"result\":\n        [\n            {\n\t\t        \"fridge_no\": BARCODE,\n\t\t        \"name\": PRODUCT NAME,\n\t\t        \"description\": DESCRIPTION,\n\t\t        \"states\": [],\n\t\t        \"contents\":\n\t\t            [\n\t\t                \"Product\": PRODUCT_SCHEMA,\n\t\t                \"current_weight\": 500,\n\t\t                \"date_added\": 2015-12-28T17:25:35.371Z\n\t\t            ]\n             },\n             {\n   \t\t        \"fridge_no\": BARCODE,\n   \t\t        \"name\": PRODUCT NAME,\n   \t\t        \"description\": DESCRIPTION,\n\t\t        \"states\": [],\n\t\t        \"contents\":\n\t\t            [\n\t\t                \"Product\": PRODUCT_SCHEMA,\n\t\t                \"current_weight\": 500,\n\t\t                \"date_added\": 2015-12-28T17:25:35.371Z\n\t\t            ]\n          }\n        ]\n}",
+          "type": "json"
+        }
+      ]
+    },
     "version": "0.0.0",
     "filename": "app/routes/Fridges.js",
     "groupTitle": "Fridges"
@@ -17,6 +26,15 @@
     "name": "Get_Fridge",
     "group": "Fridges",
     "description": "<p>Gets the fridge with the given ID</p> ",
+    "success": {
+      "examples": [
+        {
+          "title": "Results",
+          "content": " {\n     \"success\": true,\n     \"message\": \"\",\n     \"meta\": null,\n     \"result\":\n         {\n\t\t        \"fridge_no\": BARCODE,\n\t\t        \"name\": PRODUCT NAME,\n\t\t        \"description\": DESCRIPTION,\n\t\t        \"states\": [],\n\t\t        \"contents\":\n\t\t            [\n\t\t                \"Product\": PRODUCT_SCHEMA,\n\t\t                \"current_weight\": 500,\n\t\t                \"date_added\": 2015-12-28T17:25:35.371Z\n\t\t            ]\n         }\n }",
+          "type": "json"
+        }
+      ]
+    },
     "version": "0.0.0",
     "filename": "app/routes/Fridges.js",
     "groupTitle": "Fridges"
@@ -28,6 +46,37 @@
     "name": "ListenToFridge",
     "group": "Fridges",
     "description": "<p>Add the fridge to the list of fridges the user listens to</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The fridge to listen to</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "{\n \"successful\": true,\n \"message\": \"User updated\",\n \"meta\": null,\n \"result\": [\n   \"14\"\n ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error - Already listening to fridge",
+          "content": "\n{\n \"successful\": false,\n \"message\": \"Already listening to fridge\",\n \"meta\": null,\n \"result\": null\n}",
+          "type": "json"
+        }
+      ]
+    },
     "version": "0.0.0",
     "filename": "app/routes/Fridges.js",
     "groupTitle": "Fridges"
@@ -77,6 +126,37 @@
     "name": "UnlistenToFridge",
     "group": "Fridges",
     "description": "<p>Remove the fridge to the list of fridges the user listens to</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The fridge to un-listen to</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "\n{\n \"successful\": true,\n \"message\": \"User updated\",\n \"meta\": null,\n \"result\": []\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error",
+          "content": "\n{\n \"successful\": false,\n \"message\": \"You are not listening to that fridge\",\n \"meta\": null,\n \"result\": null\n}",
+          "type": "json"
+        }
+      ]
+    },
     "version": "0.0.0",
     "filename": "app/routes/Fridges.js",
     "groupTitle": "Fridges"
@@ -88,6 +168,35 @@
     "name": "addToFridgeContents",
     "group": "Fridges_Content",
     "description": "<p>Add a new item to the contents of the fridge</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The fridge id number</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request",
+          "content": "\n{\n   \"product\": {\n       \"code\": 1234567891241,\n       \"_id\": 1234567891241\n   },\n   \"current_weight\": 500\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "\n{\n \"successful\": true,\n \"message\": null,\n \"meta\": null,\n \"result\": [\n   {\n     \"product\": {\n       \"_id\": 1234567891240,\n       \"code\": 1234567891240,\n       \"__v\": 0\n    },\n     \"current_weight\": 500,\n     \"_id\": \"5682c010d03510e4037c15b7\",\n     \"date_added\": \"2015-12-29T17:17:04.788Z\"\n   },\n   {\n     \"product\": {\n       \"_id\": 1234567891241,\n       \"code\": 1234567891241,\n       \"__v\": 0\n   },\n     \"current_weight\": 500,\n     \"_id\": \"5682c0f45a3a44742351a308\",\n     \"date_added\": \"2015-12-29T17:20:52.664Z\"\n   }\n ]\n}",
+          "type": "json"
+        }
+      ]
+    },
     "version": "0.0.0",
     "filename": "app/routes/Fridges.js",
     "groupTitle": "Fridges_Content"
@@ -99,6 +208,28 @@
     "name": "getFridgeContents",
     "group": "Fridges_Content",
     "description": "<p>Get the contents of the fridge</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The fridge id</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "\n{\n \"successful\": true,\n \"message\": null,\n \"meta\": null,\n \"result\": [\n   {\n     \"product\": {\n       \"_id\": 1234567891240,\n       \"code\": 1234567891240,\n       \"__v\": 0\n    },\n     \"current_weight\": 500,\n     \"_id\": \"5682c010d03510e4037c15b7\",\n     \"date_added\": \"2015-12-29T17:17:04.788Z\"\n   },\n   {\n     \"product\": {\n       \"_id\": 1234567891241,\n       \"code\": 1234567891241,\n       \"__v\": 0\n   },\n     \"current_weight\": 500,\n     \"_id\": \"5682c0f45a3a44742351a308\",\n     \"date_added\": \"2015-12-29T17:20:52.664Z\"\n   }\n ]\n}",
+          "type": "json"
+        }
+      ]
+    },
     "version": "0.0.0",
     "filename": "app/routes/Fridges.js",
     "groupTitle": "Fridges_Content"
@@ -110,6 +241,44 @@
     "name": "removeFromFridgeContents",
     "group": "Fridges_Content",
     "description": "<p>Remove item from the contents of the fridge</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The id of the fridge</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>ObjectId</p> ",
+            "optional": false,
+            "field": "contentID",
+            "description": "<p>The id of the content</p> "
+          }
+        ]
+      }
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "\n{\n \"successful\": true,\n \"message\": null,\n \"meta\": null,\n \"result\": [\n     {\n         \"product\": {\n             \"_id\": 1234567891241,\n             \"code\": 1234567891241,\n             \"__v\": 0\n         },\n         \"current_weight\": 500,\n         \"_id\": \"5682c287e7d75e983ea76eae\",\n         \"date_added\": \"2015-12-29T17:27:35.215Z\"\n     },\n     {\n         \"product\": {\n             \"_id\": 1234567891241,\n             \"code\": 1234567891241,\n             \"__v\": 0\n         },\n         \"current_weight\": 500,\n         \"_id\": \"5682c36f599432641258e95e\",\n         \"date_added\": \"2015-12-29T17:27:35.215Z\"\n     }\n ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error",
+          "content": "\n{\n \"successful\": false,\n \"message\": \"Content not found\",\n \"meta\": null,\n \"result\": null\n}",
+          "type": "json"
+        }
+      ]
+    },
     "version": "0.0.0",
     "filename": "app/routes/Fridges.js",
     "groupTitle": "Fridges_Content"
@@ -121,6 +290,51 @@
     "name": "updateFridgeContents",
     "group": "Fridges_Content",
     "description": "<p>Update item in the contents of the fridge</p> ",
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>Number</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The id of the fridge</p> "
+          },
+          {
+            "group": "Parameter",
+            "type": "<p>ObjectId</p> ",
+            "optional": false,
+            "field": "contentID",
+            "description": "<p>The id of the content</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request",
+          "content": "\n{\n \"product\": {\n     \"_id\": 1234567891241,\n     \"code\": 1234567891241,\n     \"__v\": 0\n },\n \"current_weight\": 400,\n \"_id\": \"5682c287e7d75e983ea76eae\",\n \"date_added\": \"2015-12-29T17:27:35.215Z\"\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "\n{\n \"successful\": true,\n \"message\": null,\n \"meta\": null,\n \"result\": [\n     {\n         \"product\": {\n             \"_id\": 1234567891241,\n             \"code\": 1234567891241,\n             \"__v\": 0\n         },\n         \"current_weight\": 400,\n         \"_id\": \"5682c287e7d75e983ea76eae\",\n         \"date_added\": \"2015-12-29T17:27:35.215Z\"\n     },\n     {\n         \"product\": {\n             \"_id\": 1234567891241,\n             \"code\": 1234567891241,\n             \"__v\": 0\n         },\n         \"current_weight\": 500,\n         \"_id\": \"5682c36f599432641258e95e\",\n         \"date_added\": \"2015-12-29T17:27:35.215Z\"\n     }\n ]\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error",
+          "content": "\n{\n \"successful\": false,\n \"message\": \"Content not found to update\",\n \"meta\": null,\n \"result\": null\n}",
+          "type": "json"
+        }
+      ]
+    },
     "version": "0.0.0",
     "filename": "app/routes/Fridges.js",
     "groupTitle": "Fridges_Content"
@@ -132,6 +346,24 @@
     "name": "GetFridgeState",
     "group": "Fridges_State",
     "description": "<p>Get the state of a fridge of your choice</p> ",
+    "permission": [
+      {
+        "name": "user"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>number</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The fridge to update</p> "
+          }
+        ]
+      }
+    },
     "version": "0.0.0",
     "filename": "app/routes/Fridges.js",
     "groupTitle": "Fridges_State"
@@ -143,6 +375,49 @@
     "name": "UpdateFridgeState",
     "group": "Fridges_State",
     "description": "<p>Update the state of the fridge</p> ",
+    "permission": [
+      {
+        "name": "fridge"
+      }
+    ],
+    "parameter": {
+      "fields": {
+        "Parameter": [
+          {
+            "group": "Parameter",
+            "type": "<p>number</p> ",
+            "optional": false,
+            "field": "id",
+            "description": "<p>The fridge to update</p> "
+          }
+        ]
+      },
+      "examples": [
+        {
+          "title": "Request-Example",
+          "content": "{\n \"temperature\": 2,\n \"door\": false,\n \"weight\": 5000\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "success": {
+      "examples": [
+        {
+          "title": "Success",
+          "content": "{\n \"successful\": true,\n \"message\": null,\n \"meta\": null,\n \"result\": {\n   \"_id\": \"56827d0145cd1064377f93cd\",\n   \"fridge_no\": 15,\n   \"name\": \"15\",\n   \"description\": \"\",\n   \"__v\": 2,\n   \"createdOn\": \"2015-12-29T12:30:57.094Z\",\n   \"states\": [\n     {\n         \"temperature\": 2,\n         \"weight\": 5000,\n         \"door\": false,\n         \"_id\": \"56827f3463c97e883f83ccaf\",\n         \"date\": \"2015-12-29T12:40:10.752Z\"\n     },\n     {\n       \"temperature\": 2,\n       \"weight\": 5000,\n       \"door\": false,\n       \"_id\": \"568280f1efade42c3eac0197\",\n       \"date\": \"2015-12-29T12:47:36.748Z\"\n     }\n   ],\n   \"contents\": []\n }\n}",
+          "type": "json"
+        }
+      ]
+    },
+    "error": {
+      "examples": [
+        {
+          "title": "Error",
+          "content": "{\n \"successful\": false,\n \"message\": \"Validation error\",\n \"meta\": null,\n \"result\": null\n}",
+          "type": "json"
+        }
+      ]
+    },
     "version": "0.0.0",
     "filename": "app/routes/Fridges.js",
     "groupTitle": "Fridges_State"

@@ -510,7 +510,7 @@ var fridges = function(){
          *
          * @apiParam {Number} id The fridge id number
          *
-         * @apiParamExample {json} Reuqest
+         * @apiParamExample {json} Request
          *
          * {
 		 *    "product": {
@@ -584,9 +584,71 @@ var fridges = function(){
          *
          * @apiDescription
          * Remove item from the contents of the fridge
+         *
+         * @apiParam {Number} id The id of the fridge
+         * @apiParam {ObjectId} contentID The id of the content
+         *
+         * @apiSuccessExample {json} Success
+         *
+         * {
+         *  "successful": true,
+         *  "message": null,
+         *  "meta": null,
+         *  "result": [
+         *      {
+         *          "product": {
+         *              "_id": 1234567891241,
+         *              "code": 1234567891241,
+         *              "__v": 0
+         *          },
+         *          "current_weight": 500,
+         *          "_id": "5682c287e7d75e983ea76eae",
+         *          "date_added": "2015-12-29T17:27:35.215Z"
+         *      },
+         *      {
+         *          "product": {
+         *              "_id": 1234567891241,
+         *              "code": 1234567891241,
+         *              "__v": 0
+         *          },
+         *          "current_weight": 500,
+         *          "_id": "5682c36f599432641258e95e",
+         *          "date_added": "2015-12-29T17:27:35.215Z"
+         *      }
+         *  ]
+         * }
+         *
+         * @apiErrorExample {json} Error
+         *
+         * {
+         *  "successful": false,
+         *  "message": "Content not found",
+         *  "meta": null,
+         *  "result": null
+         * }
          */
         .delete(function(req, res){
-            res.send('Gonna naw do that yet');
+
+		    var fridge = require('../modules/Fridges/Fridges');
+
+		    var promise = fridge.deleteContent(req.params.id, req.params.contentID, req.user);
+
+		    var response = responseFactory();
+
+		    promise
+			    .then(function(data){
+				    response.setSuccessful(true);
+				    response.setResult(data);
+
+				    res.json(response.getResponse());
+			    })
+			    .fail(function(data){
+				    response.setSuccessful(false);
+				    response.setMessage(data);
+
+				    res.json(response.getResponse());
+			    });
+
         })
         /**
          *
@@ -596,9 +658,85 @@ var fridges = function(){
          *
          * @apiDescription
          * Update item in the contents of the fridge
+         *
+         * @apiParam {Number} id The id of the fridge
+         * @apiParam {ObjectId} contentID The id of the content
+         *
+         * @apiParamExample {json} Request
+         *
+         * {
+         *  "product": {
+         *      "_id": 1234567891241,
+         *      "code": 1234567891241,
+         *      "__v": 0
+         *  },
+         *  "current_weight": 400,
+         *  "_id": "5682c287e7d75e983ea76eae",
+         *  "date_added": "2015-12-29T17:27:35.215Z"
+         * }
+         *
+         * @apiSuccessExample {json} Success
+         *
+         * {
+         *  "successful": true,
+         *  "message": null,
+         *  "meta": null,
+         *  "result": [
+         *      {
+         *          "product": {
+         *              "_id": 1234567891241,
+         *              "code": 1234567891241,
+         *              "__v": 0
+         *          },
+         *          "current_weight": 400,
+         *          "_id": "5682c287e7d75e983ea76eae",
+         *          "date_added": "2015-12-29T17:27:35.215Z"
+         *      },
+         *      {
+         *          "product": {
+         *              "_id": 1234567891241,
+         *              "code": 1234567891241,
+         *              "__v": 0
+         *          },
+         *          "current_weight": 500,
+         *          "_id": "5682c36f599432641258e95e",
+         *          "date_added": "2015-12-29T17:27:35.215Z"
+         *      }
+         *  ]
+         * }
+         *
+         * @apiErrorExample {json} Error
+         *
+         * {
+         *  "successful": false,
+         *  "message": "Content not found to update",
+         *  "meta": null,
+         *  "result": null
+         * }
+         *
          */
         .post(function(req,res){
-            res.send('Gonna naw do that yet');
+
+		    var fridge = require('../modules/Fridges/Fridges');
+
+		    var promise = fridge.updateContent(req.params.id, req.params.contentID, req.body, req.user);
+
+		    var response = responseFactory();
+
+		    promise
+			    .then(function(data){
+				    response.setSuccessful(true);
+				    response.setResult(data);
+
+				    res.json(response.getResponse());
+			    })
+			    .fail(function(data){
+				    response.setSuccessful(false);
+				    response.setMessage(data);
+
+				    res.json(response.getResponse());
+			    });
+
         });
 
 
