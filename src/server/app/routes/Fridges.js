@@ -81,8 +81,27 @@ var fridges = function(){
          * @apiDescription
          * Add the fridge to the list of fridges the user listens to
          *
-         * @apiSuccessExample
-         * ADD THIS
+         * @apiParam {Number} id The fridge to listen to
+         *
+         * @apiSuccessExample {json} Success
+         * {
+		 *  "successful": true,
+		 *  "message": "User updated",
+		 *  "meta": null,
+		 *  "result": [
+		 *    "14"
+		 *  ]
+		 * }
+         *
+         * @apiErrorExample {json} Error - Already listening to fridge
+         *
+         * {
+		 *  "successful": false,
+		 *  "message": "Already listening to fridge",
+		 *  "meta": null,
+		 *  "result": null
+		 * }
+         *
          *
          */
         .get('/listen/:id', function(req, res){
@@ -119,8 +138,25 @@ var fridges = function(){
          * @apiDescription
          * Remove the fridge to the list of fridges the user listens to
          *
-         * @apiSuccessExample
-         * ADD THIS
+         * @apiParam {Number} id The fridge to un-listen to
+         *
+         * @apiSuccessExample {json} Success
+         *
+         * {
+         *  "successful": true,
+         *  "message": "User updated",
+         *  "meta": null,
+         *  "result": []
+         * }
+         *
+         * @apiErrorExample {json} Error
+         *
+         * {
+         *  "successful": false,
+         *  "message": "You are not listening to that fridge",
+         *  "meta": null,
+         *  "result": null
+         * }
          *
          */
         .delete('/listen/:id', function(req, res){
@@ -407,9 +443,61 @@ var fridges = function(){
          *
          * @apiDescription
          * Get the contents of the fridge
+         *
+         * @apiParam {Number} id The fridge id
+         *
+         * @apiSuccessExample {json} Success
+         *
+         * {
+		 *  "successful": true,
+		 *  "message": null,
+		 *  "meta": null,
+		 *  "result": [
+		 *    {
+		 *      "product": {
+		 *        "_id": 1234567891240,
+		 *        "code": 1234567891240,
+		 *        "__v": 0
+         *     },
+		 *      "current_weight": 500,
+		 *      "_id": "5682c010d03510e4037c15b7",
+		 *      "date_added": "2015-12-29T17:17:04.788Z"
+		 *    },
+		 *    {
+		 *      "product": {
+		 *        "_id": 1234567891241,
+		 *        "code": 1234567891241,
+		 *        "__v": 0
+		 *    },
+		 *      "current_weight": 500,
+		 *      "_id": "5682c0f45a3a44742351a308",
+		 *      "date_added": "2015-12-29T17:20:52.664Z"
+		 *    }
+		 *  ]
+		 *}
          */
         .get(function(req, res){
-            res.send('Gonna naw do that yet');
+
+		    var fridge = require('../modules/Fridges/Fridges');
+
+		    var promise = fridge.getContent(req.params.id, req.user);
+
+		    var response = responseFactory();
+
+		    promise
+			    .then(function(data){
+				    response.setSuccessful(true);
+				    response.setResult(data);
+
+				    res.json(response.getResponse());
+			    })
+			    .fail(function(data){
+				    response.setSuccessful(false);
+				    response.setMessage(data);
+
+				    res.json(response.getResponse());
+			    });
+
         })
         /**
          *
@@ -419,9 +507,72 @@ var fridges = function(){
          *
          * @apiDescription
          * Add a new item to the contents of the fridge
+         *
+         * @apiParam {Number} id The fridge id number
+         *
+         * @apiParamExample {json} Reuqest
+         *
+         * {
+		 *    "product": {
+		 *        "code": 1234567891241,
+		 *        "_id": 1234567891241
+		 *    },
+		 *    "current_weight": 500
+		 *}
+         *
+         * @apiSuccessExample {json} Success
+         *
+         * {
+		 *  "successful": true,
+		 *  "message": null,
+		 *  "meta": null,
+		 *  "result": [
+		 *    {
+		 *      "product": {
+		 *        "_id": 1234567891240,
+		 *        "code": 1234567891240,
+		 *        "__v": 0
+         *     },
+		 *      "current_weight": 500,
+		 *      "_id": "5682c010d03510e4037c15b7",
+		 *      "date_added": "2015-12-29T17:17:04.788Z"
+		 *    },
+		 *    {
+		 *      "product": {
+		 *        "_id": 1234567891241,
+		 *        "code": 1234567891241,
+		 *        "__v": 0
+		 *    },
+		 *      "current_weight": 500,
+		 *      "_id": "5682c0f45a3a44742351a308",
+		 *      "date_added": "2015-12-29T17:20:52.664Z"
+		 *    }
+		 *  ]
+		 *}
+         *
          */
         .put(function(req, res){
-            res.send('Gonna naw do that yet');
+
+		    var fridge = require('../modules/Fridges/Fridges');
+
+		    var promise = fridge.addContent(req.params.id, req.body, req.user);
+
+		    var response = responseFactory();
+
+		    promise
+			    .then(function(data){
+				    response.setSuccessful(true);
+				    response.setResult(data);
+
+				    res.json(response.getResponse());
+			    })
+			    .fail(function(data){
+				    response.setSuccessful(false);
+				    response.setMessage(data);
+
+				    res.json(response.getResponse());
+			    });
+
         });
 
     fridgeRouter.route('/:id/contents/:contentID')

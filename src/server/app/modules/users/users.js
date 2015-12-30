@@ -52,7 +52,7 @@ var users = {
 							if(err){
 								deferred.reject('Error finding your user profile');
 							}else{
-								deferred.resolve(user);
+								deferred.resolve(user.fridges);
 							}
 
 						});
@@ -108,7 +108,7 @@ var users = {
 							if(err){
 								deferred.reject('Error finding your user profile');
 							}else{
-								deferred.resolve(user);
+								deferred.resolve(user.fridges);
 							}
 
 						});

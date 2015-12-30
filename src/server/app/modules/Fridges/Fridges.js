@@ -69,6 +69,10 @@ var fridges = {
 
     },
 
+	/*
+	 * STATES
+	 */
+
 	updateState: function(fridge_id, state, fridge){
 
 		deferred = q.defer();
@@ -150,6 +154,120 @@ var fridges = {
 				deferred.reject('fridge doesnt exist');
 			}
 		});
+
+		return deferred.promise;
+
+	},
+
+	/*
+	 * CONTENT
+	 */
+
+	getContent: function(fridge_id, user){
+
+		var products = require('../../models/Product.model');
+		var fridgeModel = require('../../models/Fridge.model').fridge;
+
+		var deferred = q.defer();
+
+		fridgeModel
+			.findOne({fridge_no: fridge_id})
+			.populate('contents.product')
+			.exec(function(err, doc){
+
+				if(err){
+					deferred.reject('I don\'t know go away');
+				}else{
+					deferred.resolve(doc.contents);
+				}
+			});
+
+
+		return deferred.promise;
+
+	},
+
+	addContent: function(fridge_id, content, user){
+
+		var fridgeModel = require('../../models/Fridge.model').fridge;
+
+		var deferred = q.defer();
+
+		fridgeModel
+			.findOne({fridge_no: fridge_id})
+			.exec(function(err, fridgeDoc){
+
+				if(err){
+					deferred.reject('Error finding fridge');
+				}else if(fridgeDoc){
+
+					var products = require('../products/Products');
+
+					var product = {
+						barcode: content.product.code
+					};
+
+					var promise = products.addProduct(product);
+
+					var contentModel;
+
+					promise
+						.then(function(data){
+
+							console.log(data);
+
+							contentModel = {
+								product: data._id,
+								current_weight: content.current_weight
+							};
+
+
+
+						})
+						.catch((function(data){
+
+							console.log(data);
+
+							contentModel = {
+								product: content.product.code,
+								current_weight: content.current_weight
+							};
+
+						}))
+						.finally(function(){
+
+							fridgeDoc.contents.push(contentModel);
+
+							fridgeDoc.save(function(err, fridgeDoc){
+
+								if(err){
+									if(err.name == "ValidationError"){
+										deferred.reject('Validation error');
+									}else
+										deferred.reject('Error adding content');
+								}else if(fridgeDoc){
+
+									fridgeModel
+										.findOne({fridge_no: fridge_id})
+										.populate('contents.product')
+										.exec(function(err, doc){
+
+											if(err){
+												deferred.reject('I dont know go away');
+											}else{
+												deferred.resolve(doc.contents);
+											}
+										});
+								}
+							});
+						});
+
+				}else{
+					deferred.reject('Fridge doesn\'t exit');
+				}
+
+			});
+
 
 		return deferred.promise;
 

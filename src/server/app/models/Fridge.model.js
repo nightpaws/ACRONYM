@@ -6,9 +6,10 @@ var mongoose = require('mongoose');
 var config = require('../../config');
 
 var content = new mongoose.Schema({
-	Product: {
-		type: mongoose.Schema.Types.ObjectId,
-		ref: 'products',
+	product: {
+		//type: mongoose.Schema.Types.ObjectId,
+		type: Number,
+		ref: 'Product',
 		required: true
 	},
 	current_weight:{
