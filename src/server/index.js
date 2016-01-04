@@ -13,18 +13,7 @@ global.appRoot = path.resolve(__dirname) + "/app/";
 
 var credentials = {key: privateKey, cert: certificate};
 
-if(config.ssl.https){
+var httpsServer = https.createServer(credentials, app);
 
-	var httpServer = http.createServer(function (req, res) {
-		res.writeHead(301, { "Location": "https://" + req.headers['host'] +":" + config.ports.https + req.url });
-		res.end();
-	});
-	var httpsServer = https.createServer(credentials, app);
-
-	httpServer.listen(config.ports.http);
-	httpsServer.listen(config.ports.https);
-}else{
-	var httpServer = http.createServer(app);
-
-	httpServer.listen(config.ports.http);
-}
+//Ensure that Node server can only be accessed internally or via Nginx forward
+httpsServer.listen(config.ports.https, '127.0.0.1');
