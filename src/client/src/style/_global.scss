@@ -30,6 +30,11 @@ html, body, .full-height{
   cursor: pointer;
 }
 
+.scrollable{
+  height: 100%;
+  overflow-y: auto;
+}
+
 /*
  * Loading page
  */
@@ -133,4 +138,30 @@ html, body, .full-height{
 	box-shadow: 0 -2em #ffffff;
 	height: 5em;
   }
+}
+
+/*
+ * Modal css
+ */
+
+.modal-dialog{
+  margin-top: 4.2rem;
+}
+
+.modal-content{
+  border-radius: 0;
+}
+
+/*
+ * Tiles
+ */
+
+.tile{
+  padding: 1rem;
+  border-bottom: 1px solid #eee;
+}
+
+.tile-title{
+  font-size: 1.2rem;
+  padding-bottom: 0.5rem;
 }

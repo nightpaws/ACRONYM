@@ -1,0 +1,14 @@
+<div id="fridges-edit">
+	<h1>TITLE HERE GO</h1>
+	<form name="editFridgeForm" ng-submit="save(editFridgeForm.$invalid)" novalidate>
+		<div class="form-group" ng-class="{'has-error': editFridgeForm.name.$invalid && editFridgeForm.name.$touched}">
+			<label class="control-label" for="name">Fridge Name</label>
+			<input type="text" class="form-control" id="name" name="name" placeholder="Fridge name" ng-model="fridge.name" required>
+		</div>
+		<div class="form-group">
+			<label class="control-label" for="description">Fridge Description</label>
+			<textarea class="form-control" name="description" id="description" rows="3" placeholder="Description" ng-model="fridge.description"></textarea>
+		</div>
+		<button type="submit" class="btn btn-default" ng-disabled="!editFridgeForm.$valid">Update Fridge</button>
+	</form>
+</div>

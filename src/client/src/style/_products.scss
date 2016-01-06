@@ -3,6 +3,11 @@
   .control{
 	border-bottom: 1px solid #eee;
 	height: 2.5rem;
+	position: relative;
+
+	label, button{
+	  display: none;
+	}
   }
 
   #searchStringafter{
@@ -13,6 +18,7 @@
 	border: none;
 	border-right: 1px solid #eee;
 	height: calc( #{2.5rem} - 1px);
+	width: calc(100% - #{2.5rem});
   }
 
   #searchStringafter:after{
@@ -23,6 +29,10 @@
 	position: absolute;
 	top: 0.5rem;
 	right: calc(#{2.5rem} + 0.75rem);
+  }
+
+  .form-group{
+	width: 100%;
   }
 
   #products-add-new{
@@ -43,6 +53,16 @@
 	content: '\e901';
   }
 
+  .products-result{
+	padding: 1rem;
+	border-bottom: 1px solid #eee;
+
+	h3{
+	  font-size: 1.4rem;
+	  padding-bottom: 0.8rem;
+	}
+  }
+
 }
 
 #products-edit{
@@ -53,19 +73,27 @@
   }
 }
 
-@media screen and (min-width: 300px) {
+#products-view{
 
-  #products{
+  h1{
+	margin-bottom: 0.5rem;
+  }
 
-	.control{
-	  label, button{
-		display: none;
-	  }
-
-	  #searchString{
-		width: calc(100% - #{2.5rem})
-	  }
+  #products-info{
+	table{
+	  line-height: 1.4;
+	  font-size: 1rem;
 	}
 
+	td:last-of-type:before{
+	  content: '-';
+	  padding: 0 1rem;
+	}
   }
+
+  button{
+	width: 100%;
+	margin: 2rem 0;
+  }
+
 }

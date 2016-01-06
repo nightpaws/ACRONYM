@@ -15,34 +15,38 @@ angular.module('products')
 
 			var timer;
 			$scope.isFirst = true;
-			if(deviceDetector.isMobile()){
+			$scope.$watch('searchString', function(){
 
+				if($scope.isFirst){
+					$scope.isFirst = false;
+					return;
+				}
 
+				if(timer) $timeout.cancel(timer);
 
-				$scope.$watch('searchString', function(){
+				timer = $timeout(function(){
 
-					if($scope.isFirst){
-						$scope.isFirst = false;
-						return;
-					}
+					$scope.search();
 
-					if(timer) $timeout.cancel(timer);
-
-					timer = $timeout(function(){
-
-						$scope.search();
-
-					}, 1200);
-				});
-			}
+				}, 1200);
+			});
 
 			$scope.search = function () {
+
+				if($scope.searchString == $scope.usedSearchString){
+
+				}else{
+					number = 0;
+					$scope.products = [];
+				}
 
 				if(!$scope.searchString){
 					$scope.usedSearchString = '*';
 				}else{
 					$scope.usedSearchString = $scope.searchString;
 				}
+
+
 
 				requestHelper.search($scope.usedSearchString, number)
 					.then(function(data){

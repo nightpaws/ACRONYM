@@ -9,27 +9,61 @@ var config = require('../../../config');
 
 var fridges = {
 
-    getFridge: function(fridge_id){
+	getFridge: function(fridge_id){
 
-        var fridgeModel = require('../../models/Fridge.model').fridge;
-        deferred = q.defer();
+		var products = require('../../models/Product.model'); //required to require for mongoose
+		var fridgeModel = require('../../models/Fridge.model').fridge;
+		deferred = q.defer();
 
-        fridgeModel
-	        .findOne({fridge_no: fridge_id})
-	        .populate('contents.product')
-	        .exec(function(err, doc){
+		fridgeModel
+			.findOne({fridge_no: fridge_id})
+			.populate('contents.product')
+			.exec(function(err, doc){
 
-            if(err){
-                deferred.reject("Error finding fridge");
-            }else if(doc){
-                deferred.resolve(doc);
-            }else{
-	            deferred.reject('fridge doesnt exist');
-            }
-        });
+				if(err){
+					deferred.reject("Error finding fridge");
+				}else if(doc){
+					deferred.resolve(doc);
+				}else{
+					deferred.reject('fridge doesnt exist');
+				}
+			});
 
-        return deferred.promise;
-    },
+		return deferred.promise;
+	},
+
+	updateFridge: function(fridge_id, update){
+
+		var fridgeModel = require('../../models/Fridge.model').fridge;
+		deferred = q.defer();
+
+		fridgeModel
+			.findOne({fridge_no: fridge_id})
+			.exec(function(err, doc){
+
+				if(err){
+					deferred.reject("Error finding fridge");
+				}else if(doc){
+
+					doc.name = update.name;
+					doc.description = update.description;
+
+					doc.save(function(err, doc){
+
+						if(err){
+							deferred.reject("Error finding fridge");
+						}else{
+							deferred.resolve(doc);
+						}
+					});
+
+				}else{
+					deferred.reject('fridge doesnt exist');
+				}
+			});
+
+		return deferred.promise;
+	},
 
     getFridges: function(user) {
 

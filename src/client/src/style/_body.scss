@@ -49,7 +49,7 @@ main{
   }
 
   main.cancel-header{
-	width: 100% !important;
+	width: calc(100% - 250px) !important;
   }
 
 }

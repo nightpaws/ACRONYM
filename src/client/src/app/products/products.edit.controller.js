@@ -41,7 +41,7 @@ angular.module('products')
 
 			if(invalid) return;
 
-			method($scope.product)
+			method($stateParams.id, $scope.product)
 				.then(function(data){
 
 					if(data.data.successful){

@@ -12,7 +12,7 @@
 		</div>
 	</div>
 	<div id="products-results" infinite-scroll='search()' infinite-scroll-distance='2'>
-		<div ng-repeat="(key, product) in products" ng-click="goTo(product._id)">
+		<div id="" class="products-result clickable" ng-repeat="(key, product) in products" ng-click="goTo(product._id)">
 			<h3>{{product.name}}</h3>
 			<p>{{product.description}}</p>
 		</div>

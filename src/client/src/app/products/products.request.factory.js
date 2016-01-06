@@ -23,7 +23,7 @@ angular.module('products')
 			})
 		};
 
-		requestHelper.add = function(product){
+		requestHelper.add = function(id, product){
 
 			var url = config.API_URL + '/products';
 
@@ -35,7 +35,15 @@ angular.module('products')
 
 		};
 
-		requestHelper.update = function (product){
+		requestHelper.update = function (id, product){
+
+			var url = config.API_URL + '/products/' + id;
+
+			return $http({
+				method: 'POST',
+				url: url,
+				data: product
+			})
 
 		};
 

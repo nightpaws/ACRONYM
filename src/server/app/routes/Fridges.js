@@ -304,7 +304,59 @@ var fridges = function(){
 
                     res.json(response.getResponse());
                 });
-        });
+        })
+	    /**
+	     *
+	     * @api {post} /fridges/:id Update Fridge
+	     * @apiName Update Fridge
+	     * @apiGroup Fridges
+	     *
+	     * @apiDescription
+	     * Updates the fridge with the given ID
+	     *
+	     * @apiSuccessExample {json} Results
+	     *  {
+		 *      "success": true,
+		 *      "message": "",
+		 *      "meta": null,
+		 *      "result":
+		 *          {
+		 *		        "fridge_no": BARCODE,
+		 *		        "name": PRODUCT NAME,
+		 *		        "description": DESCRIPTION,
+		 *		        "states": [],
+		 *		        "contents":
+		 *		            [
+		 *		                "Product": PRODUCT_SCHEMA,
+		 *		                "current_weight": 500,
+		 *		                "date_added": 2015-12-28T17:25:35.371Z
+		 *		            ]
+		 *          }
+		 *  }
+	     */
+	    .post(function(req,res){
+
+		    var fridge = require('../modules/Fridges/Fridges');
+
+		    var promise = fridge.updateFridge(req.params.id, req.body);
+
+		    var response = responseFactory();
+
+		    promise
+			    .then(function(data){
+				    response.setSuccessful(true);
+				    response.setResult(data);
+
+				    res.json(response.getResponse());
+			    })
+			    .fail(function(data){
+				    response.setSuccessful(false);
+				    response.setMessage(data);
+
+				    res.json(response.getResponse());
+			    });
+
+	    });
 
 	fridgeRouter.route('/:id/state/')
 		/**

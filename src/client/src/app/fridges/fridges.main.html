@@ -1,0 +1,33 @@
+<div id="fridges">
+	<div class="control">
+		<div id="fridges-add">
+			<p id="fridges-add-new" ng-click="add()"></p>
+		</div>
+	</div>
+	<div id="products-results" class="scrollable" infinite-scroll='search()' infinite-scroll-distance='2'>
+		<div ng-repeat="(key, fridge) in fridges | orderBy: 'name'" ng-click="goTo(fridge.fridge_no)" class="fridge-result clickable">
+			<h3>{{fridge.name}}</h3>
+			<p>{{fridge.description}}</p>
+		</div>
+	</div>
+
+	<script type="text/ng-template" id="addFridge.html">
+		<div class="modal-header">
+			<h3 class="modal-title">Add a new Fridge</h3>
+		</div>
+		<form name="addFridgeForm" ng-submit="save(addFridgeForm.$invalid)" novalidate>
+			<div class="modal-body">
+
+					<div class="form-group" ng-class="{'has-error': addFridgeForm.name.$invalid && addFridgeForm.name.$touched}">
+						<label class="control-label" for="id">Fridge ID</label>
+						<input type="Number" class="form-control" id="id" name="id" placeholder="Fridge ID" ng-model="id" required>
+					</div>
+			</div>
+			<div class="modal-footer">
+				<button class="btn btn-primary" type="button" ng-click="ok()" ng-disabled="!addFridgeForm.$valid">Add Fridge</button>
+				<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+			</div>
+		</form>
+	</script>
+
+</div>

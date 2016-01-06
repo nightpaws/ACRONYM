@@ -22,8 +22,8 @@ var Auth = {
 			fridge_no: fridge_no,
 			contents: [],
 			states: [],
-			name: fridge_no,
-			description: ''
+			name: 'Unnamed Fridge - Number ' + fridge_no,
+			description: 'No Description Added'
 
 		});
 

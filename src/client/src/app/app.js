@@ -3,7 +3,7 @@
  */
 
 var app = angular.module('CS413', ['CS413.config', 'ui.router', 'ui.bootstrap', 'user', 'general', 'LocalStorageModule', 'ngAnimate', 'toastr',
-						'polyfill', 'ng.deviceDetector', 'header', 'interceptors', 'fridges', 'products', 'nav', 'infinite-scroll']);
+						'polyfill', 'ng.deviceDetector', 'header', 'interceptors', 'fridges', 'products', 'nav', 'infinite-scroll', 'angular-chartist']);
 
 app.config(['$stateProvider', '$locationProvider', '$urlMatcherFactoryProvider', '$urlRouterProvider', function($stateProvider, $locationProvider, $urlMatcherFactory, $urlRouterProvider) {
 
@@ -47,7 +47,7 @@ app.config(['$stateProvider', '$locationProvider', '$urlMatcherFactoryProvider',
 					controller: 'nav'
 				},
 				'main': {
-					template: '<div ui-view></div> '
+					template: '<div ui-view style="height: 100%"></div> '
 				}
 			}
 		})

@@ -1,13 +1,24 @@
 <div id="products-view">
-	<h1>{{product.name}}</h1>
-	<div>
-		<p>Description</p>
-		<p>{{product.description}}</p>
+	<div class="tile">
+		<h1>{{product.name}}</h1>
+		<div>
+			<p class="tile-title">Description</p>
+			<p>{{product.description}}</p>
+		</div>
 	</div>
-	<ul>
-		<li><span>Weight: </span>{{product.weight}} g</li>
-		<li><span>Barcode: </span>{{product.code}}</li>
-	</ul>
+	<div class="tile" id="products-info">
+		<p class="tile-title">Product Information</p>
+		<table>
+			<tr>
+				<td>Weight</td>
+				<td>{{product.weight}} g</td>
+			</tr>
+			<tr>
+				<td>Barcode</td>
+				<td>{{product.code}}</td>
+			</tr>
+		</table>
+	</div>
 
-	<button ng-click="editProduct()">Edit</button>
+	<button class="btn btn-default" ng-click="editProduct()">Edit</button>
 </div>

@@ -1,0 +1,67 @@
+<div id="fridge-view" class="scrollable">
+	<div class="tile">
+		<h1>{{fridge.name}}</h1>
+		<div id="fridge-graph">
+			<div id="fridge-graph-no-data" ng-class="{'no-display': !(graph.noData || graph.notEnoughData)}">
+				<p ng-class="{'no-display': !graph.noData}">No Available Data</p>
+				<p ng-class="{'no-display': !graph.notEnoughData}">Not Enough Data</p>
+			</div>
+			<div id="fridge-graph-content" ng-class="{'no-display': graph.noData || graph.notEnoughData}">
+				<chartist class="ct-chart" chartist-data="graph.data" chartist-chart-type="Line"
+				          chartist-chart-options="graph.options",
+				          chartist-responsive-options="graph.responsiveOptions"></chartist>
+			</div>
+		</div>
+		<div id="fridge-description">
+			<p class="tile-title">Description</p>
+			<p>{{fridge.description}}</p>
+		</div>
+	</div>
+	<div class="tile" id="fridge-state">
+		<p class="tile-title">Current State</p>
+		<table>
+			<tr>
+				<td>Temperature</td>
+				<td>{{fridge.state.temperature}} &#8451</td>
+			</tr>
+			<tr>
+				<td>Door State</td>
+				<td ng-if="fridge.state.door">Open</td>
+				<td ng-if="!fridge.state.door">Closed</td>
+			</tr>
+			<tr>
+				<td>Weight</td>
+				<td>{{fridge.state.weight}} g</td>
+			</tr>
+		</table>
+	</div>
+	<div class="tile" id="fridge-contents" ng-class="{'small': fridge.contents.length === 0}">
+		<p class="tile-title">Contents</p>
+		<div class="well" >
+			<div ng-if="fridge.contents.length === 0">
+				<p>Your Fridge is empty</p>
+				<p>Add something?!</p>
+			</div>
+			<ul ng-if="fridge.contents.length != 0" >
+				<li>
+					<div class="content clickable" ng-repeat="(key, content) in fridge.contents" ng-click="goToProduct(content.product._id)">
+						<p>{{content.product.name}}</p>
+						<table>
+							<tr>
+								<td>Date Added</td>
+								<td>{{content.readableDate}}</td>
+							</tr>
+							<tr>
+								<td>Weight</td>
+								<td>{{content.current_weight}} g</td>
+							</tr>
+						</table>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</div>
+
+
+	<button class="btn btn-default" ng-click="edit()">Edit</button>
+</div>
