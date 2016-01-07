@@ -285,7 +285,42 @@ var fridges = {
 						})
 						.catch((function(data){
 
-							deferred.reject(data);
+							if(data === 'Product Already Exists'){
+
+								contentModel = {
+									product: content.product.code,
+									current_weight: content.current_weight
+								};
+
+								fridgeDoc.contents.push(contentModel);
+
+								fridgeDoc.save(function(err, fridgeDoc){
+
+									if(err){
+										if(err.name == "ValidationError"){
+											deferred.reject('Validation error');
+										}else
+											deferred.reject('Error adding content');
+									}else if(fridgeDoc){
+
+										fridgeModel
+											.findOne({fridge_no: fridge_id})
+											.populate('contents.product')
+											.exec(function(err, doc){
+
+												if(err){
+													deferred.reject('I dont know go away');
+												}else{
+													deferred.resolve(doc.contents);
+												}
+											});
+									}
+								});
+
+							}else{
+								deferred.reject(data);
+							}
+
 
 						}))
 						.finally(function(){
