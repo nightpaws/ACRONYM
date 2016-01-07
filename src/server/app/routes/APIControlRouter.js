@@ -18,6 +18,9 @@ var APIControl = function(){
 	var productRouter = require('./Products')();
 	APIControl.use('/products', productRouter);
 
+	var dashRouter = require('./Dash')();
+	APIControl.use('/dashboard', dashRouter);
+
 	APIControl.use('*', function(req, res){
 
 		res.status(404).send('api not found');

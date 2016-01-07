@@ -3,7 +3,7 @@
  */
 
 var app = angular.module('CS413', ['CS413.config', 'ui.router', 'ui.bootstrap', 'user', 'general', 'LocalStorageModule', 'ngAnimate', 'toastr',
-						'polyfill', 'ng.deviceDetector', 'header', 'interceptors', 'fridges', 'products', 'nav', 'infinite-scroll', 'angular-chartist']);
+						'polyfill', 'ng.deviceDetector', 'header', 'interceptors', 'fridges', 'products', 'nav', 'dashboard', 'infinite-scroll', 'angular-chartist']);
 
 app.config(['$stateProvider', '$locationProvider', '$urlMatcherFactoryProvider', '$urlRouterProvider', function($stateProvider, $locationProvider, $urlMatcherFactory, $urlRouterProvider) {
 
@@ -15,25 +15,6 @@ app.config(['$stateProvider', '$locationProvider', '$urlMatcherFactoryProvider',
 	$urlRouterProvider.otherwise('/page-not-found');
 
 	$stateProvider
-		.state('dashboard', {
-			url: '/',
-			views: {
-				'header': {
-					templateUrl: 'app/header/header.html',
-					controller: 'header.controller'
-				},
-				'nav': {
-					templateUrl: 'app/nav/nav.html',
-					controller: 'nav'
-				},
-				'main': {
-					template: '<div style="padding: 4rem 1rem;"><h1 style="text-align: center">Welcome to the pretty dashboard</h1></div> '
-				}
-			},
-			onEnter: function($rootScope){
-				$rootScope.app.stateTitle = 'Dashboard';
-			}
-		})
 		.state('page', {
 			url: '/',
 			abstract: true,

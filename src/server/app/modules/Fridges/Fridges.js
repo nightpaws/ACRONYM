@@ -251,27 +251,10 @@ var fridges = {
 					promise
 						.then(function(data){
 
-							console.log(data);
-
 							contentModel = {
 								product: data._id,
 								current_weight: content.current_weight
 							};
-
-
-
-						})
-						.catch((function(data){
-
-							console.log(data);
-
-							contentModel = {
-								product: content.product.code,
-								current_weight: content.current_weight
-							};
-
-						}))
-						.finally(function(){
 
 							fridgeDoc.contents.push(contentModel);
 
@@ -297,6 +280,17 @@ var fridges = {
 										});
 								}
 							});
+
+
+						})
+						.catch((function(data){
+
+							deferred.reject(data);
+
+						}))
+						.finally(function(){
+
+
 						});
 
 				}else{

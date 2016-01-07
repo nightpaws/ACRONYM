@@ -16,8 +16,14 @@ var product = new mongoose.Schema({
 		required: true,
 		unique: true
 	},
-	name: String,
-	description: String,
+	name: {
+		type: String,
+		default: 'Unnamed Product'
+	},
+	description:{
+		type: String,
+		default: '-'
+	},
 	weight: Number
 });
 

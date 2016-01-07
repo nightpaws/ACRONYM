@@ -16,10 +16,15 @@ var products = {
 		var productDAO = new productModel({
 			_id: product.barcode,
 			code: product.barcode,
-			name: product.name,
-			weight: product.weight,
-			description: product.description
+			weight: product.weight
 		});
+
+		if(product.name){
+			productDAO.name = product.name;
+		}
+		if(product.description){
+			productDAO.description = product.description;
+		}
 
 		productDAO.save(function(err, doc){
 

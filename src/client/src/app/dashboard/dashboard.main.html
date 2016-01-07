@@ -1,0 +1,37 @@
+<div id="dashboard-main" class="scrollable">
+	<div class="tile" id="dashboard-welcome">
+		<h1>Welcome to the pretty dashboard</h1>
+		<div class="clickable">
+			<a ui-serf="page.fridges" class="">Your fridges</a>
+			<a ui-serf="page.products" class="">The Products</a>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="tile" id="dashboard-alerts">
+					<p class="tile-title">Alerts</p>
+					<div class="well scrollable">
+						<ul>
+							<li class="clickable content" ng-repeat="wrn in warnings.fridge" ui-sref="page.fridgesView({id: wrn.fridge_no})">
+								<p>{{wrn.fridge_name}}</p>
+								<p>{{wrn.message}}</p>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6"><div class="tile" id="dashboard-contents">
+				<p class="tile-title">Content Warnings</p>
+				<div class="well scrollable">
+					<ul>
+						<li class="clickable content" ng-repeat="wrn in warnings.content | limitTo: 4" ui-sref="page.productsView({id: wrn.object.content.product.code})">
+							<p>{{wrn.object.content.product.name}}</p>
+							<p>{{wrn.message}}</p>
+						</li>
+					</ul>
+				</div>
+			</div></div>
+		</div>
+	</div>
+</div>

@@ -21,12 +21,12 @@ var users = {
 
 				if(err){
 					deferred.reject('Error listening to fridge');
-					return;
+					return deferred.promise;
 				}
 
 				if(!fridge){
 					deferred.reject('Fridge doesn\'t exist!');
-					return;
+					return deferred.promise;
 				}
 
 				var userModel = require('../../models/User.model');
@@ -37,14 +37,14 @@ var users = {
 
 						if(err){
 							deferred.reject('Error finding your user profile');
-							return;
+							return deferred.promise;
 						}
 
 						if(user.fridges.indexOf(fridge_id) === -1){
 							user.fridges = user.fridges.concat([fridge_id]);
 						}else{
 							deferred.reject('Already listening to fridge');
-							return;
+							return deferred.promise;
 						}
 
 						user.save(function (err, user) {
@@ -74,12 +74,12 @@ var users = {
 
 				if(err){
 					deferred.reject('Error delistening to fridge');
-					return;
+					return deferred.promise;
 				}
 
 				if(!fridge){
 					deferred.reject('Fridge doesn\'t exist!');
-					return;
+					return deferred.promise;
 				}
 
 				var userModel = require('../../models/User.model');
@@ -90,12 +90,12 @@ var users = {
 
 						if(err){
 							deferred.reject('Error finding your user profile');
-							return;
+							return deferred.promise;
 						}
 
 						if(user.fridges.indexOf(fridge_id) === -1){
 							deferred.reject('You are not listening to that fridge');
-							return;
+							return deferred.promise;
 						}else{
 
 							var index = user.fridges.indexOf(fridge_id);
