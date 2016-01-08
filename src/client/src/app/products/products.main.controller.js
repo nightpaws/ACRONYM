@@ -101,7 +101,7 @@ angular.module('products')
 
 					if(item.description && item.description.length > 100){
 
-						item.description = item.description.subString(0, 100) + '...';
+						item.description = item.description.substring(0, 100) + '...';
 					}
 
 
