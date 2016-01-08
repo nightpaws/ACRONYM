@@ -17,6 +17,9 @@ angular.module('dashboard')
 					toastr.error(data.data.message, 'Error');
 				}else{
 
+					$scope.no_fridges = data.data.meta.no_fridges;
+					$scope.no_contents = data.data.meta.no_contents;
+
 					contentWarnings = [1031, 1032];
 					fridgeWarnings = [1001, 1011, 1012, 1021];
 

@@ -14,7 +14,7 @@
 	<img ng-src="{{imageurl}}" class="clickable" ng-click="toggleUserMenu()">
 </div>
 <div id="header-user-menu" ng-class="{'no-display': !showUserMenu}">
-	<ul class="clickable" >
+	<ul class="clickable" ng-click="toggleUserMenu()">
 		<li ui-sref="page.userprofile">Profile</li>
 		<li ng-click="logout()">Logout</li>
 	</ul>

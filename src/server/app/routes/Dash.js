@@ -57,7 +57,8 @@ var dash = function() {
 				.then(function(data){
 
 					response.setSuccessful(true);
-					response.setResult(data);
+					response.setMeta(data.meta);
+					response.setResult(data.warnings);
 
 					res.json(response.getResponse());
 

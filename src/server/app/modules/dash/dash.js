@@ -28,7 +28,18 @@ var dash = {
 					deferred.reject('Error finding your user profile');
 				}else{
 
-					var warnings = [];
+					var response = {
+						warnings: [],
+						meta: {}
+					};
+
+					response.meta.no_fridges = user.fridges.length;
+					response.meta.no_contents = 0;
+
+					if(user.fridges.length === 0){
+						deferred.resolve(response);
+					}
+
 					var fail = false;
 
 					var at = 0;
@@ -36,14 +47,15 @@ var dash = {
 
 						var fridge = user.fridges[i];
 
-						checkFridgeInfo(fridge, function(err, list){
+
+
+
+						checkFridgeInfo(fridge, response, function(err, list){
 
 							if(err){
-								fail = true;
-							}
-
-							else{
-								warnings = warnings.concat(list);
+								deferred.reject('Error checking fridges');
+							}else{
+								response.warnings = response.warnings.concat(list);
 							}
 
 							if(++at === user.fridges.length){
@@ -51,7 +63,7 @@ var dash = {
 								if(fail){
 									deferred.reject('Error checking fridges');
 								}else{
-									deferred.resolve(warnings);
+									deferred.resolve(response);
 								}
 
 							}
@@ -71,7 +83,7 @@ var dash = {
 
 };
 
-function checkFridgeInfo(fridge_id, next){
+function checkFridgeInfo(fridge_id, response, next){
 
 	var fridgeModel = require('../../models/Fridge.model').fridge;
 	require('../../models/Product.model');
@@ -124,6 +136,8 @@ function checkFridgeInfo(fridge_id, next){
 			}
 
 			if(fridge.contents.length > 0){
+
+				response.meta.no_contents += fridge.contents.length;
 
 				fridge.contents.forEach(function(content){
 

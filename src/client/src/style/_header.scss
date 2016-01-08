@@ -52,7 +52,7 @@ header{
 
 	img{
 	  width: $header-height;
-	  height: $header-height;
+	  height: calc( #{$header-height} - 1px );
 	}
   }
 

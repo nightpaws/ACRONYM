@@ -84,11 +84,22 @@ var app = function(){
 	//Got here? well we have no fucking idea what you want! have the index, the app will deal with your 404
     app.use('*', function(req, res, next){
 
-	    if(req.originalUrl.indexOf('dashboard')){
+	    console.log(req.originalUrl);
+	    console.log(req.url);
+
+	    if(req.originalUrl.indexOf('dashboard') !== -1){
+
+		    console.log('send the fucking app');
+
 		    var path = require('path');
 		    res.sendFile(path.resolve('public/dashboard/index.html'));
 	    }else{
-		    res.redirect('https://acronym.ovh/dashobaord/page-not-found');
+
+		    console.log('redirect the fucker');
+
+		    //res.redirect('https://google.com');
+
+		    res.redirect('https://acronym.ovh/dashboard/page-not-found');
 	    }
 
     });

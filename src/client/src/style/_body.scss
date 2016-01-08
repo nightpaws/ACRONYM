@@ -3,7 +3,7 @@
   position: relative;
   top: $header-height;
   transform: translateX(0);
-  transition: all 0.5s ease;
+  transition: transform 0.5s ease;
 }
 
 #body-wrapper.show-menu{
@@ -43,13 +43,12 @@ main{
   }
 
 
-
-  main{
-	width: calc(100% - #{$nav-width});
+  main.cancel-header{
+	width: 100% !important;
   }
 
-  main.cancel-header{
-	width: calc(100% - 250px) !important;
+  main{
+    width: calc(100% - 250px) !important;
   }
 
 }

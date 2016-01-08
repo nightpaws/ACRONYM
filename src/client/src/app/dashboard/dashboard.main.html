@@ -18,6 +18,14 @@
 								<p>{{wrn.message}}</p>
 							</li>
 						</ul>
+						<div class="warnings-info" id="no-fridges" ng-if="no_fridges === 0">
+							<p>You don't have any fridges</p>
+							<p>Try adding some!</p>
+						</div>
+						<div class="warnings-info" id="no-fridge-alerts" ng-if="warnings.fridge.length === 0 && no_fridges !== 0">
+							<p>No Alerts</p>
+							<p>Congrats on your perfect fridges!</p>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -30,6 +38,18 @@
 							<p>{{wrn.message}}</p>
 						</li>
 					</ul>
+					<div class="warnings-info" id="no-contents-fridges" ng-if="no_fridges === 0">
+						<p>You don't have any fridges</p>
+						<p>Try adding some to add products!</p>
+					</div>
+					<div class="warnings-info" id="no-contents" ng-if="no_contents === 0 && no_fridges !== 0">
+						<p>Your fridges are all empty</p>
+						<p>Try adding something!</p>
+					</div>
+					<div class="warnings-info" id="no-contents-alerts" ng-if="warnings.contents.length === 0 && no_contents !== 0 && no_fridges !== 0">
+						<p>No Alerts</p>
+						<p>Congrats on your perfect products!</p>
+					</div>
 				</div>
 			</div></div>
 		</div>

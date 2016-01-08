@@ -53,6 +53,13 @@
 	content: '\e901';
   }
 
+  #products-results{
+	height: calc(100% - 40px);
+	overflow-y: auto;
+	width: calc(100% - 250px);
+	position: fixed;
+  }
+
   .products-result{
 	padding: 1rem;
 	border-bottom: 1px solid #eee;
@@ -67,6 +74,10 @@
 
 #products-edit{
   padding: 1rem 0;
+
+  h1{
+	margin-bottom: 2rem;
+  }
 
   button{
 	width: 100%;

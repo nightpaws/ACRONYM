@@ -1,5 +1,5 @@
 <div id="fridges-edit">
-	<h1>TITLE HERE GO</h1>
+	<h1>Editing: {{product.name}}</h1>
 	<form name="editFridgeForm" ng-submit="save(editFridgeForm.$invalid)" novalidate>
 		<div class="form-group" ng-class="{'has-error': editFridgeForm.name.$invalid && editFridgeForm.name.$touched}">
 			<label class="control-label" for="name">Fridge Name</label>

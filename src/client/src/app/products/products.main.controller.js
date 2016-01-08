@@ -7,7 +7,7 @@ angular.module('products')
 		function($scope, deviceDetector, $timeout, requestHelper, $state, toastr){
 
 			$scope.searchString = "";
-			$scope.usedSearchString = "";
+			$scope.usedSearchString = "*";
 			$scope.products = [];
 			var number = 0;
 			var stopSearching = false;
@@ -109,5 +109,7 @@ angular.module('products')
 
 				$scope.products = $scope.products.concat(products);
 			}
+
+			$scope.search();
 
 	}]);
