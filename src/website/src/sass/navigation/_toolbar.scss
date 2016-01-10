@@ -1,0 +1,63 @@
+$navhover: $trinary;
+$navtext: #ffffff;
+
+header{
+	a{
+		text-decoration: none;
+		color: white;
+	}
+	a:hover{
+		text-decoration: none;
+		color: white;
+	}
+	a:visited{
+		text-decoration: none;
+		color: white;
+	}
+}
+
+#nav{
+	background: $secondarybackground;
+	color: $navtext;
+	text-transform: uppercase;
+	padding: 20px;
+	text-align: center;
+	ul{
+
+		li{
+
+				display: inline-block;
+				text-align: center;
+				border-right: 1px solid $navtext;
+				a{
+					transition: color 0.5s ease;
+					text-decoration: none;
+					padding-left: 15px;
+					padding-right: 15px;
+				}
+
+				a:hover{
+					color: $navhover;
+				}
+				&:last-child{
+					border-right: none;
+				}
+
+		}
+
+		ul {
+			display:none;
+		}
+		li:hover ul {
+			display:block;
+		}
+		li:hover ul li {
+			float:none;
+		}
+		li ul {
+			position:absolute;
+		}
+		
+	}
+}
+

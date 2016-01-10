@@ -1,0 +1,205 @@
+h1 {
+    font-family: $main-font_bold;
+    font-size: 3.4em;
+}
+
+h2 {
+    font-family: $main-font_bold;
+    font-size: 2.8em;
+}
+
+h3 {
+    font-family: $main-font_bold;
+    font-size: 2em;
+}
+
+h4 {
+    font-family: $main-font_bold;
+    font-size: 1.8em;
+}
+
+h5 {
+    font-family: $main-font_bold;
+    font-size: 1.4em;
+}
+
+h6 {
+    font-family: $main-font_bold;
+    font-size: 1.2em;
+}
+
+h4 {}
+
+h5 {}
+
+h6 {}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:visited {
+    color: inherit;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+body {
+    font-family: $main-font;
+    background-color: $secondarybackground;
+    color: white;
+}
+
+html{
+    height: 100%;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.other-background{
+    background-color: #282828;
+}
+
+header{
+    background-image: radial-gradient(ellipse farthest-corner at 45px 45px, #ff5541 1%, #FF3863 50%, #ff32c8 95%);
+    padding: 4rem 0 4rem 0;
+    text-align: center;
+    color: white;
+}
+
+header h1{
+    font-size: 3rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid white;
+
+    margin: 0 auto 1rem auto;
+    width: 300px;
+}
+
+header h2{
+    font-size: 2rem;
+}
+
+#blurb{
+    background-color: $prmarybackground;
+    text-align: center;
+    color: white;
+    padding: 2rem;
+}
+
+#blurb p{
+    width: 70%;
+    margin: auto;
+    line-height: 1.5;
+}
+
+#launch-container{
+    padding: 3rem 0;
+}
+
+#launch{
+    display: block;
+    padding: .375rem 1rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    user-select: none;
+    border: .0625rem solid transparent;
+    background-color: white;
+    width: 200px;
+    color: black;
+    text-decoration: none;
+    margin: auto;
+}
+
+#launch:hover{
+    background-color: #eeeeee;
+}
+
+.content-primary{
+    background-color: $prmarybackground;
+    text-align: center;
+    color: white;
+    padding: 2rem;
+}
+
+.content-primary p{
+    width: 90%;
+    margin: auto;
+    line-height: 2.5;
+}
+
+.page-width {
+    width: 1180px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.header-primary{
+    background-color: $prmarybackground;
+    color: white;
+    padding: 2rem;
+    h1{
+        margin-bottom: 10px;
+    }
+}
+
+.primary{
+    background-color: $primary;
+}
+
+.secondary{
+    background-color: $secondary;
+}
+
+.trinary{
+    background-color: $trinary;
+}
+
+.noborder{
+    border: none;
+}
+
+.side-box{
+    text-align: center;
+    height: 200px;
+    h1,p{
+        position: relative;
+        top: 50%;
+        -webkit-transform: translateY(-50%);
+        -ms-transform: translateY(-50%);
+        transform: translateY(-50%);
+    }
+    p{
+        padding: 2rem;
+    }
+}
+
+.content-boxes{
+    padding-top: 15px;
+    padding-bottom: 15px;
+    .row{
+        padding-top: 15px;
+        padding-bottom: 15px;
+    }
+}
+
+.step-box{
+    padding: 2rem;
+    h1{
+        text-align: center;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid white;
+        margin: 0 auto 1rem auto;
+        width: 500px;
+    }
+}

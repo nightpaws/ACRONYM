@@ -1,0 +1,34 @@
+// Footer Styling
+$footerhover: $trinary;
+$footertext: #888888;
+
+footer{
+    padding: 1rem 2rem;
+    border-top: 1px solid #eee;
+    background-color: $secondarybackground;
+    color: $footertext;
+    #copyright{
+        li{
+            float: left;
+            display:inline-block;
+            padding-left: 0.5rem;
+        }
+    }
+    #disclaimer{
+        text-align: right;
+        padding-right: 0.5rem;
+    }
+    li{
+        display:inline-block;
+    }
+    a, a:hover, a:visited{
+        text-decoration: none;
+        color: $footertext;
+    }
+    a:hover{
+        color: $footerhover;
+    }
+    a{
+        transition: color 0.5s;
+    }
+}
