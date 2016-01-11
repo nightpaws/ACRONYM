@@ -2,7 +2,7 @@
 <?php include ('toolbar.php'); ?>
 
 <main>
-	<div class="content-primary">
+	<div class="content-primary container-fluid">
 
 		<p>This is a project that was created for the class <a href="https://local.cis.strath.ac.uk/wp/teaching/undergraduate/syllabuses/cs413/">CS413</a> at the <a href="https://www.strath.ac.uk/">University of Strathclyde, Glasgow</a>.</p>
 
@@ -15,7 +15,7 @@
 		      <img src="http://placehold.it/350x350" alt="...">
 		      <div class="caption">
 		        <h3><a href="https://tom-maxwell.com">Thomas Maxwell</a></h3>
-		        <p>API Man</p>
+		        <p>Lead Application Server and SPA Client Developer</p>
 		      </div>
 		    </div>
 		  </div>
@@ -24,7 +24,7 @@
 		      <img src="http://placehold.it/350x350" alt="...">
 		      <div class="caption">
 		        <h3><a href="https://nightpaws.eu">Craig Morrison</a></h3>
-		        <p>Server Man</p>
+		        <p>Lead Server Developer, Git and issue management</p>
 		      </div>
 		    </div>
 		  </div>
@@ -33,7 +33,7 @@
 		      <img src="http://placehold.it/350x350" alt="...">
 		      <div class="caption">
 		        <h3>Grant Toghill</h3>
-		        <p>Web Man</p>
+		        <p>Lead Web Developer, Project Tracking and Camera Man</p>
 		      </div>
 		    </div>
 		  </div>
@@ -42,7 +42,7 @@
 		      <img src="http://placehold.it/350x350" alt="...">
 		      <div class="caption">
 		        <h3>Paul Burns</h3>
-		        <p>Hardware Man</p>
+		        <p>Lead Embedded Code Developer</p>
 		      </div>
 		    </div>
 		  </div>
@@ -51,7 +51,7 @@
 		      <img src="http://placehold.it/350x350" alt="...">
 		      <div class="caption">
 		        <h3>Thomas Sinclair</h3>
-		        <p>Testing man?</p>
+		        <p>Hardware Monkey</p>
 		      </div>
 		    </div>
 		  </div>

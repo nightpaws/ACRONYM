@@ -6,7 +6,7 @@
 		<h1>Project Organisation</h1>
 		<h3>How did we do it?</h3>
 	</div>
-	<div class="content-boxes">
+	<div class="content-boxes container-fluid">
 		<div class="row">
 			<div class="col-sm-6">
 				<div class="primary side-box">

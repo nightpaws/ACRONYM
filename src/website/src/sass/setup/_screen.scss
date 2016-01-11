@@ -135,7 +135,20 @@ header h2{
 .content-primary p{
     width: 90%;
     margin: auto;
-    line-height: 2.5;
+    line-height: 1.5;
+}
+
+.content-secondary{
+    background-color: $secondarybackground;
+    text-align: center;
+    color: white;
+    padding: 2rem;
+}
+
+.content-secondary p{
+    width: 90%;
+    margin: auto;
+    line-height: 1.5;
 }
 
 .page-width {
