@@ -26,15 +26,15 @@ gulp.task('copyClean',['clearBuild', 'copyServer', 'copyApp'], function(cb){
 	});
 });
 
-gulp.task('copySite', ['clearBuild', 'copyServer'], function () {
+//gulp.task('copySite', ['clearBuild', 'copyServer'], function () {
+//
+//	return gulp
+//		.src(['./src/website/src/**'])
+//		.pipe(gulp.dest('./build/public'));
+//
+//});
 
-	return gulp
-		.src(['./src/website/src/**'])
-		.pipe(gulp.dest('./build/public'));
-
-});
-
-gulp.task('copyApp', ['clearBuild', 'copyServer', 'copySite'], function () {
+gulp.task('copyApp', ['clearBuild', 'copyServer'], function () {
 
 	return gulp
 		.src(['./src/client/build/**'])
@@ -42,7 +42,7 @@ gulp.task('copyApp', ['clearBuild', 'copyServer', 'copySite'], function () {
 
 });
 
-gulp.task('build',['clearBuild', 'copyServer', 'copyApp', 'copyClean', 'copySite'], function(){
+gulp.task('build',['clearBuild', 'copyServer', 'copyApp', 'copyClean'], function(){
 
 
 });

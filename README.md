@@ -1,16 +1,16 @@
 ACRONYM: A Complex Refrigerator and Organiser for Nutritious and Yummy Munchies
 =========
 
-###Description
+### Description
 
 This repo contains our Embedded Systems project created for the class CS413 at the University of Strathclyde.
 
 
-###Specification###
+### Specification
 
 The specification for this project is very loosely defined with the goal being to build a gadget, allowing us creative freedom on what we wish to produce.
 
-###Project Structure###
+### Project Structure
 
 The project is structured as follows:
 
@@ -23,7 +23,7 @@ The project is structured as follows:
 		- embedded	- contains the embedded code
 
 
-###License###
+### License
 
 Copyright 2015
 

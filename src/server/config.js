@@ -34,7 +34,7 @@ var config = {
 	},
 
 	favicon: {
-		src: 'public/favicon.ico'
+		src: 'public/dashboard/favicon.ico'
 	}
 };
 

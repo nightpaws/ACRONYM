@@ -61,11 +61,11 @@ var app = function(){
 
 	//auth
 	var auth = require('./middleware/Auth.js');
-	app.use('/api/', auth);
+	app.use('/dashboard/api/', auth);
 
 	//check permissions
 	var entitlements = require('./middleware/Entitlements');
-	app.use('/api/', entitlements);
+	app.use('/dashboard/api/', entitlements);
 
 	//parse the json we have received
 	app.use(bodyParser.urlencoded({ extended: false }));
@@ -79,25 +79,18 @@ var app = function(){
 	 * Done in external file for sensibleness
 	 */
 	var APIControlRouter = require('./routes/APIControlRouter')();
-	app.use('/api', APIControlRouter);
+	app.use('/dashboard/api', APIControlRouter);
 
 	//Got here? well we have no fucking idea what you want! have the index, the app will deal with your 404
     app.use('*', function(req, res, next){
 
-	    console.log(req.originalUrl);
-	    console.log(req.url);
-
 	    if(req.originalUrl.indexOf('dashboard') !== -1){
 
-		    console.log('send the fucking app');
 
 		    var path = require('path');
 		    res.sendFile(path.resolve('public/dashboard/index.html'));
 	    }else{
 
-		    console.log('redirect the fucker');
-
-		    //res.redirect('https://google.com');
 
 		    res.redirect('https://acronym.ovh/dashboard/page-not-found');
 	    }
