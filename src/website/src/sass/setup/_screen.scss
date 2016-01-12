@@ -151,6 +151,10 @@ header h2{
         margin: auto;
         padding-bottom: 1rem;
     }
+    img{
+        max-width: 100%;
+        margin: auto;
+    }
     p{
         width: 70%;
         margin: auto;
@@ -172,16 +176,22 @@ header h2{
         &:last-of-type{
             padding-bottom: 5rem;
         }
+        a{
+            text-decoration: underline;
+            transition: 0.5s ease;
+        }
+        a:hover{
+            color: $trinary;
+        }
     }
     ul{
         width: 70%;
         margin: auto;
         list-style: initial;
         list-style-position: inside;
-        padding-top: 1rem;
-        padding-bottom: 1rem;
+        padding-bottom: 2rem;
         li{
-
+            font-size: 1.25rem;
         }
     }
 }
@@ -195,6 +205,10 @@ header h2{
         margin: auto;
         padding-bottom: 1rem;
     }
+    img{
+        max-width: 100%;
+        margin: auto;
+    }
     p{
         width: 70%;
         margin: auto;
@@ -216,6 +230,13 @@ header h2{
         &:last-of-type{
             padding-bottom: 5rem;
         }
+        a{
+            text-decoration: underline;
+            transition: 0.5s ease;
+        }
+        a:hover{
+            color: $trinary;
+        }
     }
     
     ul{
@@ -223,10 +244,9 @@ header h2{
         margin: auto;
         list-style: initial;
         list-style-position: inside;
-        padding-top: 1rem;
-        padding-bottom: 1rem;
+        padding-bottom: 2rem;
         li{
-
+            font-size: 1.25rem;
         }
     }
 }
@@ -329,6 +349,14 @@ header h2{
             i{
                 padding-right: 1rem;
             }
+            a{
+                text-decoration: none;
+                transition: 0.5s ease;
+            }
+            a:hover{
+                text-decoration: none;
+                color: $trinary;
+            }
         }
     }
 }
@@ -392,4 +420,23 @@ header h2{
     .in{
         background-color: $secondarybackground;
     }
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: $primarybackground}
+
+th {
+    background-color: $trinary;
+    color: white;
+    text-align: center;
+    padding: 0.5rem;
 }

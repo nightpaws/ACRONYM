@@ -29,6 +29,14 @@ header{
 	  display: inline-block;
 	  float: none;
 	  text-align: center;
+	  li{
+	  	a{
+	  		transition: 0.5s ease;
+	  	}
+	  	a:hover{
+	  		color: $trinary;
+	  	}
+	  }
 	}
 	button{
 		float: none;

@@ -26,7 +26,7 @@
 		</div>
 
 		<div class="person-info half text-center">
-			<h3><a href="https://nightpaws.eu">Craig Morrison</a></h3>
+			<h3>Craig Morrison</h3>
 		    <p>Lead Server Developer, Git and issue management</p>
 		    <div class="person-detials">
 		    	<ul>

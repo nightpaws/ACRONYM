@@ -8,9 +8,7 @@
 	</div>
 	<div style="border-bottom: 1px solid black;" class="content-secondary header-padding">
 		<p>
-			Extra Stuff HERE!
-			</br></br>
-			Congrats on getting an amazing fridge system! The following is a comprehensive guide to being able to use your fridge.
+			Congrats on getting an amazing fridge system! The following is a comprehensive user guide to being able to use your fridge. If you are are looking to build your fridge then we recommend looking at our <a href="build.php">build guide</a> first.
 		</p>
 	</div>
 	<div class="panel-group" id="accordion">
@@ -26,7 +24,9 @@
 				    <p style="padding-bottom: 0;">
 						In order to set up your fridge you need to run through the following steps: 
 						</br></br>
-						WRITE SHITE
+						Connect your fridge to a mains power supply. Ensure that the sockets connected to are capable of drawing 230V mains. Any lower and the device and onboard components may not function correctly, or at all. Higher than this may damage components and render your fridge unusable.
+						</br></br>
+						Connect your Fridge to the Internet via the rear ethernet connection for easy instant connection. The device will then automatically configure on any DHCP enabled network connection. (Alternatively advanced Wi-Fi configuration is available but this requires Advanced setup, and the attachment of a monitor and keyboard, or a connection via ethernet to another computer to offer an SSH connection.)
 						</br></br>
 						Now that your fridge is connected to our servers it will automatically update the application detailing its current status.
 					</p>
@@ -48,7 +48,7 @@
 					</p>
 						<h2>Step 1</h2>
 							<p>
-							Navigate to https://acronym.ovh and from here launch our application
+							Navigate to <a href="https://acronym.ovh">https://acronym.ovh</a> and from here launch our application
 							</br></br>
 							If you already signed in you will see your dashboard, if this is the case you may move on to the next step. Otherwise you will need to login, if you already have an account, or create an account. For this we required some information from you in order to identify you in the future. After logging in/ creating an account you will be taken to the dashboard.
 							</p>
@@ -56,7 +56,7 @@
 							<p style="padding-bottom: 0;">
 							Now that you can see the dashboard. Navigate to the fridges panel, this can be done by either clicking/tapping on “Your fridges” or using the menu at the side (note: the menu may be collapsed on small screens as such use the hamburger icon at the top left to expand it). 
 							</br></br>
-							From here click/tap on the plus icon at the top right of the screen. This will open a dialog box asking for you to enter your fridges unique serial number. This can be found I DON’T KNOW ASK THE HARDWARE GUYS. Your fridge will now be added to the list of fridges that you are subscribed to and is displayed on the fridges panel. Clicking/tapping on the fridge you have just added will open up the detailed view for the fridge. From here you will be able to see detailed information about your fridge as shown below. 
+							From here click/tap on the plus icon at the top right of the screen. This will open a dialog box asking for you to enter your fridges unique serial number. This can be found on the side of the fridge. Your fridge will now be added to the list of fridges that you are subscribed to and is displayed on the fridges panel. Clicking/tapping on the fridge you have just added will open up the detailed view for the fridge. From here you will be able to see detailed information about your fridge as shown below. 
 							</br></br>
 							[INCLUDE PICTURE OF WORKING FRIDGE DETAIL PAGE, waiting on the hardware monkey to get it working for this]
 							</br></br>
@@ -75,7 +75,7 @@
 		    <div id="collapse3" class="panel-collapse collapse">
 				<div class="content-primary">
 					<p style="padding-bottom: 0;">
-					WRITE SHITE
+					You find the barcode on the product that you wish to add then scan it using the barcode scanner. Then you open the fridge, place the item inside then close the fridge.
 					</br></br>
 					Now that you have added the the product to the fridge, it will be displayed in the detailed fridge view of the fridge in the application.
 					</p>
@@ -92,9 +92,9 @@
 		    <div id="collapse4" class="panel-collapse collapse">
 		    	<div class="content-primary">
 					<p style="padding-bottom: 0;">
-					WRITE SHITE
+					Pick the product you wish to remove and find the barcode on the product. You then scan the item before you close the fridge.
 					</br></br>
-					Now that you have added the the product to the fridge, it will be displayed in the detailed fridge view of the fridge in the application.
+					Now that you have removed the the product to the fridge, it will be displayed in the detailed fridge view of the fridge in the application.
 					</p>
 				</div>
 		    </div>
@@ -119,6 +119,40 @@
 						<h2>Step 2</h2>
 							<p style="padding-bottom: 0;">
 							Once you are on the product page you can find the edit option at the bottom of the page. This will enable you to change the information and save the result to our systems.
+							</p>
+				</div>
+		    </div>
+		</div>
+		<div class="panel content-primary">
+		    <div class="header-padding secondary text-center">
+		      <h1>
+		        <a data-toggle="collapse" data-parent="#accordion" href="#collapse6">
+		        Adding a new product to our service</a>
+		      </h1>
+		    </div>
+		    <div id="collapse6" class="panel-collapse collapse">
+		    	<div class="content-primary">
+					<p>
+						While we endeavor to provide a complete as possible product database this is not always possible, as such you may add your own products. There are two ways to do this.
+						</br></br>
+					</p>
+					<h1 class="trinary">Manually adding a product</h1>
+						<h3>Step 1</h3>
+							<p>
+							Navigate to the products section of the app. From the Dashboard this can be done by clicking/tapping on “The Products” or navigating through the Menu on the left (note: the menu may be collapsed on small screens as such use the hamburger icon at the top left to expand it).
+							</p>
+						<h3>Step 2</h3>
+							<p style="padding-bottom: 0;">
+							Click on the plus icon in the top right corner. This will open the add product screen. From here you can enter the required information and save the product to our database.
+							</p>
+					<h1 class="trinary">Automatically adding a product</h1>
+						<h3>Step 1</h3>
+							<p>
+							Add the product to your fridge as you normally would.
+							</p>
+						<h3>Step 2</h3>
+							<p style="padding-bottom: 0;">
+							Open the application, on the dashboard it will highlight any products that are missing information. Clicking/tapping on a product will open its product page, where you can can find the edit option at the bottom of a page. From here edit as normal.
 							</p>
 				</div>
 		    </div>
