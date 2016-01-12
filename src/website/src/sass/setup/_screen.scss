@@ -146,6 +146,11 @@ header h2{
     background-color: $primarybackground;
     color: white;
     padding: 2rem;
+    h1,h2,h3{
+        width: 70%;
+        margin: auto;
+        padding-bottom: 1rem;
+    }
     p{
         width: 70%;
         margin: auto;
@@ -185,6 +190,11 @@ header h2{
     color: white;
     padding: 2rem;
 
+    h1,h2,h3{
+        width: 70%;
+        margin: auto;
+        padding-bottom: 1rem;
+    }
     p{
         width: 70%;
         margin: auto;

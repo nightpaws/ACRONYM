@@ -45,7 +45,7 @@
 		    <div class="person-detials">
 		    	<ul>
 		    		<li><i class="fa fa-github"></i><a href="https://github.com/ToggleWhenReady">ToggleWhenReady</a></li>
-		    		<li><i class="fa fa-linkedin"></i><a href="ttps://uk.linkedin.com/in/granttoghilln">Grant Toghill</a></li>
+		    		<li><i class="fa fa-linkedin"></i><a href="https://uk.linkedin.com/in/granttoghill">Grant Toghill</a></li>
 		    		<li><i class="fa fa-twitter"></i><a href="https://twitter.com/ToggleWhenReady">ToggleWhenReady</a></li>
 		    	</ul>
 		    </div>
@@ -78,12 +78,12 @@ https://uk.linkedin.com/in/paul-burns-b975a238">Paul Burns</a></li>
 
 		<div class="person-info half text-center">
 			<h3>Duncan Smeed</h3>
-		    <p>Head of regional catering<br></p>
+		    <p style="padding-bottom: 0;">Head of regional catering<br></p>
 			<p style="font-style: italic;">Previously head of national catering<br>
 		    Previously head of global catering</i></p>
 		    <div class="person-detials">
 		    	<ul>
-		    		<li><i class="fa fa-link"></i><a hred="http://www.strath.ac.uk/staff/smeedduncanmr/">website</a></li>
+		    		<li><i class="fa fa-link"></i><a href="http://www.strath.ac.uk/staff/smeedduncanmr/">website</a></li>
 		    	</ul>
 		    </div>
 		</div>
