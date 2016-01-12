@@ -65,6 +65,19 @@
 			</p></div>
 		    </div>
 		</div>
+		<div class="panel content-primary">
+		    <div class="header-padding trinary text-center">
+		      <h1>
+		        <a data-toggle="collapse" data-parent="#accordion" href="#collapse5">
+		        Project Gantt Chart</a>
+		      </h1>
+		    </div>
+		    <div id="collapse5" class="panel-collapse collapse">
+		    <div class="content-primary"><p style="padding-bottom: 0;">
+			<img src="img/CS413ACEGantt.gif">
+			</p></div>
+		    </div>
+		</div>
 	</div>
 </main>
 
