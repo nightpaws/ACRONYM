@@ -64,7 +64,7 @@ html{
 }
 
 header{
-    background-image: radial-gradient(ellipse farthest-corner at 45px 45px, #ff5541 1%, #FF3863 50%, #ff32c8 95%);
+    background-image: $header-background;
     padding: 4rem 0 4rem 0;
     text-align: center;
     color: white;
@@ -81,6 +81,21 @@ header h1{
 
 header h2{
     font-size: 2rem;
+
+    @media screen and (max-width: 700px){
+        font-size: 1.5rem;
+        width: 80%;
+        margin: auto;
+    }
+
+    @media screen and (max-width: 550px){
+        font-size: 1.25rem;
+    }
+
+    @media screen and (max-width: 460px){
+        font-size: 1rem;
+    }
+
 }
 
 #blurb{
@@ -97,14 +112,14 @@ header h2{
 }
 
 #launch-container{
-    padding: 3rem 0;
+    padding: 5rem 0;
 }
 
 #launch{
     display: block;
-    padding: .375rem 1rem;
+    padding: 1rem 3rem;
     font-size: 1rem;
-    font-weight: 400;
+    font-weight: bold;
     line-height: 1.5;
     text-align: center;
     white-space: nowrap;
@@ -115,14 +130,16 @@ header h2{
     user-select: none;
     border: .0625rem solid transparent;
     background-color: white;
-    width: 200px;
+    width: 300px;
     color: black;
     text-decoration: none;
     margin: auto;
+    transition: all 0.5s ease;
 }
 
 #launch:hover{
-    background-color: #eeeeee;
+    background-color: $secondary;
+    color: white;
 }
 
 .content-primary{
@@ -133,6 +150,23 @@ header h2{
         width: 70%;
         margin: auto;
         line-height: 1.5;
+        font-size: 1.25rem;
+
+        @media screen and (max-width: 768px){
+            font-size: 1rem;
+        }
+
+        @media screen and (max-width: 400px){
+            font-size: 1rem;
+        }
+
+        &:not(:last-of-type){
+            padding-bottom: 2rem;
+        }
+
+        &:last-of-type{
+            padding-bottom: 5rem;
+        }
     }
     ul{
         width: 70%;
@@ -150,11 +184,30 @@ header h2{
     background-color: $secondarybackground;
     color: white;
     padding: 2rem;
+
     p{
         width: 70%;
         margin: auto;
         line-height: 1.5;
+        font-size: 1.25rem;
+
+        @media screen and (max-width: 768px){
+            font-size: 1rem;
+        }
+
+        @media screen and (max-width: 400px){
+            font-size: 1rem;
+        }
+
+        &:not(:last-of-type){
+            padding-bottom: 2rem;
+        }
+
+        &:last-of-type{
+            padding-bottom: 5rem;
+        }
     }
+    
     ul{
         width: 70%;
         margin: auto;
