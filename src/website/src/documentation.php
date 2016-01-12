@@ -58,8 +58,6 @@
 							</br></br>
 							From here click/tap on the plus icon at the top right of the screen. This will open a dialog box asking for you to enter your fridges unique serial number. This can be found on the side of the fridge. Your fridge will now be added to the list of fridges that you are subscribed to and is displayed on the fridges panel. Clicking/tapping on the fridge you have just added will open up the detailed view for the fridge. From here you will be able to see detailed information about your fridge as shown below. 
 							</br></br>
-							[INCLUDE PICTURE OF WORKING FRIDGE DETAIL PAGE, waiting on the hardware monkey to get it working for this]
-							</br></br>
 							At bottom of the screen is the option to edit the fridge, here you can change its name and description information, this is highly recommended. 
 							</p>
 				</div>
