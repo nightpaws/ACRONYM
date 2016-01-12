@@ -84,7 +84,7 @@ header h2{
 }
 
 #blurb{
-    background-color: $prmarybackground;
+    background-color: $primarybackground;
     text-align: center;
     color: white;
     padding: 2rem;
@@ -126,29 +126,46 @@ header h2{
 }
 
 .content-primary{
-    background-color: $prmarybackground;
-    text-align: center;
+    background-color: $primarybackground;
     color: white;
     padding: 2rem;
-}
+    p{
+        width: 70%;
+        margin: auto;
+        line-height: 1.5;
+    }
+    ul{
+        width: 70%;
+        margin: auto;
+        list-style: initial;
+        list-style-position: inside;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        li{
 
-.content-primary p{
-    width: 90%;
-    margin: auto;
-    line-height: 1.5;
+        }
+    }
 }
-
 .content-secondary{
     background-color: $secondarybackground;
-    text-align: center;
     color: white;
     padding: 2rem;
-}
+    p{
+        width: 70%;
+        margin: auto;
+        line-height: 1.5;
+    }
+    ul{
+        width: 70%;
+        margin: auto;
+        list-style: initial;
+        list-style-position: inside;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        li{
 
-.content-secondary p{
-    width: 90%;
-    margin: auto;
-    line-height: 1.5;
+        }
+    }
 }
 
 .page-width {
@@ -158,7 +175,7 @@ header h2{
 }
 
 .header-primary{
-    background-color: $prmarybackground;
+    background-color: $primarybackground;
     color: white;
     padding: 2rem;
     h1{
@@ -167,15 +184,15 @@ header h2{
 }
 
 .primary{
-    background-color: $primary;
+    color: $primary;
 }
 
 .secondary{
-    background-color: $secondary;
+    color: $secondary;
 }
 
 .trinary{
-    background-color: $trinary;
+    color: $trinary;
 }
 
 .noborder{
@@ -215,4 +232,41 @@ header h2{
         margin: 0 auto 1rem auto;
         width: 500px;
     }
+}
+
+.text-center{
+    text-align: center;
+}
+
+.person-info{
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.no-padding{
+    padding: 0;
+}
+
+.header-padding{
+    h1,h2,h3{
+        padding-bottom: 1.5rem;
+    }
+    h1{
+        width: 100%;
+        margin: auto;
+    }
+    h2{
+        width: 90%;
+        margin: auto;
+    }
+    h3{
+        width: 80%;
+        margin: auto;
+    }
+}
+
+.center-image{
+    display: block;
+    margin-left: auto;
+    margin-right: auto 
 }

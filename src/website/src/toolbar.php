@@ -17,7 +17,7 @@
 		<li><a href="build.php">How to Build</a></li>
 		<li><a href="organisation.php">Project Organisation</a></li>
 		<li><a>How to Contribute</a></li>
-		<li><a>System Architecture</a></li>
+		<li><a href="architecture.php">System Architecture</a></li>
 	</ul>
 </nav>
 
