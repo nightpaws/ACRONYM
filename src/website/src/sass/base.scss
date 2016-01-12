@@ -1,23 +1,22 @@
 $primary : #ff5541;
 $secondary : #ff32c8;
 $trinary : #ff3863;
-$prmarybackground : #1F1F1F;
+$primarybackground : #1F1F1F;
 $secondarybackground : #282828;
 $main-font : 'Open Sans', sans-serif;
 $main-font_bold : 'Open Sans', sans-serif;
-
-@import "bootstrap/bootstrap";
+$header-background: radial-gradient(ellipse farthest-corner at 45px 45px, #ff5541 1%, #FF3863 50%, #ff32c8 95%);
 
 @import "setup/reset";
 
 @import "setup/helper";
 @import "setup/animations";
+@import "setup/grid";
 
 @import "navigation/toolbar";
 @import "navigation/footer";
 
 @import "setup/screen";
-// @import "pages/user-content"; 
 
 @import "responsive/tablet";
 @import "responsive/mobile";

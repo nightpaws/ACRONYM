@@ -55,7 +55,7 @@ gulp.task('watch-css', function() {
 // Set the proxy.
 gulp.task('browser-sync', function () {
   browserSync({
-    proxy: "http://localhost/acronym/"
+    proxy: "https://localhost/acronym/"
   });
 });
 

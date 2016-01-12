@@ -9,6 +9,9 @@
 	<meta name="viewport" content="width=device-width, user-scalable=no">
 	<link rel="shortcut icon" href="<?php echo TEMPLATE_URL; ?>/favicon.ico" />
 	
+	<!-- libs and such -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css">
+
 	<!-- Main Stylesheet -->
 	<link rel="stylesheet" href="css/build/base.css">
 
