@@ -13,7 +13,8 @@
 <nav id="nav">
 	<ul>
 		<li><a href="about.php">About</a></li>
-		<li><a href="doc">Documentation</a></li>
+		<li><a href="documentation.php">User Documentation</a></li>
+		<li><a href="doc">API Documentation</a></li>
 		<li><a href="build.php">How to Build</a></li>
 		<li><a href="organisation.php">Project Organisation</a></li>
 		<li><a>How to Contribute</a></li>
