@@ -221,6 +221,12 @@ header h2{
     }
 }
 
+.p-override{
+    p:last-of-type{
+        padding-bottom: 0;
+    }
+}
+
 .page-width {
     width: 1180px;
     margin: 0 auto;
@@ -294,6 +300,27 @@ header h2{
 .person-info{
     padding-top: 2rem;
     padding-bottom: 2rem;
+
+    p:last-of-type{
+        padding-bottom: 0;
+    }
+
+    .person-detials{
+        
+        ul{
+            width: 200px;
+        }
+
+        li{
+            list-style: none;
+            text-align: left;
+            padding: 0.5rem 0;
+
+            i{
+                padding-right: 1rem;
+            }
+        }
+    }
 }
 
 .no-padding{
