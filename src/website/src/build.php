@@ -17,24 +17,35 @@
 		    <div id="collapse1" class="panel-collapse collapse in">
 			    <div class="content-primary header-padding">
 					<h2 class="text-center trinary">Arduino Uno</h2>
-						<h3 class="secondary">Step One - Get the Code</h3>
+						<h3 class="secondary">Step One - Construct Arduino According to diagrams</h3>
+						<p>Diagram can be found on the system arcitecture page.</p>
+						
+						<h3 class="secondary">Step Two - Get the Code</h3>
 
 						<p>The code is hosted on <a href="https://github.com/nightpaws/Elite-Team-6">Github</a> Pull the code and then open the arduino project within the <a href="https://www.arduino.cc/en/Main/Software">Arduino IDE</a>.</p>
 
-						<h3 class="secondary">Step Two - Upload code to Arduino</h3>
+						<h3 class="secondary">Step Three - Upload code to Arduino</h3>
 
 						<p>Using the IDE, upload the code to the Arduino.</p>
 
 					<h2 class="text-center trinary">Raspberry Pi</h2>
-						<h3 class="secondary">Step One - Get the Code</h3>
+						<h3 class="secondary">Step One - Install a fresh copy of Raspbian</h3>
+						<h3 class="secondary">Step Two - Get the Code</h3>
 
 						<p>The code is hosted on <a href="https://github.com/nightpaws/Elite-Team-6">Github</a>. Pull the code.</p>
 						</br></br>
 						<p>When the code runs it ensures that all dependencies are installed. If some packages are missing they will be automatically downloaded and installed therefore the program must be ran as the root user.</p>
 
-						<h3 class="secondary">Step Two - Set the code to run on startup</h3>
+						<h3 class="secondary">Step Three - Set the code to run on startup</h3>
 
 					<h2 class="text-center trinary">Assembling the hardware</h2>
+						<p>
+							To assemble the hardware, the barcode scanner, Arduino, WiFi adapter and bluetooth adapter must be connected to the raspberry pi via USB. The temperature sensor should be placed inside the fridge and door sensor attached in a suitable place to detect the door state. They should both be connected to the arduino as shown in the diagram[link].
+							</br></br>
+							The fully assembled embedded system should be connected as it is in this diagram -
+							</br></br>
+							<img src="img/embedded_diagram.png">
+						</p>
 				</div>
 			</div>
 		</div>
