@@ -56,9 +56,7 @@
 							<p style="padding-bottom: 0;">
 							Now that you can see the dashboard. Navigate to the fridges panel, this can be done by either clicking/tapping on “Your fridges” or using the menu at the side (note: the menu may be collapsed on small screens as such use the hamburger icon at the top left to expand it). 
 							</br></br>
-							From here click/tap on the plus icon at the top right of the screen. This will open a dialog box asking for you to enter your fridges unique serial number. This can be found on the side of the fridge. Your fridge will now be added to the list of fridges that you are subscribed to and is displayed on the fridges panel. Clicking/tapping on the fridge you have just added will open up the detailed view for the fridge. From here you will be able to see detailed information about your fridge as shown below. 
-							</br></br>
-							At bottom of the screen is the option to edit the fridge, here you can change its name and description information, this is highly recommended. 
+							From here click/tap on the plus icon at the top right of the screen. This will open a dialog box asking for you to enter your fridges unique serial number. This can be found on the side of the fridge. Your fridge will now be added to the list of fridges that you are subscribed to and is displayed on the fridges panel. Clicking/tapping on the fridge you have just added will open up the detailed view for the fridge. From here you will be able to see detailed information about your fridge. At bottom of the screen is the option to edit the fridge, here you can change its name and description information, this is highly recommended. 
 							</p>
 				</div>
 		    </div>
