@@ -5,41 +5,41 @@ import time
 import bluetooth
 import sys
 import subprocess
-from ISStreamer.Streamer import Streamer
 import os
 import glob
 import thread
 import serial
 import struct
+import requests
+import json
+import cPickle as pickle
+
+#from ISStreamer.Streamer import Streamer
+from evdev import InputDevice, KeyEvent, categorize
+from serial import SerialException
 
 # --------- User Settings ---------
-WEIGHT_SAMPLES = 15
-WEIGHT_BASE = 00.00 # Need to weigh the fridge
-WEIGHT_CONTENTS = 0.000 # Need to weigh the contents
+WEIGHT_SAMPLES = 50
+WEIGHT_BASE = 77.00 # Need to weigh the fridge
+WEIGHT_CONTENTS = 20.000 # Need to weigh the contents
 FRIDGE_GETTING_LOW = 32
 FRIDGE_EMPTY = 22
-TEMPERATURE_DELAY = 60
+TEMPERATURE_DELAY = 60 # time between calls to streamData
 TEMPERATURE_HOT_LIMIT = 20
 TEMPERATURE_COLD_LIMIT = 0
-BUCKET_NAME = "ACRONYM"
-BUCKET_KEY = "INSERT_BUCKET_KEY_HERE"
-ACCESS_KEY = "INSERT_ACCESS_KEY_HERE" #x_access_token
+
+UNIQUE_FRIDGE_NUMBER = "19"
 # ---------------------------------
 
-# Door Switch Parameters
-# io.setmode(io.BCM) # set GPIO mode to BCM
-# DOOR_PIN = 17 # enter the number of whatever GPIO pin your're using
-# io.setup(DOOR_PIN, io.IN) # Specify that button_io_pin will be an input
+# --------- Server Settings ---------
+SERVER_URL = "https://178.62.119.234/dashboard/api/fridges/"
+HEADERS = None
+ACCESS_KEY = None
+# -----------------------------------
 
-# Temperature Sensor Parameters
-# os.system('modprobe w1-gpio')
-# os.system('modprobe w1-therm')
-# BASE_DIR = '/sys/bus/w1/devices/'
-# DEVICE_FOLDER = glob.glob(BASE_DIR + '28*')[0]
-# DEVICE_FILE = DEVICE_FOLDER + '/w1_slave'
 ser = serial.Serial('/dev/ttyACM0', 9600)
 
-# Wiiboard Parameters
+# --------- Wiiboard Settings ---------
 CONTINUOUS_REPORTING = "04"  # Easier as string with leading zero
 COMMAND_LIGHT = 11
 COMMAND_REPORTING = 12
@@ -55,49 +55,172 @@ BOTTOM_RIGHT = 1
 TOP_LEFT = 2
 BOTTOM_LEFT = 3
 BLUETOOTH_NAME = "Nintendo RVL-WBC-01"
+# -------------------------------------
 
 # GLOBAL VARIABLES
 LASTBARCODE = None
+FRIDGEWEIGHT = 5150
+LASTDOORSTATUS = False
+LASTTEMPERATURE = 0
+FIRSTWEIGHTREADING = True
 
-def readTemp():
-    data = ser.read(size = 4)
-    temperature = struct.unpack('B', data[0])[0]
-    return temperature
-
-def readDoorState():
-    data = ser.read(size = 4)
-    doorOpen = struct.unpack('B', data[2])[0]
-    if (doorOpen == 0):
-        doorOpen = True
-    else:
-        doorOpen = False
-
-    return doorOpen
-
-def streamData():
-    streamer = Streamer(bucket_name=BUCKET_NAME,bucket_key=BUCKET_KEY,access_key=ACCESS_KEY)
+def scan():
 
     while True:
+        scannerInput = None
+        barcodeScanner = InputDevice('/dev/input/event0')
+        for scannerEvent in barcodeScanner.read_loop():
+            if scannerEvent.value == 1: #identifies a keydown event
+                newValue = str(getBarcode(KeyEvent(scannerEvent).keycode))
+                if scannerInput != None and newValue != "None":
+                    scannerInput = scannerInput + newValue
+                elif scannerInput == None and newValue != "None":
+                    scannerInput = newValue
+                else:
+                    break
 
-        tempC = readTemp()
-        doorOpen = readDoorState()
+        global LASTBARCODE # need to declare global here because python is silly...
+        LASTBARCODE = str(scannerInput) # assigns scannerInput to the global variable... silly python..
 
-        if tempC > TEMPERATURE_HOT_LIMIT:
-            streamer.log("Status", ":fire: :exclamation:")
-        if tempC < TEMPERATURE_COLD_LIMIT:
-            streamer.log("Status", ":snowflake: :exclamation:")
+        scannerInput = None # reset scannerinput
 
-        streamer.log("Temperature(C)", tempC)
-        streamer.flush()
+        print "The barcode that has just been scanned is: " + LASTBARCODE
 
-        #can use this for building the basis of the JSON
-        print "Temperature: " + str(tempC) + " C"
-        print "Door Open: " + str(doorOpen)
-        print "Latest Barcode: " + str(LASTBARCODE)
-        print "Weight: " #need to get weight
-        print "" #empty line
+def getBarcode(keyCode): #keycode is the identifier of the 'key' that has been pressed
 
-        time.sleep(TEMPERATURE_DELAY)
+        if str(keyCode) == "KEY_0":
+            return "0"
+        elif str(keyCode) == "KEY_1":
+            return "1"
+        elif str(keyCode) == "KEY_2":
+            return "2"
+        elif str(keyCode) == "KEY_3":
+            return "3"
+        elif str(keyCode) == "KEY_4":
+            return "4"
+        elif str(keyCode) == "KEY_5":
+            return "5"
+        elif str(keyCode) == "KEY_6":
+            return "6"
+        elif str(keyCode) == "KEY_7":
+            return "7"
+        elif str(keyCode) == "KEY_8":
+            return "8"
+        elif str(keyCode) == "KEY_9":
+            return "9"
+
+def readTemp():
+    try:
+        data = ser.read(size = 4)
+        temperature = struct.unpack('B', data[0])[0]
+	global LASTTEMPERATURE
+	LASTTEMPERATURE = temperature
+        return temperature
+    except SerialException:
+        print "Serial Exception"
+	return LASTTEMPERATURE
+
+def readDoorState():
+    try:
+        data = ser.read(size = 4)
+        doorOpen = struct.unpack('B', data[2])[0]
+        if (doorOpen == 0):
+            doorOpen = True
+        else:
+            doorOpen = False
+        global LASTDOORSTATE
+	LASTDOORSTATE = doorOpen
+        return doorOpen
+    except SerialException:
+        print "Serial Exception"
+	return LASTDOORSTATE
+
+def register_fridge():
+    theResponse = requests.post(SERVER_URL + 'register', json={"fridge_no":UNIQUE_FRIDGE_NUMBER}, verify=False)
+    print "Register Fridge"
+    print theResponse.content
+    responseJson = theResponse.json()
+    if (theResponse.status_code == 200):
+        if (responseJson["successful"] == True):
+            global ACCESS_KEY
+            ACCESS_KEY = responseJson["result"]["token"]["token"]
+            print "Fridge registration success."
+            global HEADERS
+            HEADERS = {"x-access-token": ACCESS_KEY }
+	    pickle.dump(HEADERS, open("config.p", "wb"))
+            print "Access Key"
+            print ACCESS_KEY
+    else:
+        print "Failed fridge registration."
+
+def update_state(tempC, doorOpen):
+    updateStateURL = SERVER_URL + UNIQUE_FRIDGE_NUMBER + "/state"
+    updateStateJSON = {"temperature": tempC, "door": doorOpen, "weight": FRIDGEWEIGHT}
+    print "JSON being sent: "
+    print updateStateJSON
+    updateStateResponse = requests.post(updateStateURL, json=updateStateJSON, verify=False, headers=HEADERS) #just need to handle response
+    print "Update State"
+    print updateStateResponse.content
+    updateResponseJSON = updateStateResponse.json()
+    if (updateStateResponse.status_code == 200):
+        return updateResponseJSON["successful"]
+    else:
+        return "Update state failed."
+
+def add_contents(newWeight):
+    addContentsURL = SERVER_URL + UNIQUE_FRIDGE_NUMBER + "/contents"
+    addContentsData = { "product": { "code": LASTBARCODE, "_id": LASTBARCODE}, "current_weight": newWeight}
+    addContentsResponse = requests.put(addContentsURL, json=addContentsData, verify=False, headers=HEADERS)
+    print "Add Contents Content"
+    print addContentsResponse.content
+    if (addContentsResponse.status_code == 200):
+        response_content = addContentsResponse.json()
+        print "Add Contents"
+        return response_content["successful"]
+    else:
+        return "Add contents failed."
+
+def delete_contents():
+    deleteContentsURL = SERVER_URL + UNIQUE_FRIDGE_NUMBER + "/contents/" + LASTBARCODE
+    deleteContentsResponse = requests.delete(deleteContentsURL, verify=False, headers=HEADERS)
+    print "Delete Contents Content"
+    print deleteContentsResponse.content
+    if (deleteContentsResponse.status_code == 200):
+        response_content = deleteContentsResponse.json()
+	print "Delete Contents"
+        return response_content["successful"]
+    else:
+        return "Delete contents failed."
+
+def streamData():
+
+    if (ACCESS_KEY == None):
+	import os.path
+        if (os.path.exists("config.p") and os.path.getsize("config.p") > 0):
+             read_dictionary = pickle.load(open("config.p", "rb"))
+       	     if "x-access-token" in read_dictionary:
+	          global HEADERS
+                  HEADERS = read_dictionary
+	else:
+             register_fridge()
+    while True:
+	    time.sleep(TEMPERATURE_DELAY)
+
+	    tempC = readTemp()
+	    if (tempC == None):
+	        tempC = 0
+	    doorOpen = readDoorState()
+
+	    # can use this for building the basis of the JSON
+	    print "" #empty line
+	    print "Temperature: " + str(tempC) + " C"
+	    print "Door Open: " + str(doorOpen)
+	    print "Latest Barcode: " + str(LASTBARCODE)
+	    print "Weight: " + str(round(FRIDGEWEIGHT))
+	    print "" #empty line
+	
+	    # send update to server
+	    print update_state(tempC, doorOpen)	
 
 class EventProcessor:
     def __init__(self):
@@ -109,75 +232,87 @@ class EventProcessor:
         self._contentsPrev = -1
         self._doorStatus = False
         self._takeMeasurement = False
-        self.streamer = Streamer(bucket_name=BUCKET_NAME,bucket_key=BUCKET_KEY,access_key=ACCESS_KEY)
+	self._newWeight = 0
+	self._fuckoffpaul = True
 
     def mass(self, event):
+
+	#print "Total Weight: " + str(event.totalWeight * 1000)
+	
+	#return
+	if(FIRSTWEIGHTREADING == True):
+	   print "First Weight Reading"
+           self._events[self._measureCnt] = event.totalWeight
+           self._measureCnt += 1
+	   if self._measureCnt == WEIGHT_SAMPLES:
+	       self._sum = 0
+	       for x in range(0, WEIGHT_SAMPLES-1):
+		  # self._sum += event.totalWeight
+		  self._sum += self._events[x]
+	       self._weight = (self._sum/WEIGHT_SAMPLES) * 1000
+	       self._weightcontents = self._weight - WEIGHT_BASE
+	       self.contents = int(round(self._weightcontents / WEIGHT_CONTENTS))
+	       self._measureCnt = 0
+	       global FIRSTWEIGHTREADING
+	       FIRSTWEIGHTREADING = False
+	       global FRIDGEWEIGHT
+	       FRIDGEWEIGHT = self._weight
+	       print "The initial weight" + str(self._weight)
         # Take measurement only when the door closes
-        #if (self._doorStatus == True and event.doorStatus == False):
-
-        scannerInput = None
-
-        #Loops until there is input from the barcode scanner.
-        #When input is detected, the program can progress to obtain the reading from the board   
-        while(True):
-            print "Start of loop"
-            scannerInput = input()
-            if(scannerInput != None):
-                break
-
-        global LASTBARCODE
-        LASTBARCODE = str(scannerInput) #should assign scannerInput to the global variable... silly python...
-        scannerInput = None
-
-        print "The barcode that has just been scanned is: " + LASTBARCODE
-
-        self._takeMeasurement = True
-        self._measureCnt = 0
-        self.streamer.log(":door: Door", "Closed")
-        self.streamer.flush()
-        # print "Door Closed"
-        print "Scanned"
-        print "Starting measurement ..."
-        time.sleep(2)
+        if (self._doorStatus == True and event.doorStatus == False):
+            self._measureCnt = 0
+            self._takeMeasurement = True
+            print "Door Closed"
+            print "Starting measurement ..."
+	    self._fuckoffpaul = True
+            time.sleep(2)
         # Door is opened, ensure no measurement is being taken
-        # if (self._doorStatus == False and event.doorStatus == True):
-        #     self._takeMeasurement = False
-        #     self.streamer.log(":door: Door", "Open")
-        #     self.streamer.flush()
-        #     print "Door Opened"
-        if (self._takeMeasurement == True and event.totalWeight > 2):
-            self._events[self._measureCnt] = event.totalWeight*2.20462
+        if (self._doorStatus == False and event.doorStatus == True):
+            self._takeMeasurement = False
+            print "Door Opened"
+        if (self._takeMeasurement == True and event.totalWeight > 1):
+	    print "in that other fucking if statement"
+	    if(self._fuckoffpaul == True):
+	    	time.sleep(90)
+		self._fuckoffpaul = False
+            self._events[self._measureCnt] = event.totalWeight
             self._measureCnt += 1
+            add = False
             if self._measureCnt == WEIGHT_SAMPLES:
+		self._fuckofpaul = True
                 self._sum = 0
                 for x in range(0, WEIGHT_SAMPLES-1):
-                    self._sum += event.totalWeight*2.20462
-                self._weight = self._sum/WEIGHT_SAMPLES
+                    self._sum += self._events[x]
+                self._weight = (self._sum/WEIGHT_SAMPLES) * 1000
                 self._weightcontents = self._weight - WEIGHT_BASE
                 self.contents = int(round(self._weightcontents / WEIGHT_CONTENTS))
                 self._measureCnt = 0
-                print str(self._weight) + " lbs total, " + str(self._weightcontents) + " lbs in contents"
-                if self.contents < FRIDGE_EMPTY:
-                    self.streamer.log("Status", ":scream: :exclamation:")
-                elif self.contents < FRIDGE_GETTING_LOW:
-                    self.streamer.log("Status", ":worried: :exclamation:")
-                else:
-                    self.streamer.log("Status", ":beers: :thumbsup:")
-                self.streamer.flush()
+                print str(self._weight) + " grams total, " + str(self._weightcontents) + " grams in contents"
+		#print "FRIDGEWEIGHT Before: " + str(FRIDGEWEIGHT)
+                global FRIDGEWEIGHT
+		print "FRIDGEWEIGHT After: " + str(FRIDGEWEIGHT)
+                if (self._weight > FRIDGEWEIGHT):
+		    print "in that fucking if statement"
+                    add = True
+		self._newWeight = self._weight - FRIDGEWEIGHT
+                FRIDGEWEIGHT = self._weight
+		print "newWeight: " + str(self._newWeight) + ", FRIDGEWEIGHT: " + str(FRIDGEWEIGHT) + ", selfWeight: " + str(self._weight)
                 if (self.contents != self._contentsPrev) and (self.contents >= 0):
-                    self.streamer.log(":beer: Contents Present", self.contents)
-                    self.streamer.flush()
                     if (self._contentsPrev != -1) and (self._contentsPrev > self.contents):
                         for x in range(0, self._contentsPrev-self.contents):
                             print "Item removed"
-                            self.streamer.log(":beers: Item Removed", ":beers:")
-                            self.streamer.flush()
                     self._contentsPrev = self.contents
                 print str(self.contents) + " items"
                 print "Measurement complete!"
                 self._takeMeasurement = False
+                if (add == True):
+                    add_contents(self._newWeight)
+                else:
+                    delete_contents()
             if not self._measured:
                 self._measured = True
+        self._doorStatus = event.doorStatus
+
 
     @property
     def weight(self):
@@ -185,7 +320,6 @@ class EventProcessor:
             return 0
         histogram = collections.Counter(round(num, 1) for num in self._events)
         return histogram.most_common(1)[0][0]
-
 
 class BoardEvent:
     def __init__(self, topLeft, topRight, bottomLeft, bottomRight, buttonPressed, buttonReleased):
@@ -212,6 +346,7 @@ class Wiiboard:
         self.LED = False
         self.address = None
         self.buttonDown = False
+	self.theData = None
         for i in xrange(3):
             self.calibration.append([])
             for j in xrange(4):
@@ -249,7 +384,9 @@ class Wiiboard:
             print "Could not connect to Wiiboard at address " + address
 
     def receive(self):
+        # print "recieving"
         while self.status == "Connected" and not self.processor.done:
+            # print "in loop"
             data = self.receivesocket.recv(25)
             intype = int(data.encode("hex")[2:4])
             if intype == INPUT_STATUS:
@@ -259,13 +396,21 @@ class Wiiboard:
                 if self.calibrationRequested:
                     packetLength = (int(str(data[4]).encode("hex"), 16) / 16 + 1)
                     self.parseCalibrationResponse(data[7:(7 + packetLength)])
-
                     if packetLength < 16:
                         self.calibrationRequested = False
             elif intype == EXTENSION_8BYTES:
-                self.processor.mass(self.createBoardEvent(data[2:12]))
+		
+		if(self.theData != None):
+                   #self.processor.mass(self.createBoardEvent(data[2:12]))
+		   self.processor.mass(self.createBoardEvent(self.theData))
+		   self.theData = data[2:12]
+		else:
+		   self.theData = data[2:12]
+
             else:
                 print "ACK to data write received"
+
+        print "Board Disconnected"
 
     def disconnect(self):
         if self.status == "Connected":
@@ -422,10 +567,17 @@ def main():
     board.setLight(False)
     board.wait(500)
     board.setLight(True)
+
     try:
        thread.start_new_thread(streamData, ())
     except:
        print "Error: unable to start temperature streamer thread"
+
+    try:
+        thread.start_new_thread(scan, ())
+    except:
+        print "Error: unable to start barcode scanner thread"
+ 
     board.receive()
 
 if __name__ == "__main__":

@@ -136,8 +136,6 @@ var fridges = {
 
 						var date = new Date(item.date);
 
-						console.log(date);
-
 						if( date.getTime() > dateLimit ){
 							states.push(item);
 						}
@@ -158,7 +156,7 @@ var fridges = {
 								deferred.reject('Error finding fridge');
 						}else if(doc){
 
-							deferred.resolve(doc);
+							deferred.resolve(null);
 
 						}else{
 							deferred.reject('Error fridge doesn\'t exist');
@@ -359,7 +357,7 @@ var fridges = {
 						found = false;
 					doc.contents.forEach(function(content){
 
-						if(content._id != content_id){
+						if(content.product._id != content_id){
 							newContents.push(content);
 						}else{
 							found = true;
