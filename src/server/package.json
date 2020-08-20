@@ -4,7 +4,7 @@
   "description": "The NodeJs Server for CS413",
   "main": "index.js",
   "dependencies": {
-    "bcrypt": "^0.8.5",
+    "bcrypt": "^5.0.0",
     "body-parser": "^1.14.1",
     "cors": "^2.7.1",
     "express": "^4.13.3",
